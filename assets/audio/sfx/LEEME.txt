@@ -1,0 +1,18 @@
+EFECTOS DE SONIDO DE LA WEB — CÓMO PONER LOS REALES DE MINECRAFT
+================================================================
+Por derechos de autor, la página NO incluye los sonidos originales.
+Pero los reproduce automáticamente si colocas aquí TUS propios archivos
+(extraídos de tu copia legal del juego: están en la carpeta
+.minecraft/assets del launcher oficial, en formato .ogg).
+
+NOMBRES EXACTOS (puedes usar .mp3 o .ogg):
+  click.mp3      → todos los botones y enlaces (el clásico "tock" del menú)
+  chest.mp3      → al abrir una imagen de la galería (cofre abriéndose)
+  pop.mp3        → al cambiar de tema o volver arriba (el "pop" de experiencia)
+  enderman.mp3   → al cambiar de idioma (teletransporte)
+  portal.mp3     → al encender la música (viaje por el portal)
+  levelup.mp3    → al suscribirte al aviso (subida de nivel)
+  dragon.mp3     → easter egg: haz 3 clics rápidos en el lobo del menú
+
+Si falta algún archivo, la página usa un sonido sintetizado parecido
+para no quedarse en silencio. Puedes añadirlos poco a poco.

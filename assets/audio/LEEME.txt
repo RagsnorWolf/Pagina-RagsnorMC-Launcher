@@ -1,0 +1,17 @@
+MÚSICA DE LA WEB — ESTADO ACTUAL
+================================
+✔ Ya hay un archivo colocado:  c418.mp3
+  (Subwoofer Lullaby, 3.2 MB)
+
+El botón de música de la página (abajo a la izquierda) SUENA SOLO
+al entrar, en bucle. El visitante puede apagarlo/encenderlo con el botón.
+(Nota: los navegadores exigen un primer clic o tecla antes de permitir
+audio; si se abre y está en silencio, sonará con tu primera interacción).
+
+PARA CAMBIAR DE PISTA:
+1. Borra o renombra este c418.mp3.
+2. Coloca tu nuevo MP3 en ESTA carpeta renombrado exactamente:  c418.mp3
+3. Recarga index.html y pulsa el botón de música.
+
+Si no hay ningún archivo c418.mp3, el botón genera un ambiente
+tranquilo con WebAudio como alternativa.
