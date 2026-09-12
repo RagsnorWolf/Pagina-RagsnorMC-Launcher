@@ -258,6 +258,10 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 .footer-links a{padding:8px 14px;font-size:.88rem;font-weight:600;color:var(--mut);border-radius:8px}
 .footer-links a:hover{color:var(--green-strong)}
 .footer-note{font-size:.8rem;color:var(--mut);max-width:480px}
+.footer-mirror{font-size:.8rem;color:var(--mut)}
+.footer-mirror a{color:var(--green-strong);font-weight:700}
+[data-theme="dark"] .footer-mirror a{color:#00e67a}
+.footer-mirror a:hover{text-decoration:underline}
 .footer-copy{font-size:.78rem;color:var(--mut)}
 
 /* ---------- lightbox ---------- */
