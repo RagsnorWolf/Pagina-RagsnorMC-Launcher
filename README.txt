@@ -21,6 +21,10 @@ FUNCIONES:
 - Galería con imágenes reales + lightbox al hacer clic.
 SECCIONES: portada (video) · proyecto · características (RMC-01 a 06)
 · galería · ruta de desarrollo (5 fases) · comunidad · descarga · pie.
+
+DESCARGA REAL: los botones "Descargar" (menú, portada y tarjeta Windows)
+descargan downloads/RagsMC-Launcher-Setup-1.0.0.exe (73 MB, v1.0.0).
+macOS y Linux siguen como "Próximamente".
 - Redes reales: Twitch, TikTok y YouTube de RagsnorWolf.
 - Formulario "Avísame": guarda tu correo solo en este navegador.
 

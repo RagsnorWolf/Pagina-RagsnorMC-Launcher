@@ -223,6 +223,9 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 /* ---------- descarga ---------- */
 .os-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
 .os-btn{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;cursor:not-allowed;opacity:.8;text-align:left}
+.os-btn.ready{opacity:1;border-color:var(--green);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
+.os-btn.ready:hover{transform:translateY(-3px);box-shadow:var(--green-glow)}
+.os-btn.ready em{background:var(--green);border-color:var(--green);color:#fff}
 .os-btn i{font-size:1.5rem;color:var(--mut)}
 .os-btn span{font-weight:700}
 .os-btn em{font-style:normal;margin-left:auto;font-family:var(--font-m);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-strong);background:rgba(0,201,110,.1);border:1px solid var(--line);padding:4px 10px;border-radius:999px}

@@ -21,7 +21,7 @@
       'hero.badge': 'Proyecto independiente · En desarrollo',
       'hero.sub': 'Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.',
       'hero.cta1': 'Descargar', 'hero.cta2': 'Ver características',
-      'hero.note': 'Disponible próximamente para Windows, macOS y Linux.',
+      'hero.note': 'Disponible para Windows · macOS y Linux próximamente.',
       'about.kicker': 'Sobre el proyecto',
       'about.badge': 'En desarrollo',
       'about.title': '¿Qué es RagsMc Launcher?',
@@ -71,10 +71,10 @@
       'soc.tiktokd': 'Clips y novedades en corto.',
       'soc.ytd': 'Videos y devlogs.',
       'dl.kicker': 'Descarga', 'dl.title': 'Consigue RagsMc Launcher',
-      'dl.desc': 'Aún no hay una versión pública disponible. Estamos trabajando en ella y la publicaremos en esta página.',
-      'dl.status': 'Estado del proyecto: en desarrollo',
-      'dl.statussub': 'La primera versión pública se anunciará aquí mismo.',
-      'dl.notify': 'Avísame cuando esté listo', 'dl.ph': 'tu@correo.com', 'dl.btn': 'Avisarme',
+      'dl.desc': 'Ya disponible para Windows. macOS y Linux llegarán próximamente.',
+      'dl.status': 'Versión 1.0.0 disponible para Windows',
+      'dl.statussub': 'Instalador de 73 MB, gratis y sin registro.',
+      'dl.notify': 'Avísame de novedades y nuevas versiones', 'dl.ph': 'tu@correo.com', 'dl.btn': 'Avisarme',
       'dl.privacy': 'Tu correo se guarda solo en este dispositivo. Sin spam.',
       'dl.soon': 'Próximamente',
       'dl.support': '¿Dudas o sugerencias? Habla con nosotros en la comunidad.',
@@ -100,7 +100,7 @@
       'hero.badge': 'Independent project · In development',
       'hero.sub': 'A fast, simple Minecraft launcher with its own identity. Made by players, for players.',
       'hero.cta1': 'Download', 'hero.cta2': 'View features',
-      'hero.note': 'Coming soon for Windows, macOS and Linux.',
+      'hero.note': 'Available for Windows · macOS and Linux coming soon.',
       'about.kicker': 'About the project',
       'about.badge': 'In development',
       'about.title': 'What is RagsMc Launcher?',
@@ -150,10 +150,10 @@
       'soc.tiktokd': 'Short clips and quick news.',
       'soc.ytd': 'Videos and devlogs.',
       'dl.kicker': 'Download', 'dl.title': 'Get RagsMc Launcher',
-      'dl.desc': "There is no public release yet. We're working on it and will publish it on this page.",
-      'dl.status': 'Project status: in development',
-      'dl.statussub': 'The first public release will be announced right here.',
-      'dl.notify': "Notify me when it's ready", 'dl.ph': 'you@email.com', 'dl.btn': 'Notify me',
+      'dl.desc': 'Now available for Windows. macOS and Linux coming soon.',
+      'dl.status': 'Version 1.0.0 available for Windows',
+      'dl.statussub': '73 MB installer, free with no sign-up.',
+      'dl.notify': "Notify me of news and new releases", 'dl.ph': 'you@email.com', 'dl.btn': 'Notify me',
       'dl.privacy': 'Your email is stored only on this device. No spam.',
       'dl.soon': 'Coming soon',
       'dl.support': 'Questions or suggestions? Talk to us in the community.',
@@ -503,6 +503,10 @@
     if (!el || el.disabled) return;
     if (el.hasAttribute('data-sfx') || el.closest('.gal-item')) return; // tiene sonido propio
     playSfx('click');
+  });
+  document.addEventListener('click', function (e) {
+    var d = e.target.closest ? e.target.closest('[data-sfx="dl"]') : null;
+    if (d) playSfx('levelup'); // empieza una descarga
   });
 
   /* ---------------- BOTONES MAGNÉTICOS (sutil) ---------------- */
