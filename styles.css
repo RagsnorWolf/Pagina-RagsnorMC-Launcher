@@ -356,10 +356,14 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 }
 
 /* ---------- pestaña lateral + panel noping ---------- */
-.side-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;display:flex;align-items:center;gap:9px;max-width:210px;background:var(--green);color:#fff;font-weight:700;font-size:.8rem;line-height:1.35;text-align:left;border-radius:12px 0 0 12px;padding:13px 14px;box-shadow:var(--green-glow);transition:padding .25s var(--ease),transform .25s var(--ease)}
+.side-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;display:flex;flex-direction:column;gap:9px;max-width:190px;background:var(--green);color:#fff;font-weight:700;font-size:.8rem;line-height:1.35;border-radius:12px 0 0 12px;padding:13px 14px;box-shadow:var(--green-glow);transition:padding .25s var(--ease),transform .25s var(--ease);animation:tabBounce 2.2s ease-in-out 1.2s 3}
 .side-tab:hover{padding-right:20px}
+@keyframes tabBounce{0%,100%{transform:translateY(-50%)}30%{transform:translateY(calc(-50% - 12px))}55%{transform:translateY(-50%)}75%{transform:translateY(calc(-50% - 6px))}}
+.side-tab-logo{width:118px;border-radius:7px;display:block}
+.side-tab-text{display:flex;align-items:center;gap:8px;text-align:left}
 @media(max-width:600px){
   .side-tab{font-size:.7rem;max-width:150px;padding:11px 10px}
+  .side-tab-logo{width:88px}
 }
 .drawer-backdrop{position:fixed;inset:0;z-index:190;background:rgba(2,4,8,.6);backdrop-filter:blur(3px)}
 .drawer-backdrop[hidden]{display:none}
@@ -450,7 +454,7 @@ body.loaded .hero-title .ch{animation:charIn .55s var(--ease) forwards}
   .music-btn{left:14px;bottom:14px;width:50px;height:50px}
 }
 @media(prefers-reduced-motion:reduce){
-  .hero-mascots img,.music-btn .eq span,.music-btn:not(.playing)::after,.road-card.now .road-dot,.hero-video,.hero-content>*,.marquee-track,.loader-logo,.road-grid::after{animation:none !important}
+  .hero-mascots img,.music-btn .eq span,.music-btn:not(.playing)::after,.road-card.now .road-dot,.hero-video,.hero-content>*,.marquee-track,.loader-logo,.road-grid::after,.side-tab{animation:none !important}
   .hero-content>*{opacity:1}
   .hero-title .ch{opacity:1}
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
