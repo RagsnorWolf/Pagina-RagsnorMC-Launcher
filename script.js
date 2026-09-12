@@ -456,8 +456,19 @@
     window.addEventListener('touchstart', h);
   }
   function detectFile(cb) {
-    var a = new Audio(), done = false;
+    var done = false;
     function fin(v) { if (!done) { done = true; cb(v); } }
+    // en http(s): HEAD liviano (no descarga los 3 MB para detectar)
+    if (location.protocol.indexOf('http') === 0 && window.fetch) {
+      try {
+        fetch('./assets/audio/c418.mp3', { method: 'HEAD', cache: 'no-store' })
+          .then(function (r) { fin(!!(r && r.ok)); }, function () { fin(false); });
+      } catch (e) { fin(false); return; }
+      setTimeout(function () { fin(false); }, 4000);
+      return;
+    }
+    // en file:// (doble clic local): sonda con Audio
+    var a = new Audio();
     a.addEventListener('canplaythrough', function () { fin(true); });
     a.addEventListener('error', function () { fin(false); });
     try { a.src = './assets/audio/c418.mp3'; a.load(); } catch (e) { fin(false); return; }
@@ -594,7 +605,9 @@
       startAutoMusic();
     }, 350);
   }
-  window.addEventListener('load', function () { setTimeout(finishLoad, 900); });
+  // la carga NO depende de recursos lentos: tiempo fijo tras DOM listo
+  setTimeout(finishLoad, 1900);
+  window.addEventListener('load', function () { setTimeout(finishLoad, 600); });
   setTimeout(finishLoad, 6000); // seguridad
 
   /* ---------------- SFX: SONIDOS REALES SI EXISTEN ----------------
