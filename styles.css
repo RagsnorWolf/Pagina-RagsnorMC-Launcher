@@ -367,6 +367,8 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 .drawer.open{transform:none}
 .drawer-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;color:var(--mut);transition:.2s}
 .drawer-x:hover{color:var(--green);border-color:var(--green)}
+.drawer-logo{width:100%;border-radius:12px;border:1px solid var(--line);display:block;margin-bottom:20px;transition:transform .25s var(--ease),box-shadow .25s}
+a:hover .drawer-logo{transform:scale(1.02);box-shadow:var(--shadow)}
 .drawer h2{font-family:var(--font-p);font-size:1.05rem;line-height:1.7;margin-bottom:14px}
 .drawer-desc{color:var(--mut);font-size:.92rem}
 .drawer-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0 26px}
