@@ -355,6 +355,25 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
   .bg-photo::before{background-attachment:fixed}
 }
 
+/* ---------- pestaña lateral + panel noping ---------- */
+.side-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-weight:700;font-size:.82rem;border-radius:12px 0 0 12px;padding:14px 10px;writing-mode:vertical-rl;letter-spacing:.04em;box-shadow:var(--green-glow);transition:padding .25s var(--ease)}
+.side-tab:hover{padding-right:16px}
+.side-tab i{transform:rotate(90deg)}
+.drawer-backdrop{position:fixed;inset:0;z-index:190;background:rgba(2,4,8,.6);backdrop-filter:blur(3px)}
+.drawer-backdrop[hidden]{display:none}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:200;width:min(390px,94vw);background:var(--bg);border-left:1px solid var(--green);box-shadow:-30px 0 80px rgba(0,0,0,.5);padding:34px 28px;overflow-y:auto;transform:translateX(105%);transition:transform .45s var(--ease)}
+.drawer.open{transform:none}
+.drawer-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;color:var(--mut);transition:.2s}
+.drawer-x:hover{color:var(--green);border-color:var(--green)}
+.drawer h2{font-family:var(--font-p);font-size:1.05rem;line-height:1.7;margin-bottom:14px}
+.drawer-desc{color:var(--mut);font-size:.92rem}
+.drawer-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin:20px 0 26px}
+.drawer-list li{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:.88rem}
+.drawer-list i{color:var(--green-strong);margin-top:3px}
+[data-theme="dark"] .drawer-list i{color:#00e67a}
+.drawer-cta{width:100%}
+.drawer .fine-print{text-align:left;margin-top:14px}
+
 /* ---------- barra de progreso + volver arriba ---------- */
 .progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:150;background:transparent;pointer-events:none}
 .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#5cffc0);box-shadow:0 0 10px rgba(0,201,110,.7)}

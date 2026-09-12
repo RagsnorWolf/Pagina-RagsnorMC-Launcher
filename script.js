@@ -81,6 +81,15 @@
       'dl.supportbtn': 'Ir a la comunidad',
       'footer.note': 'Proyecto independiente. Sin afiliación con Mojang ni Microsoft.',
       'footer.mirror': '¿No puedes entrar? Usa el espejo:',
+      'noping.tab': '¿Tu Internet anda muy mal?',
+      'noping.kicker': 'Conexión',
+      'noping.title': '¿Lag en tus partidas?',
+      'noping.desc': 'NoPing es un programa que optimiza la ruta de tu conexión hacia los servidores de juego: en vez del camino congestionado de tu operadora, te lleva por la vía más rápida disponible.',
+      'noping.b1': 'Menos ping y menos tirones.',
+      'noping.b2': 'Conexión más estable.',
+      'noping.b3': 'Funciona con Minecraft y cientos de juegos.',
+      'noping.cta': 'Probar NoPing gratis',
+      'noping.note': 'Los resultados dependen de tu conexión. Enlace de referido.',
       'lb.close': 'Cerrar',
       'misc.top': 'Volver arriba',
       'load.loading': 'Cargando mundo...',
@@ -161,6 +170,15 @@
       'dl.supportbtn': 'Go to the community',
       'footer.note': 'Independent project. Not affiliated with Mojang or Microsoft.',
       'footer.mirror': "Can't get in? Use the mirror:",
+      'noping.tab': 'Is your Internet running badly?',
+      'noping.kicker': 'Connection',
+      'noping.title': 'Lag in your games?',
+      'noping.desc': 'NoPing is software that optimizes the route of your connection to game servers: instead of your ISP congested path, it takes you through the fastest available way.',
+      'noping.b1': 'Lower ping and fewer spikes.',
+      'noping.b2': 'More stable connection.',
+      'noping.b3': 'Works with Minecraft and hundreds of games.',
+      'noping.cta': 'Try NoPing free',
+      'noping.note': 'Results depend on your connection. Referral link.',
       'lb.close': 'Close',
       'misc.top': 'Back to top',
       'load.loading': 'Loading world...',
@@ -715,6 +733,35 @@
     })();
   }
   initParticles();
+
+  /* ---------------- PANEL NOPING ---------------- */
+  var nopingTab = $('#nopingTab'), nopingPanel = $('#nopingPanel'),
+      nopingBackdrop = $('#nopingBackdrop'), nopingClose = $('#nopingClose');
+  function openNoping() {
+    if (!nopingPanel) return;
+    nopingPanel.classList.add('open');
+    nopingPanel.setAttribute('aria-hidden', 'false');
+    if (nopingBackdrop) nopingBackdrop.hidden = false;
+    document.body.style.overflow = 'hidden';
+    playSfx('pop');
+    if (nopingClose) nopingClose.focus();
+  }
+  function closeNoping() {
+    if (!nopingPanel) return;
+    nopingPanel.classList.remove('open');
+    nopingPanel.setAttribute('aria-hidden', 'true');
+    if (nopingBackdrop) nopingBackdrop.hidden = true;
+    document.body.style.overflow = '';
+  }
+  if (nopingTab) {
+    nopingTab.setAttribute('data-sfx', '1');
+    nopingTab.addEventListener('click', openNoping);
+  }
+  if (nopingClose) nopingClose.addEventListener('click', function () { closeNoping(); playSfx('click'); });
+  if (nopingBackdrop) nopingBackdrop.addEventListener('click', closeNoping);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nopingPanel && nopingPanel.classList.contains('open')) closeNoping();
+  });
 
   /* año dinámico */
   var year = $('#year');

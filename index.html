@@ -348,6 +348,25 @@
   </div>
 </footer>
 
+<!-- NOPING: pestaña lateral + panel -->
+<button class="side-tab" id="nopingTab" aria-haspopup="dialog" aria-controls="nopingPanel" data-sfx="1">
+  <i class="fa-solid fa-wifi" aria-hidden="true"></i><span data-i18n="noping.tab">¿Tu Internet anda muy mal?</span>
+</button>
+<div class="drawer-backdrop" id="nopingBackdrop" hidden></div>
+<aside class="drawer" id="nopingPanel" role="dialog" aria-modal="true" aria-labelledby="nopingTitle" aria-hidden="true">
+  <button class="drawer-x" id="nopingClose" aria-label="Cerrar" data-i18n-aria="lb.close"><i class="fa-solid fa-xmark"></i></button>
+  <p class="kicker" data-i18n="noping.kicker">Conexión</p>
+  <h2 id="nopingTitle" data-i18n="noping.title">¿Lag en tus partidas?</h2>
+  <p class="drawer-desc" data-i18n="noping.desc">NoPing es un programa que optimiza la ruta de tu conexión hacia los servidores de juego: en vez del camino congestionado de tu operadora, te lleva por la vía más rápida disponible.</p>
+  <ul class="drawer-list">
+    <li><i class="fa-solid fa-bolt"></i><span data-i18n="noping.b1">Menos ping y menos tirones.</span></li>
+    <li><i class="fa-solid fa-signal"></i><span data-i18n="noping.b2">Conexión más estable.</span></li>
+    <li><i class="fa-solid fa-gamepad"></i><span data-i18n="noping.b3">Funciona con Minecraft y cientos de juegos.</span></li>
+  </ul>
+  <a class="btn btn-primary btn-lg drawer-cta" href="https://nopi.ng/ragsnorwolf-at-gmailcom" target="_blank" rel="noopener sponsored"><i class="fa-solid fa-rocket"></i><span data-i18n="noping.cta">Probar NoPing gratis</span></a>
+  <p class="fine-print" data-i18n="noping.note">Los resultados dependen de tu conexión. Enlace de referido.</p>
+</aside>
+
 <!-- TO TOP -->
 <button class="to-top" id="toTop" aria-label="Volver arriba" data-i18n-aria="misc.top"><i class="fa-solid fa-arrow-up"></i></button>
 
