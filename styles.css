@@ -67,6 +67,10 @@ input[type="email"],input[type="text"]{cursor:text}
 .btn-primary{background:var(--green);color:#fff;box-shadow:var(--green-glow)}
 .btn-primary:hover{background:var(--green-strong);transform:translateY(-2px)}
 .btn-secondary{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff;backdrop-filter:blur(8px)}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--txt)}
+.btn-outline:hover{border-color:var(--green);color:var(--green-strong);transform:translateY(-2px)}
+[data-theme="dark"] .btn-outline:hover{color:#00e67a}
+.btn-outline .fa-youtube{color:#ff0000}
 .btn-secondary:hover{border-color:#fff;transform:translateY(-2px)}
 .btn-lg{padding:15px 30px;font-size:1rem}
 .btn-sm{padding:9px 18px;font-size:.85rem;border-radius:10px}
@@ -380,6 +384,7 @@ a:hover .drawer-logo{transform:scale(1.02);box-shadow:var(--shadow)}
 .drawer-list i{color:var(--green-strong);margin-top:3px}
 [data-theme="dark"] .drawer-list i{color:#00e67a}
 .drawer-cta{width:100%}
+.drawer-video{margin-top:10px}
 .drawer .fine-print{text-align:left;margin-top:14px}
 
 /* ---------- barra de progreso + volver arriba ---------- */
