@@ -25,7 +25,7 @@ SECCIONES: portada (video) · proyecto · características (RMC-01 a 06)
 DESCARGA REAL: los botones "Descargar" (menú, portada y tarjeta Windows)
 descargan downloads/RagsMC-Launcher-Setup-1.0.0.exe (73 MB, v1.0.0).
 macOS y Linux siguen como "Próximamente".
-- Redes reales: Twitch, TikTok y YouTube de RagsnorWolf.
+- Redes reales: Twitch, TikTok, YouTube y canal de WhatsApp.
 - Formulario "Avísame": guarda tu correo solo en este navegador.
 
 ARCHIVOS:

@@ -296,7 +296,7 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 @media(max-width:600px){
   .section{padding:68px 0}
   .section-head{flex-direction:column;align-items:flex-start}
-  .feat-grid,.gal-grid,.road-grid,.os-row{grid-template-columns:1fr}
+  .feat-grid,.gal-grid,.road-grid,.os-row,.soc-grid{grid-template-columns:1fr}
   .about-stats{grid-template-columns:1fr}
   .about-stats div{border-left:0;border-top:1px solid var(--line);padding-left:0}
   .about-stats div:first-child{border-top:0}
@@ -319,11 +319,11 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 @keyframes hover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 
 /* ---------- sección social ---------- */
-.soc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.soc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
 .soc-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px 22px;text-align:center;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
 .soc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--green)}
 .soc-icon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:1.6rem;color:#fff;margin-bottom:12px}
-.soc-icon.twitch{background:#9146ff}.soc-icon.tiktok{background:#111}.soc-icon.youtube{background:#ff0000}
+.soc-icon.twitch{background:#9146ff}.soc-icon.tiktok{background:#111}.soc-icon.youtube{background:#ff0000}.soc-icon.whatsapp{background:#25d366}
 [data-theme="light"] .soc-icon.tiktok{background:#000}
 .soc-name{font-weight:800;font-size:1.1rem}
 .soc-handle{font-size:.8rem;color:var(--green-strong);font-weight:600}
@@ -458,7 +458,7 @@ body.loaded .hero-title .ch{animation:charIn .55s var(--ease) forwards}
 
 /* ---------- responsive nuevo ---------- */
 @media(max-width:960px){
-  .soc-grid{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}
+  .soc-grid{grid-template-columns:repeat(2,1fr);max-width:640px;margin-left:auto;margin-right:auto}
   .hero-mascots{display:none}
 }
 @media(max-width:600px){
