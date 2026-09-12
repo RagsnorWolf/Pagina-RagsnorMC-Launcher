@@ -356,9 +356,11 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 }
 
 /* ---------- pestaña lateral + panel noping ---------- */
-.side-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-weight:700;font-size:.82rem;border-radius:12px 0 0 12px;padding:14px 10px;writing-mode:vertical-rl;letter-spacing:.04em;box-shadow:var(--green-glow);transition:padding .25s var(--ease)}
-.side-tab:hover{padding-right:16px}
-.side-tab i{transform:rotate(90deg)}
+.side-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:120;display:flex;align-items:center;gap:9px;max-width:210px;background:var(--green);color:#fff;font-weight:700;font-size:.8rem;line-height:1.35;text-align:left;border-radius:12px 0 0 12px;padding:13px 14px;box-shadow:var(--green-glow);transition:padding .25s var(--ease),transform .25s var(--ease)}
+.side-tab:hover{padding-right:20px}
+@media(max-width:600px){
+  .side-tab{font-size:.7rem;max-width:150px;padding:11px 10px}
+}
 .drawer-backdrop{position:fixed;inset:0;z-index:190;background:rgba(2,4,8,.6);backdrop-filter:blur(3px)}
 .drawer-backdrop[hidden]{display:none}
 .drawer{position:fixed;top:0;right:0;bottom:0;z-index:200;width:min(390px,94vw);background:var(--bg);border-left:1px solid var(--green);box-shadow:-30px 0 80px rgba(0,0,0,.5);padding:34px 28px;overflow-y:auto;transform:translateX(105%);transition:transform .45s var(--ease)}
