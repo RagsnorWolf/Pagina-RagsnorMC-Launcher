@@ -87,7 +87,7 @@
       <a href="#descarga" class="btn btn-primary btn-lg" data-sfx="dl"><i class="fa-solid fa-download"></i><span data-i18n="hero.cta1">Descargar</span></a>
       <a href="#features" class="btn btn-secondary btn-lg"><span data-i18n="hero.cta2">Ver características</span><i class="fa-solid fa-arrow-down"></i></a>
     </div>
-    <p class="hero-note" data-i18n="hero.note">Disponible para Windows · macOS y Linux próximamente.</p>
+    <p class="hero-note" data-i18n="hero.note">Disponible para Windows · Linux próximamente.</p>
   </div>
   <div class="hero-mascots" aria-hidden="true">
     <img src="./assets/logo/wolf.svg" alt="" class="float-a">
@@ -261,13 +261,17 @@
       <h2 class="section-title reveal" data-i18n="av.title">Así va el launcher</h2>
       <p class="section-desc reveal" data-i18n="av.desc">Capturas reales del desarrollo. Sin renders ni promesas: esto es lo que ya existe hoy.</p>
     </div>
-    <div class="gal-grid">
-      <button class="gal-item wide shot reveal" data-full="./assets/images/launcher-avance-1.png">
-        <img src="./assets/images/launcher-avance-1.png" alt="Pantalla principal del launcher RagsMc en desarrollo" data-i18n-alt="av.alt1" loading="lazy">
-      </button>
-      <button class="gal-item wide shot reveal" data-delay="80" data-full="./assets/images/launcher-avance-2.png">
-        <img src="./assets/images/launcher-avance-2.png" alt="Launcher RagsMc con noticias, gestor de mods y consola" data-i18n-alt="av.alt2" loading="lazy">
-      </button>
+    <div class="shot-slider reveal">
+      <button class="shot-arrow shot-arrow-left" aria-label="Anterior">&#10094;</button>
+      <div class="shot-track">
+        <button class="gal-item shot" data-full="./assets/images/launcher-avance-1.png">
+          <img src="./assets/images/launcher-avance-1.png" alt="Pantalla principal del launcher RagsMc en desarrollo" data-i18n-alt="av.alt1" loading="lazy">
+        </button>
+        <button class="gal-item shot" data-delay="80" data-full="./assets/images/launcher-avance-2.png">
+          <img src="./assets/images/launcher-avance-2.png" alt="Launcher RagsMc con noticias, gestor de mods y consola" data-i18n-alt="av.alt2" loading="lazy">
+        </button>
+      </div>
+      <button class="shot-arrow shot-arrow-right" aria-label="Siguiente">&#10095;</button>
     </div>
     <div class="shot-chips reveal">
       <span class="chip" data-i18n="av.c1">Pantalla Jugar</span>
@@ -324,16 +328,15 @@
   <div class="container narrow">
     <p class="kicker center reveal" data-i18n="dl.kicker">Descarga</p>
     <h2 class="section-title center reveal" data-i18n="dl.title">Consigue RagsMc Launcher</h2>
-    <p class="section-desc center reveal" data-i18n="dl.desc">Ya disponible para Windows. macOS y Linux llegarán próximamente.</p>
+    <p class="section-desc center reveal" data-i18n="dl.desc">Ya disponible para Windows. Linux llegará próximamente.</p>
     <div class="os-row reveal" aria-label="Sistemas operativos">
-      <a class="os-btn ready" href="./downloads/RagsMC-Installer.exe" download="RagsMC-Installer.exe" data-sfx="dl"><i class="fa-brands fa-windows"></i><span>Windows</span><em>v1.0.0 · 3 MB</em></a>
-      <button class="os-btn" disabled><i class="fa-brands fa-apple"></i><span>macOS</span><em data-i18n="dl.soon">Próximamente</em></button>
+      <a class="os-btn ready" href="./downloads/RagsMC-Installer.exe" download="RagsMC-Installer.exe" data-sfx="dl"><i class="fa-brands fa-windows"></i><span>Windows</span><em>v1.0.1 · 3 MB</em></a>
       <button class="os-btn" disabled><i class="fa-brands fa-linux"></i><span>Linux</span><em data-i18n="dl.soon">Próximamente</em></button>
     </div>
     <div class="status-card reveal">
       <span class="status-dot" aria-hidden="true"></span>
       <div>
-        <strong data-i18n="dl.status">Versión 1.0.0 disponible para Windows</strong>
+        <strong data-i18n="dl.status">Versión 1.0.1 disponible para Windows</strong>
         <p data-i18n="dl.statussub">Instalador de 73 MB, gratis y sin registro.</p>
       </div>
     </div>

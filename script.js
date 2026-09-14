@@ -21,7 +21,7 @@
       'hero.badge': 'Proyecto independiente · En desarrollo',
       'hero.sub': 'Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.',
       'hero.cta1': 'Descargar', 'hero.cta2': 'Ver características',
-      'hero.note': 'Disponible para Windows · macOS y Linux próximamente.',
+      'hero.note': 'Disponible para Windows · Linux próximamente.',
       'about.kicker': 'Sobre el proyecto',
       'about.badge': 'En desarrollo',
       'about.title': '¿Qué es RagsMc Launcher?',
@@ -80,8 +80,8 @@
       'soc.tiktokd': 'Clips y novedades en corto.',
       'soc.ytd': 'Videos y devlogs.',
       'dl.kicker': 'Descarga', 'dl.title': 'Consigue RagsMc Launcher',
-      'dl.desc': 'Ya disponible para Windows. macOS y Linux llegarán próximamente.',
-      'dl.status': 'Versión 1.0.0 disponible para Windows',
+      'dl.desc': 'Ya disponible para Windows. Linux llegará próximamente.',
+      'dl.status': 'Versión 1.0.1 disponible para Windows',
       'dl.statussub': 'Instalador de 73 MB, gratis y sin registro.',
       'dl.notify': 'Avísame de novedades y nuevas versiones', 'dl.ph': 'tu@correo.com', 'dl.btn': 'Avisarme',
       'dl.privacy': 'Tu correo se guarda solo en este dispositivo. Sin spam.',
@@ -122,7 +122,7 @@
       'hero.badge': 'Independent project · In development',
       'hero.sub': 'A fast, simple Minecraft launcher with its own identity. Made by players, for players.',
       'hero.cta1': 'Download', 'hero.cta2': 'View features',
-      'hero.note': 'Available for Windows · macOS and Linux coming soon.',
+      'hero.note': 'Available for Windows · Linux coming soon.',
       'about.kicker': 'About the project',
       'about.badge': 'In development',
       'about.title': 'What is RagsMc Launcher?',
@@ -181,8 +181,8 @@
       'soc.tiktokd': 'Short clips and quick news.',
       'soc.ytd': 'Videos and devlogs.',
       'dl.kicker': 'Download', 'dl.title': 'Get RagsMc Launcher',
-      'dl.desc': 'Now available for Windows. macOS and Linux coming soon.',
-      'dl.status': 'Version 1.0.0 available for Windows',
+      'dl.desc': 'Now available for Windows. Linux coming soon.',
+      'dl.status': 'Version 1.0.1 available for Windows',
       'dl.statussub': '73 MB installer, free with no sign-up.',
       'dl.notify': "Notify me of news and new releases", 'dl.ph': 'you@email.com', 'dl.btn': 'Notify me',
       'dl.privacy': 'Your email is stored only on this device. No spam.',
@@ -803,4 +803,21 @@
   /* año dinámico */
   var year = $('#year');
   if (year) year.textContent = String(new Date().getFullYear());
+
+  /* shot slider arrows */
+  document.querySelectorAll('.shot-slider').forEach(function(slider){
+    var track=slider.querySelector('.shot-track');
+    var left=slider.querySelector('.shot-arrow-left');
+    var right=slider.querySelector('.shot-arrow-right');
+    if(!track||!left||!right)return;
+    var items=track.querySelectorAll('.gal-item');
+    var idx=0;
+    function scrollToItem(i){
+      if(i<0)i=0;if(i>=items.length)i=items.length-1;
+      idx=i;
+      items[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    }
+    left.addEventListener('click',function(){scrollToItem(idx-1)});
+    right.addEventListener('click',function(){scrollToItem(idx+1)});
+  });
 })();
