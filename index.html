@@ -84,8 +84,8 @@
     <h1 class="hero-title">RagsMc <span>Launcher</span></h1>
     <p class="hero-sub" data-i18n="hero.sub">Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</p>
     <div class="hero-cta">
-      <a href="#descarga" class="btn btn-primary btn-lg" data-sfx="dl"><i class="fa-solid fa-download"></i><span data-i18n="hero.cta1">Descargar</span></a>
-      <a href="#features" class="btn btn-secondary btn-lg"><span data-i18n="hero.cta2">Ver características</span><i class="fa-solid fa-arrow-down"></i></a>
+      <a href="#descarga" class="btn btn-primary btn-lg" data-sfx="dl"><i class="fa-solid fa-download"></i><span data-i18n="hero.cta1">Descargar para Windows</span></a>
+      <a href="#comunidad" class="btn btn-secondary btn-lg"><i class="fa-solid fa-users"></i><span data-i18n="hero.cta2">Unirse a la comunidad</span></a>
     </div>
     <p class="hero-note" data-i18n="hero.note">Disponible para Windows · Linux próximamente.</p>
   </div>
@@ -281,6 +281,58 @@
       <span class="chip" data-i18n="av.c5">Consola</span>
     </div>
     <p class="fine-print reveal" data-i18n="av.note">Iremos publicando cada avance aquí mismo.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <p class="kicker center reveal" data-i18n="faq.kicker">Preguntas Frecuentes</p>
+    <h2 class="section-title center reveal" data-i18n="faq.title">¿Tenés dudas?</h2>
+    <p class="section-desc center reveal" data-i18n="faq.desc">Resolvemos las preguntas más comunes sobre RagsMc Launcher.</p>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary class="faq-q" data-i18n="faq.q1">¿Qué es RagsMc Launcher?</summary>
+        <p class="faq-a" data-i18n="faq.a1">RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="40">
+        <summary class="faq-q" data-i18n="faq.q2">¿Es gratis?</summary>
+        <p class="faq-a" data-i18n="faq.a2">Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="80">
+        <summary class="faq-q" data-i18n="faq.q3">¿En qué sistemas operativos está disponible?</summary>
+      <details class="faq-item reveal" data-delay="160">
+        <summary class="faq-q" data-i18n="faq.q5">¿Cuándo estará disponible para Linux?</summary>
+        <p class="faq-a" data-i18n="faq.a5">Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad para el proyecto.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="200">
+        <summary class="faq-q" data-i18n="faq.q6">¿Cómo reporto un bug o sugerencia?</summary>
+        <p class="faq-a" data-i18n="faq.a6">Podés comunicarte a través de nuestra sección de comunidad más abajo. Ahí nos encontrás activos y listos para ayudar.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="240">
+        <summary class="faq-q" data-i18n="faq.q7">¿El launcher recopila mis datos?</summary>
+        <p class="faq-a" data-i18n="faq.a7">No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="280">
+        <summary class="faq-q" data-i18n="faq.q8">¿Puedo usar mis mods existentes?</summary>
+        <p class="faq-a" data-i18n="faq.a8">Sí, el launcher tiene un gestor de mods integrado. Podés activar, desactivar y gestionar tus mods directamente desde la interfaz.</p>
+      </details>
+    </div>
+    <div class="faq-support reveal">
+      <i class="fa-regular fa-circle-question"></i>
+      <div class="faq-support-content">
+        <p data-i18n="faq.support">¿No encontraste lo que buscabas? Escribinos.</p>
+        <form class="faq-form" id="faqForm" action="https://formsubmit.co/RagsnorWolf@gmail.com" method="POST">
+          <input type="text" name="_subject" placeholder="Asunto" data-i18n-ph="faq.subject" required>
+          <input type="email" name="email" placeholder="Tu correo" data-i18n-ph="faq.email" required>
+          <textarea name="message" rows="3" placeholder="Tu mensaje..." data-i18n-ph="faq.msg" required></textarea>
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i><span data-i18n="faq.send">Enviar mensaje</span></button>
+        </form>
+        <p class="faq-form-msg" id="faqFormMsg" role="status" aria-live="polite"></p>
+      </div>
+    </div>
   </div>
 </section>
 

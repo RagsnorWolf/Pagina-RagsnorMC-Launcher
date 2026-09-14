@@ -20,7 +20,7 @@
       'theme.toggle': 'Cambiar tema',
       'hero.badge': 'Proyecto independiente · En desarrollo',
       'hero.sub': 'Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.',
-      'hero.cta1': 'Descargar', 'hero.cta2': 'Ver características',
+      'hero.cta1': 'Descargar para Windows', 'hero.cta2': 'Unirse a la comunidad',
       'hero.note': 'Disponible para Windows · Linux próximamente.',
       'about.kicker': 'Sobre el proyecto',
       'about.badge': 'En desarrollo',
@@ -61,6 +61,25 @@
       'av.alt2': 'Launcher RagsMc con noticias, gestor de mods y consola',
       'av.c1': 'Pantalla Jugar', 'av.c2': 'Selector 1.21.10', 'av.c3': 'Noticias', 'av.c4': 'Gestor de Mods', 'av.c5': 'Consola',
       'av.note': 'Iremos publicando cada avance aquí mismo.',
+      'faq.kicker': 'Preguntas Frecuentes', 'faq.title': '¿Tenés dudas?',
+      'faq.desc': 'Resolvemos las preguntas más comunes sobre RagsMc Launcher.',
+      'faq.q1': '¿Qué es RagsMc Launcher?',
+      'faq.a1': 'RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.',
+      'faq.q2': '¿Es gratis?',
+      'faq.a2': 'Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.',
+      'faq.q3': '¿En qué sistemas operativos está disponible?',
+      'faq.a3': 'Actualmente está disponible para Windows. La versión para Linux está en desarrollo y llegará próximamente.',
+      'faq.q5': '¿Cuándo estará disponible para Linux?',
+      'faq.a5': 'Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad para el proyecto.',
+      'faq.q6': '¿Cómo reporto un bug o sugerencia?',
+      'faq.a6': 'Podés comunicarte a través de nuestra sección de comunidad más abajo. Ahí nos encontrás activos y listos para ayudar.',
+      'faq.q7': '¿El launcher recopila mis datos?',
+      'faq.a7': 'No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.',
+      'faq.q8': '¿Puedo usar mis mods existentes?',
+      'faq.a8': 'Sí, el launcher tiene un gestor de mods integrado. Podés activar, desactivar y gestionar tus mods directamente desde la interfaz.',
+      'faq.support': '¿No encontraste lo que buscabas? Escribinos.',
+      'faq.supportbtn': 'Escríbenos en la comunidad',
+      'faq.subject': 'Asunto', 'faq.email': 'Tu correo', 'faq.msg': 'Tu mensaje...', 'faq.send': 'Enviar mensaje',
       'road.kicker': 'Ruta de desarrollo',
       'road.title': 'RagsMc Launcher está creciendo.',
       'road.desc': 'El avance será progresivo: primero una experiencia estable y clara; después, nuevas posibilidades. Sin promesas vacías.',
@@ -121,7 +140,7 @@
       'theme.toggle': 'Toggle theme',
       'hero.badge': 'Independent project · In development',
       'hero.sub': 'A fast, simple Minecraft launcher with its own identity. Made by players, for players.',
-      'hero.cta1': 'Download', 'hero.cta2': 'View features',
+      'hero.cta1': 'Download for Windows', 'hero.cta2': 'Join the community',
       'hero.note': 'Available for Windows · Linux coming soon.',
       'about.kicker': 'About the project',
       'about.badge': 'In development',
@@ -162,6 +181,25 @@
       'av.alt2': 'RagsMc launcher with news, mod manager and console',
       'av.c1': 'Play screen', 'av.c2': '1.21.10 selector', 'av.c3': 'News', 'av.c4': 'Mod Manager', 'av.c5': 'Console',
       'av.note': 'We will keep posting every step forward right here.',
+      'faq.kicker': 'Frequently Asked Questions', 'faq.title': 'Got questions?',
+      'faq.desc': 'We answer the most common questions about RagsMc Launcher.',
+      'faq.q1': 'What is RagsMc Launcher?',
+      'faq.a1': 'RagsMc Launcher is an independent Minecraft launcher designed to be fast, simple, and with its own identity. Made by players, for players.',
+      'faq.q2': 'Is it free?',
+      'faq.a2': 'Yes, RagsMc Launcher is completely free. No hidden costs or mandatory subscriptions.',
+      'faq.q3': 'Which operating systems is it available on?',
+      'faq.a3': 'Currently available for Windows. The Linux version is in development and coming soon.',
+      'faq.q5': 'When will it be available for Linux?',
+      'faq.a5': "It's on our development roadmap. No exact date yet, but it's a project priority.",
+      'faq.q6': 'How do I report a bug or suggestion?',
+      'faq.a6': 'You can reach us through our community section below. We are active and ready to help.',
+      'faq.q7': 'Does the launcher collect my data?',
+      'faq.a7': 'No. RagsMc Launcher does not collect or share your personal data. Your privacy matters.',
+      'faq.q8': 'Can I use my existing mods?',
+      'faq.a8': 'Yes, the launcher has a built-in mod manager. You can activate, deactivate, and manage your mods directly from the interface.',
+      'faq.support': "Didn't find what you were looking for? Write to us.",
+      'faq.supportbtn': 'Write to us in the community',
+      'faq.subject': 'Subject', 'faq.email': 'Your email', 'faq.msg': 'Your message...', 'faq.send': 'Send message',
       'road.kicker': 'Development roadmap',
       'road.title': 'RagsMc Launcher is growing.',
       'road.desc': 'Progress will be gradual: first a stable, clear experience; then new possibilities. No empty promises.',
@@ -820,4 +858,32 @@
     left.addEventListener('click',function(){scrollToItem(idx-1)});
     right.addEventListener('click',function(){scrollToItem(idx+1)});
   });
+
+  /* FAQ form — AJAX submit */
+  var faqForm=$('#faqForm'),faqMsg=$('#faqFormMsg');
+  if(faqForm){
+    faqForm.addEventListener('submit',function(e){
+      e.preventDefault();
+      var btn=faqForm.querySelector('button[type="submit"]');
+      var origHTML=btn.innerHTML;
+      btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i><span>...</span>';
+      btn.disabled=true;
+      fetch(faqForm.action,{method:'POST',body:new FormData(faqForm),headers:{'Accept':'application/json'}})
+        .then(function(r){return r.json()})
+        .then(function(){
+          faqForm.reset();
+          faqMsg.className='faq-form-msg ok';
+          faqMsg.textContent='¡Mensaje enviado! Te responderemos pronto.';
+          btn.innerHTML=origHTML;
+          btn.disabled=false;
+          setTimeout(function(){faqMsg.textContent='';},5000);
+        })
+        .catch(function(){
+          faqMsg.className='faq-form-msg err';
+          faqMsg.textContent='Hubo un error. Intentá de nuevo.';
+          btn.innerHTML=origHTML;
+          btn.disabled=false;
+        });
+    });
+  }
 })();

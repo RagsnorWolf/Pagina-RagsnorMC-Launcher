@@ -237,6 +237,36 @@ body.loaded .hero-content>*:nth-child(5){animation-delay:.65s}
 .gal-item:hover img{transform:scale(1.04)}
 .fine-print{margin-top:18px;font-size:.78rem;color:var(--mut);text-align:center}
 
+/* ---------- FAQ ---------- */
+.faq-list{max-width:720px;margin:40px auto 0;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .25s}
+.faq-item[open]{border-color:var(--green)}
+.faq-q{display:flex;align-items:center;gap:14px;padding:18px 22px;font-weight:700;font-size:.95rem;cursor:pointer;list-style:none;color:var(--txt);transition:color .2s}
+.faq-q::-webkit-details-marker{display:none}
+.faq-q::after{content:"+";margin-left:auto;font-size:1.3rem;font-weight:400;color:var(--green-strong);transition:transform .3s var(--ease);flex-shrink:0;width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:rgba(0,201,110,.08)}
+[data-theme="dark"] .faq-q::after{color:#00e67a}
+.faq-item[open] .faq-q::after{content:"−";transform:rotate(180deg)}
+.faq-q:hover{color:var(--green-strong)}
+[data-theme="dark"] .faq-q:hover{color:#00e67a}
+.faq-a{padding:0 22px 20px;color:var(--mut);font-size:.92rem;line-height:1.65}
+.faq-support{display:flex;gap:14px;align-items:flex-start;max-width:720px;margin:30px auto 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+.faq-support i{font-size:1.3rem;color:var(--green-strong);flex-shrink:0;margin-top:3px}
+[data-theme="dark"] .faq-support i{color:#00e67a}
+.faq-support-content{flex:1}
+.faq-support p{color:var(--mut);font-size:.92rem;margin-bottom:12px}
+.faq-form{display:flex;flex-direction:column;gap:10px}
+.faq-form input,.faq-form textarea{background:var(--input);border:1px solid var(--line);border-radius:10px;padding:11px 14px;color:var(--txt);font-size:.88rem;font-family:var(--font);resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+.faq-form input:focus,.faq-form textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,201,110,.15)}
+.faq-form .btn{align-self:flex-start}
+.faq-form-msg{margin-top:8px;font-size:.86rem;min-height:1.4em}
+.faq-form-msg.ok{color:var(--green-strong)}
+[data-theme="dark"] .faq-form-msg.ok{color:#00e67a}
+.faq-form-msg.err{color:#e5484d}
+@media(max-width:600px){
+  .faq-q{padding:15px 16px;font-size:.88rem}
+  .faq-a{padding:0 16px 16px;font-size:.86rem}
+}
+
 /* ---------- descarga ---------- */
 .os-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
 .os-btn{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;cursor:not-allowed;opacity:.8;text-align:left}
