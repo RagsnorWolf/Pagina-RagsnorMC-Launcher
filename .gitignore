@@ -1,0 +1,36 @@
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# Secrets
+secrets.json
+credentials.json
+config.json
+*.key
+*.pem
+*.cert
+
+# Vercel
+.vercel
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
