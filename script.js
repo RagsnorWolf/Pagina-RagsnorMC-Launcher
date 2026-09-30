@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    RagsMc Launcher — script.js
    Tema claro/oscuro · ES/EN · reveal · lightbox · aviso · música
    Vanilla JS · sin módulos · file:// safe
