@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    RagsMc Launcher — script.js
    Tema claro/oscuro · ES/EN · reveal · lightbox · aviso · música
    Vanilla JS · sin módulos · file:// safe
@@ -109,7 +109,6 @@
       'dl.support': '¿Dudas o sugerencias? Habla con nosotros en la comunidad.',
       'dl.supportbtn': 'Ir a la comunidad',
       'footer.note': 'Proyecto independiente. Sin afiliación con Mojang ni Microsoft.',
-      'footer.mirror': '¿No puedes entrar? Usa el espejo:',
       'noping.tab': '¿Tu Internet anda muy mal?',
       'noping.logo': 'NoPing: abrir sitio oficial',
       'noping.logoalt': 'Logo de NoPing',
@@ -230,7 +229,6 @@
       'dl.support': 'Questions or suggestions? Talk to us in the community.',
       'dl.supportbtn': 'Go to the community',
       'footer.note': 'Independent project. Not affiliated with Mojang or Microsoft.',
-      'footer.mirror': "Can't get in? Use the mirror:",
       'noping.tab': 'Is your Internet running badly?',
       'noping.logo': 'NoPing: open official site',
       'noping.logoalt': 'NoPing logo',
