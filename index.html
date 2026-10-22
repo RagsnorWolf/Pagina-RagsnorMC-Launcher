@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>RagsMc Launcher â€” El launcher de Minecraft con identidad propia</title>
-<meta name="description" content="RagsMc Launcher es un launcher independiente de Minecraft, rÃ¡pido, simple y con identidad propia. Descarga gratuita para Windows. Sin registro.">
+<title>RagsMc Launcher — El launcher de Minecraft con identidad propia</title>
+<meta name="description" content="RagsMc Launcher es un launcher independiente de Minecraft, rápido, simple y con identidad propia. Descarga gratuita para Windows. Sin registro.">
 <meta name="theme-color" content="#0B0F14">
 <link rel="canonical" href="https://ragslaunchermc.dpdns.org/">
-<meta property="og:title" content="RagsMc Launcher â€” El launcher de Minecraft con identidad propia">
-<meta property="og:description" content="RagsMc Launcher es un launcher independiente de Minecraft, rÃ¡pido, simple y con identidad propia.">
+<meta property="og:title" content="RagsMc Launcher — El launcher de Minecraft con identidad propia">
+<meta property="og:description" content="RagsMc Launcher es un launcher independiente de Minecraft, rápido, simple y con identidad propia.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ragslaunchermc.dpdns.org/">
 <meta property="og:image" content="https://ragslaunchermc.dpdns.org/assets/images/og-cover.jpg">
@@ -17,7 +17,8 @@
 <link rel="apple-touch-icon" href="./assets/logo/wolf.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,500,400&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -27,13 +28,19 @@
         colors: {
           bg: { primary: '#0B0F14', secondary: '#111827', elevated: '#151B23' },
           accent: { red: '#E85D4C', green: '#22C55E' },
+          text: { primary: '#F8FAFC', secondary: '#94A3B8', muted: '#64748B' },
           glass: { bg: 'rgba(255,255,255,0.04)', border: 'rgba(255,255,255,0.08)' },
           glow: { red: 'rgba(232,93,76,0.35)', green: 'rgba(34,197,94,0.35)' }
         },
-        fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], display: ['"Clash Display"', 'sans-serif'] },
+        fontFamily: { display: ['"Clash Display"', 'sans-serif'], sans: ['Inter', 'sans-serif'] },
         borderRadius: { xl: '16px', '2xl': '20px', '3xl': '24px' },
-        boxShadow: { glow: '0 0 40px rgba(232,93,76,0.25)', glowGreen: '0 0 40px rgba(34,197,94,0.25)' },
-        transitionTimingFunction: { 'bounce-out': 'cubic-bezier(0.34, 1.56, 0.64, 1)' }
+        boxShadow: { glow: '0 0 40px rgba(232,93,76,0.25)', glowGreen: '0 0 40px rgba(34,197,94,0.25)', deep: '0 40px 80px rgba(0,0,0,0.5)' },
+        transitionTimingFunction: { 'bounce-out': 'cubic-bezier(0.34, 1.56, 0.64, 1)' },
+        animation: { 'pulse-glow': 'pulse-glow 3s ease-in-out infinite', 'shimmer': 'shimmer 2s linear infinite' }
+      },
+      keyframes: {
+        'pulse-glow': { '0%, 100%': { boxShadow: '0 0 30px rgba(232,93,76,0.25)' }, '50%': { boxShadow: '0 0 60px rgba(232,93,76,0.55)' } },
+        'shimmer': { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } }
       }
     }
   }
@@ -41,17 +48,22 @@
 <style>
   :root { --radius: 20px; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg-primary,#0B0F14); color: var(--text-primary,#F8FAFC); overflow-x: hidden; }
-  [data-theme="light"] { --bg-primary:#F8FAFC; --bg-secondary:#F1F5F9; --bg-elevated:#E2E8F0; --text-primary:#0B0F14; --text-secondary:#475569; --text-muted:#64748B; color-scheme: light; }
+  body { background: #0B0F14; color: #F8FAFC; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  [data-theme="light"] { --bg:#F8FAFC; --bg-2:#F1F5F9; --bg-3:#E2E8F0; --text:#0B0F14; --text-2:#475569; --text-3:#64748B; color-scheme: light; background: #F8FAFC; color: #0B0F14; }
   [data-theme="dark"] { color-scheme: dark; }
-  .glass { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+  .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+  [data-theme="light"] .glass { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); backdrop-filter: blur(20px) saturate(100%); }
   .hero-overlay { background: linear-gradient(180deg, rgba(11,15,20,0.85) 0%, rgba(11,15,20,0.45) 50%, rgba(11,15,20,0.85) 100%); }
+  [data-theme="light"] .hero-overlay { background: linear-gradient(180deg, rgba(248,250,252,0.85) 0%, rgba(248,250,252,0.45) 50%, rgba(248,250,252,0.85) 100%); }
+  .noise { position: fixed; inset: 0; opacity: 0.03; pointer-events: none; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); }
+  .grid-dots { background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 24px 24px; opacity: 0.06; }
+  [data-theme="light"] .grid-dots { background-image: radial-gradient(#0b0f14 1px, transparent 1px); opacity: 0.04; }
   .reveal { opacity: 0; transform: translateY(24px) blur(8px); filter: blur(8px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0) blur(0); filter: blur(0); }
   .char { display: inline-block; }
-  .loader-box { position: fixed; inset: 0; z-index: 99999; background: var(--bg-primary,#0B0F14); display: grid; place-items: center; transition: opacity .8s ease, visibility .8s ease; }
+  .loader-box { position: fixed; inset: 0; z-index: 99999; background: #0B0F14; display: grid; place-items: center; transition: opacity .8s ease, visibility .8s ease; }
   .loader-box.done { opacity: 0; visibility: hidden; pointer-events: none; }
-  #loaderFill { height: 2px; width: 0%; background: linear-gradient(90deg,#E85D4C,#22C55E); border-radius: 2px; box-shadow: var(--glow-red); transition: width .3s ease; }
+  #loaderFill { height: 2px; width: 0%; background: linear-gradient(90deg,#E85D4C,#22C55E); border-radius: 2px; box-shadow: 0 0 30px rgba(232,93,76,0.5); transition: width .3s ease; background-size: 200% 100%; animation: shimmer 2s linear infinite; }
   .toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(100px); z-index: 1000; opacity: 0; transition: all .4s cubic-bezier(.34,1.56,.64,1); }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   .toast-hidden { display:none; }
@@ -62,21 +74,29 @@
   .marquee { overflow: hidden; white-space: nowrap; }
   .marquee-track { display: inline-block; animation: marquee 30s linear infinite; }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; filter:none; } .marquee-track { animation: none; } * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; filter:none; } .marquee-track { animation: none; } * { animation-duration: .01ms !important; transition-duration: .01ms !important; } .cursor-dot, .cursor-ring { display:none; } }
 </style>
 </head>
 <body class="antialiased selection:bg-accent-red selection:text-white">
-<!-- LOADING STATE CINEMATOGRÃFICO -->
+<noscript><div class="loader-box done"></div></noscript>
+
+<!-- ===== LOADING STATE ===== -->
 <div class="loader-box" id="loaderBox">
   <div class="text-center space-y-6">
     <div class="relative inline-block">
-      <img src="./assets/logo/wolf.svg" alt="Logo RagsMc" class="w-24 h-24 drop-shadow-glow animate-pulse" style="filter:drop-shadow(0 0 24px rgba(232,93,76,0.6));">
-      <div class="absolute -inset-2.5 rounded-full bg-accent-red/20 blur-[24px] animate-pulse"></div>
+      <svg id="loaderWolf" class="w-24 h-24 drop-shadow-[0_0_24px_rgba(232,93,76,0.6)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 019 9 9 9 0 019-9 9 9 0 00-9-9 9 9 0 00-9 9z"></path>
+        <path d="M12 12h3m-3 3v-3m-3 0h-3m0 3v3M9 9a2 2 0 012-2h1a2 2 0 012 2v1a2 2 0 01-2 2H9a2 2 0 01-2-2z"></path>
+        <path d="M15 9a2 2 0 002-2h1a2 2 0 002 2v1a2 2 0 00-2 2h-1a2 2 0 00-2-2z"></path>
+        <circle cx="11" cy="9" r="1" fill="currentColor"></circle>
+        <circle cx="13" cy="9" r="1" fill="currentColor"></circle>
+      </svg>
+      <div class="absolute -inset-1 rounded-full bg-accent-red/20 blur-[24px] animate-pulse-glow"></div>
     </div>
-    <div class="flex items-center justify-center gap-2 text-sm font-mono text-text-secondary tracking-wider">
+    <div class="flex items-center justify-center gap-2 text-sm font-mono text-[#94A3B8] tracking-wider">
       <span id="loaderPct">0</span><span>%</span>
     </div>
-    <p class="text-text-muted text-sm">Cargando RagsMc Launcherâ€¦</p>
+    <p class="text-[#64748B] text-sm">Iniciando RagsMc Launcher…</p>
     <div class="w-64 h-[2px] bg-white/10 rounded-full overflow-hidden mx-auto">
       <div id="loaderFill"></div>
     </div>
@@ -85,38 +105,38 @@
 
 <a href="#inicio" class="skip-link sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-accent-red focus:text-white focus:py-2 focus:px-4 focus:left-4 focus:top-4 rounded">Saltar al contenido</a>
 
-<!-- NAVBAR FIJA -->
+<!-- ===== NAVBAR ===== -->
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-18 py-2">
       <a href="#inicio" class="flex items-center gap-3" aria-label="RagsMc Launcher">
         <img src="./assets/logo/wolf.svg" alt="" class="w-8 h-8">
         <span class="font-display font-bold text-lg tracking-tight">Rags<span class="text-accent-red">Mc</span></span>
-        <span class="ml-1 text-[10px] font-semibold uppercase text-accent-green opacity-70">Launcher</span>
+        <span class="ml-1 text-[10px] font-semibold uppercase text-[#E85D4C] opacity-70">Launcher</span>
       </a>
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Principal">
-        <a href="#inicio" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="inicio">Inicio</a>
-        <a href="#acerca" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="acerca">Acerca</a>
-        <a href="#features" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="features">CaracterÃ­sticas</a>
-        <a href="#servidor" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="servidor">Servidor</a>
-        <a href="#galeria" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="galeria">GalerÃ­a</a>
-        <a href="#roadmap" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="roadmap">Hoja de ruta</a>
-        <a href="#descarga" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="descarga">Descarga</a>
-        <a href="#comunidad" class="nav-link text-text-secondary hover:text-text-primary transition-colors relative group" data-nav="comunidad">Comunidad</a>
+        <a href="#inicio" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="inicio">Inicio</a>
+        <a href="#acerca" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="acerca">Acerca</a>
+        <a href="#features" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="features">Características</a>
+        <a href="#servidor" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="servidor">Servidor</a>
+        <a href="#galeria" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="galeria">Galería</a>
+        <a href="#roadmap" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="roadmap">Hoja de ruta</a>
+        <a href="#descarga" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="descarga">Descarga</a>
+        <a href="#comunidad" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="comunidad">Comunidad</a>
       </nav>
       <div class="flex items-center gap-3">
-        <button id="langBtn" class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1.5" aria-label="Idioma">
+        <button id="langBtn" class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-[#94A3B8] hover:text-[#F8FAFC] transition-colors flex items-center gap-1.5" aria-label="Idioma">
           <span>ES</span> <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c-7 1-7 0-7-7s0-7 7-7 7 0 7 7-1 7-7 7z"></path></svg>
         </button>
-        <button id="themeBtn" class="glass rounded-full p-1.5 text-text-secondary hover:text-text-primary transition-colors" aria-label="Cambiar tema" title="Cambiar tema">
+        <button id="themeBtn" class="glass rounded-full p-1.5 text-[#94A3B8] hover:text-[#F8FAFC] transition-colors" aria-label="Cambiar tema" title="Cambiar tema">
           <svg id="themeSun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
           <svg id="themeMoon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
         </button>
-        <a href="#descarga" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-accent-red text-white text-sm font-bold rounded-xl hover:bg-red-600 transition-all duration-200 hover:shadow-glow hover:-translate-y-[1px] flex-shrink-0" data-sfx="dl">
+        <a href="#descarga" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-[#E85D4C] text-white text-sm font-bold rounded-xl hover:bg-red-600 transition-all duration-200 hover:shadow-glow hover:-translate-y-[1px] flex-shrink-0" data-sfx="dl">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
           <span>Descargar</span>
         </a>
-        <button class="md:hidden p-2 text-text-secondary hover:text-text-primary" id="burger" aria-label="Abrir menÃº" aria-expanded="false">
+        <button class="md:hidden p-2 text-[#94A3B8] hover:text-[#F8FAFC]" id="burger" aria-label="Abrir menú" aria-expanded="false">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
       </div>
@@ -126,17 +146,19 @@
     <div class="max-w-7xl mx-auto px-4 py-4 space-y-3 bg-white/5 border-t border-white/5 backdrop-blur-xl">
       <a href="#inicio" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="inicio">Inicio</a>
       <a href="#acerca" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="acerca">Acerca</a>
-      <a href="#features" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="features">CaracterÃ­sticas</a>
+      <a href="#features" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="features">Características</a>
       <a href="#servidor" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="servidor">Servidor</a>
-      <a href="#galeria" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="galeria">GalerÃ­a</a>
+      <a href="#galeria" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="galeria">Galería</a>
       <a href="#roadmap" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="roadmap">Hoja de ruta</a>
-      <a href="#descarga" class="block px-4 py-3 rounded-xl bg-accent-red text-white font-bold hover:bg-red-600 transition-colors" data-nav="descarga">Descargar</a>
+      <a href="#descarga" class="block px-4 py-3 rounded-xl bg-[#E85D4C] text-white font-bold hover:bg-red-600 transition-colors" data-nav="descarga">Descargar</a>
       <a href="#comunidad" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="comunidad">Comunidad</a>
     </div>
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
+<main>
+
+<!-- ===== HERO ===== -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black" id="inicio">
   <div class="absolute inset-0 z-0">
     <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="./assets/images/hero-fallback.jpg">
@@ -148,68 +170,67 @@
   <canvas class="absolute inset-0 z-10 pointer-events-none" id="heroParticles" aria-hidden="true"></canvas>
   <div class="relative z-20 flex flex-col items-center text-center px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-center gap-2 px-3 py-1 rounded-full glass mb-8 animate-in fade-in zoom-in duration-500">
-      <span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
-      <span class="font-display font-semibold text-xs tracking-wider text-text-secondary">Proyecto independiente Â· v1.0.4</span>
+      <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse-glow"></span>
+      <span class="font-display font-semibold text-xs tracking-wider text-[#94A3B8]">Proyecto independiente · v1.0.4</span>
     </div>
-    <h1 class="text-5xl sm:text-7xl lg:text-9xl font-display font-bold text-text-primary tracking-tight leading-tight mb-6 reveal split-target">
+    <h1 class="text-5xl sm:text-7xl lg:text-9xl font-display font-bold text-[#F8FAFC] tracking-tight leading-tight mb-6 reveal split-target">
       <span class="block">El launcher que</span>
-      <span class="block text-accent-red">Minecraft merecÃ­a</span>
+      <span class="block text-[#E85D4C]">Minecraft merecía</span>
     </h1>
-    <p class="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 reveal" style="transition-delay:.15s">RÃ¡pido, simple y con identidad propia. Hecho por jugadores, para jugadores.</p>
+    <p class="text-lg sm:text-xl text-[#94A3B8] max-w-2xl mx-auto mb-10 reveal" style="transition-delay:.15s">Rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay:.3s">
-      <a href="#descarga" class="px-8 py-4 bg-accent-red text-white font-bold rounded-xl text-lg shadow-glow hover:shadow-[0_0_60px_rgba(232,93,76,0.6)] hover:-translate-y-[1px] transition-all duration-300 group" data-sfx="dl">
+      <a href="#descarga" class="px-8 py-4 bg-[#E85D4C] text-white font-bold rounded-xl text-lg shadow-glow hover:shadow-[0_0_60px_rgba(232,93,76,0.6)] hover:-translate-y-[1px] transition-all duration-300 group" data-sfx="dl">
         <svg class="w-5 h-5 mr-2 group-hover:translate-x-[2px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
         Descargar para Windows
       </a>
-      <a href="#galeria" class="px-8 py-4 glass text-text-primary hover:bg-white/10 rounded-xl text-lg transition-all duration-300 group" data-sfx="click">
+      <a href="#galeria" class="px-8 py-4 glass text-[#F8FAFC] hover:bg-white/10 rounded-xl text-lg transition-all duration-300 group" data-sfx="click">
         Ver capturas
         <svg class="w-4 h-4 ml-2 group-hover:translate-x-[2px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
       </a>
     </div>
-    <p class="mt-6 text-xs font-mono text-text-muted tracking-wider reveal" style="transition-delay:.45s">Gratis Â· Sin registro Â· Windows 10/11</p>
+    <p class="mt-6 text-xs font-mono text-[#64748B] tracking-wider reveal" style="transition-delay:.45s">Gratis · Sin registro · Windows 10/11</p>
   </div>
   <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center reveal" style="transition-delay:.6s">
-    <div class="flex flex-col items-center gap-1 text-xs font-mono text-text-muted">
+    <div class="flex flex-col items-center gap-1 text-xs font-mono text-[#64748B]">
       <span id="cX">X: 128</span><span id="cY">Y: 64</span><span id="cZ">Z: -256</span>
     </div>
-    <div class="mt-6 flex items-center gap-2 text-text-muted text-sm">
+    <div class="mt-6 flex items-center gap-2 text-[#64748B] text-sm">
       <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
       <span>Scroll para explorar</span>
     </div>
   </div>
-  <div class="absolute inset-0 z-10 opacity-30 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.03\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"%3E/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 </section>
 
-<div class="pixel-divider w-full h-[4px] bg-accent-red/20 border-b border-white/5 my-0"></div>
+<div class="pixel-divider w-full h-[4px] bg-[#E85D4C]/20 border-b border-white/5 my-0"></div>
 
-<!-- ============ ACERCA / QUÃ‰ ES RAGSM C ============ -->
+<!-- ===== ACERCA ===== -->
 <section class="py-24 lg:py-32 relative" id="acerca">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-7">
-        <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-4 reveal">Sobre el proyecto</p>
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-text-primary tracking-tight mb-6 reveal split-target">Un launcher con identidad propia</h2>
-        <p class="text-text-secondary leading-relaxed mb-6 reveal">RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna, rÃ¡pida y personalizada para jugar Minecraft desde un solo lugar. Sin telemetrÃ­a, sin registro obligatorio y con el control en tus manos.</p>
-        <p class="text-text-secondary leading-relaxed mb-10 reveal">Cada pantalla, sistema y decisiÃ³n estÃ¡ siendo diseÃ±ado para construir una base sÃ³lida, estable y preparada para crecer junto a la comunidad.</p>
+        <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-4 reveal">Sobre el proyecto</p>
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-[#F8FAFC] tracking-tight mb-6 reveal split-target">Un launcher con identidad propia</h2>
+        <p class="text-[#94A3B8] leading-relaxed mb-6 reveal">RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna, rápida y personalizada para jugar Minecraft desde un solo lugar. Sin telemetría, sin registro obligatorio y con el control en tus manos.</p>
+        <p class="text-[#94A3B8] leading-relaxed mb-10 reveal">Cada pantalla, sistema y decisión está siendo diseñado para construir una base sólida, estable y preparada para crecer junto a la comunidad.</p>
         <ul class="space-y-4 reveal">
-          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-accent-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-text-primary">Gestor de mods integrado con un clic</span></li>
-          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-accent-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-text-primary">Selector de mÃºltiples versiones de Minecraft</span></li>
-          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-accent-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-text-primary">Interfaz moderna, propia y sin saturaciÃ³n visual</span></li>
+          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-[#22C55E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-[#F8FAFC]">Gestor de mods integrado con un clic</span></li>
+          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-[#22C55E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-[#F8FAFC]">Selector de múltiples versiones de Minecraft</span></li>
+          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-[#22C55E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-[#F8FAFC]">Interfaz moderna, propia y sin saturación visual</span></li>
         </ul>
       </div>
       <div class="lg:col-span-5 reveal">
         <div class="grid grid-cols-3 gap-4 mb-8">
-          <div class="glass p-4 rounded-xl border-l-4 border-l-accent-green">
-            <div class="text-3xl font-display font-bold text-text-primary">01</div>
-            <div class="text-xs text-text-muted uppercase tracking-wider">Proyecto indie</div>
+          <div class="glass p-4 rounded-xl border-l-4 border-l-[#22C55E]">
+            <div class="text-3xl font-display font-bold text-[#F8FAFC]">01</div>
+            <div class="text-xs text-[#64748B] uppercase tracking-wider">Proyecto indie</div>
           </div>
-          <div class="glass p-4 rounded-xl border-l-4 border-l-accent-red">
-            <div class="text-3xl font-display font-bold text-text-primary">âˆž</div>
-            <div class="text-xs text-text-muted uppercase tracking-wider">Mundos posibles</div>
+          <div class="glass p-4 rounded-xl border-l-4 border-l-[#E85D4C]">
+            <div class="text-3xl font-display font-bold text-[#F8FAFC]">∞</div>
+            <div class="text-xs text-[#64748B] uppercase tracking-wider">Mundos posibles</div>
           </div>
-          <div class="glass p-4 rounded-xl border-l-4 border-l-accent-red">
-            <div class="text-3xl font-display font-bold text-text-primary">100%</div>
-            <div class="text-xs text-text-muted uppercase tracking-wider">Identidad propia</div>
+          <div class="glass p-4 rounded-xl border-l-4 border-l-[#E85D4C]">
+            <div class="text-3xl font-display font-bold text-[#F8FAFC]">100%</div>
+            <div class="text-xs text-[#64748B] uppercase tracking-wider">Identidad propia</div>
           </div>
         </div>
       </div>
@@ -217,78 +238,78 @@
   </div>
 </section>
 
-<!-- ============ CARACTERÃSTICAS ============ -->
+<!-- ===== CARACTERÍSTICAS ===== -->
 <section class="py-24 lg:py-32 bg-white/5" id="features">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">El nÃºcleo</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">DiseÃ±ado para jugar, no para configurar</h2>
-      <p class="text-text-secondary max-w-2xl mx-auto reveal">Una base enfocada en lo importante, preparada para evolucionar junto al proyecto sin complejidades innecesarias.</p>
+      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">El núcleo</p>
+      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Diseñado para jugar, no para configurar</h2>
+      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Una base enfocada en lo importante, preparada para evolucionar junto al proyecto sin complejidades innecesarias.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
-      <article class="glass p-8 rounded-3xl hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-accent-red/50 group reveal" data-delay="0">
-        <div class="w-12 h-12 rounded-xl bg-accent-red/10 flex items-center justify-center mb-6 group-hover:bg-accent-red group-hover:text-white transition-colors"><svg class="w-6 h-6 text-accent-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-text-primary mb-3">Inicio ultra-rÃ¡pido</h3>
-        <p class="text-text-secondary leading-relaxed text-sm">Arranque veloz y sin complicaciones para que pases menos tiempo esperando y mÃ¡s tiempo jugando.</p>
+      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="0">
+        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Inicio ultra-rápido</h3>
+        <p class="text-[#94A3B8] leading-relaxed text-sm">Arranque veloz y sin complicaciones para que pases menos tiempo esperando y más tiempo jugando.</p>
       </article>
-      <article class="glass p-8 rounded-3xl hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-accent-red/50 group reveal" data-delay="100">
-        <div class="w-12 h-12 rounded-xl bg-accent-red/10 flex items-center justify-center mb-6 group-hover:bg-accent-red group-hover:text-white transition-colors"><svg class="w-6 h-6 text-accent-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0  0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2m14 0V2a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V2a2 2 0 012-2z"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-text-primary mb-3">Gestor de mods integrado</h3>
-        <p class="text-text-secondary leading-relaxed text-sm">Instala, activa y desactiva mods desde una interfaz integrada sin salir del launcher.</p>
+      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="100">
+        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2m14 0V2a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V2a2 2 0 012-2z"></path></svg></div>
+        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Gestor de mods integrado</h3>
+        <p class="text-[#94A3B8] leading-relaxed text-sm">Instala, activa y desactiva mods desde una interfaz integrada sin salir del launcher.</p>
       </article>
-      <article class="glass p-8 rounded-3xl hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-accent-red/50 group reveal" data-delay="200">
-        <div class="w-12 h-12 rounded-xl bg-accent-red/10 flex items-center justify-center mb-6 group-hover:bg-accent-red group-hover:text-white transition-colors"><svg class="w-6 h-6 text-accent-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 9.253 9.246 9.253 8 9.253s-2.832 0-3.752.757M20 13c0 1.109-.117 2.053-.305 2.934-.27 1.25-.704 2.444-1.236 3.168-.67.906-1.498 1.646-2.364 2.067-.83.397-1.731.59-2.631.592h-.012c-.908.003-1.814-.197-2.644-.598a12.4 12.4 0 01-2.364-2.067c-.532-.724-.966-1.918-1.236-3.168A39.65 39.65 0 013 20c0-1.109.117-2.053.305-2.934.27 1.25-.704 2.444-1.236 3.168-.67.906-1.498 1.646-2.364 2.067-.83.397-1.731.59-2.631.592h.012c.908-.003 1.814.197 2.644.598a12.4 12.4 0 012.364 2.067c.532.724.966 1.918 1.236 3.168A39.65 39.65 0 0121 20c0 1.109-.117 2.053-.305 2.934-.27 1.25-.704 2.444-1.236 3.168-.67.906-1.498 1.646-2.364 2.067-.83.397-1.731.59-2.631.592h.012c.908-.003-1.814-.197-2.644-.598a12.4 12.4 0 01-2.364-2.067c-.532-.724-.966-1.918-1.236-3.168A39.65 39.65 0 0121 20z"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-text-primary mb-3">MÃºltiples versiones</h3>
-        <p class="text-text-secondary leading-relaxed text-sm">Selector de versiones de Minecraft, incluyendo 1.21.1 Forge y otras configuraciones.</p>
+      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="200">
+        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v4m0 0m-7-3h14M4 16h16m-4 4v-1a2 2 0 00-2-2H6a2 2 0 00-2 2v1m0 0l-4-4m4 4l4 4"></path></svg></div>
+        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Múltiples versiones</h3>
+        <p class="text-[#94A3B8] leading-relaxed text-sm">Selector de versiones de Minecraft, incluyendo 1.21.1 Forge y otras configuraciones.</p>
       </article>
-      <article class="glass p-8 rounded-3xl hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-accent-red/50 group reveal" data-delay="0">
-        <div class="w-12 h-12 rounded-xl bg-accent-red/10 flex items-center justify-center mb-6 group-hover:bg-accent-red group-hover:text-white transition-colors"><svg class="w-6 h-6 text-accent-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v4m0 0m-7-3h14M4 16h16m-4 4v-1a2 2 0 00-2-2H6a2 2 0 00-2 2v1m0 0l-4-4m4 4l4 4"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-text-primary mb-3">PersonalizaciÃ³n total</h3>
-        <p class="text-text-secondary leading-relaxed text-sm">Temas, apariencia y opciones de personalizaciÃ³n para que el launcher sea tuyo.</p>
+      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="0">
+        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v4m0 0m-7-3h14M4 16h16m-4 4v-1a2 2 0 00-2-2H6a2 2 0 00-2 2v1m0 0l-4-4m4 4l4 4"></path></svg></div>
+        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Personalización total</h3>
+        <p class="text-[#94A3B8] leading-relaxed text-sm">Temas, apariencia y opciones de personalización para que el launcher sea tuyo.</p>
       </article>
-      <article class="glass p-8 rounded-3xl hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-accent-red/50 group reveal" data-delay="100">
-        <div class="w-12 h-12 rounded-xl bg-accent-red/10 flex items-center justify-center mb-6 group-hover:bg-accent-red group-hover:text-white transition-colors"><svg class="w-6 h-6 text-accent-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-text-primary mb-3">Actualizaciones automÃ¡ticas</h3>
-        <p class="text-text-secondary leading-relaxed text-sm">El launcher se mantiene al dÃ­a con las Ãºltimas versiones y parches de forma automÃ¡tica.</p>
+      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="100">
+        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
+        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Actualizaciones automáticas</h3>
+        <p class="text-[#94A3B8] leading-relaxed text-sm">El launcher se mantiene al día con las últimas versiones y parches de forma automática.</p>
       </article>
-      <article class="glass p-8 rounded-3xl hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-accent-red/50 group reveal" data-delay="200">
-        <div class="w-12 h-12 rounded-xl bg-accent-red/10 flex items-center justify-center mb-6 group-hover:bg-accent-red group-hover:text-white transition-colors"><svg class="w-6 h-6 text-accent-red group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 17h18m-3-5l4 4m-4-4l-4-4m-6 6V7l5-5 5 5v10"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-text-primary mb-3">DiseÃ±o propio</h3>
-        <p class="text-text-secondary leading-relaxed text-sm">EstÃ©tica premium inspirada en Minecraft pero con acabado de producto profesional moderno.</p>
+      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="200">
+        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 17h18m-3-5l4 4m-4-4l-4-4m-6 6V7l5-5 5 5v10"></path></svg></div>
+        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Diseño propio</h3>
+        <p class="text-[#94A3B8] leading-relaxed text-sm">Estética premium inspirada en Minecraft pero con acabado de producto profesional moderno.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ============ SERVIDOR ============ -->
+<!-- ===== SERVIDOR ===== -->
 <section class="py-24 lg:py-32 relative" id="servidor">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative z-10">
       <div class="text-center mb-16 reveal">
-        <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">El servidor</p>
-        <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">Juega en RagsMc</h2>
-        <p class="text-text-secondary max-w-2xl mx-auto reveal">ConÃ©ctate a la comunidad con una direcciÃ³n estable y sin complicaciones.</p>
+        <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">El servidor</p>
+        <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Juega en RagsMc</h2>
+        <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Conéctate a la comunidad con una dirección estable y sin complicaciones.</p>
       </div>
       <div class="glass p-8 lg:p-12 rounded-[32px] shadow-glow border border-white/10 relative overflow-hidden reveal">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none"></div>
         <div class="relative max-w-md mx-auto">
           <div class="flex items-center justify-between mb-8">
             <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
-              <span class="text-text-primary font-medium">Online Â· 24/7</span>
+              <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse-glow"></span>
+              <span class="text-[#F8FAFC] font-medium">Online · 24/7</span>
             </div>
-            <div class="text-xs font-mono text-accent-red">v1.21.1 Â· Forge</div>
+            <div class="text-xs font-mono text-[#E85D4C]">v1.21.1 · Forge</div>
           </div>
           <div class="flex items-center justify-between mb-6">
-            <span class="text-text-muted text-sm uppercase tracking-wider">DirecciÃ³n del servidor</span>
+            <span class="text-[#64748B] text-sm uppercase tracking-wider">Dirección del servidor</span>
             <div class="flex items-center gap-2">
-              <code class="font-mono text-lg text-accent-green bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">ragsmc.dpdns.org</code>
+              <code class="font-mono text-lg text-[#22C55E] bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">ragsmc.dpdns.org</code>
               <button id="copyIP" class="w-8 h-8 rounded-lg glass flex items-center justify-center hover:bg-white/10 transition-colors" title="Copiar IP">
-                <svg class="w-4 h-4 text-text-secondary hover:text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l-4-4m4 4L16 7"></path></svg>
+                <svg class="w-4 h-4 text-[#64748B] hover:text-[#F8FAFC]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l-4-4m4 4L16 7"></path></svg>
               </button>
             </div>
           </div>
-          <a href="#" class="w-full py-4 bg-accent-red text-white font-bold rounded-xl text-lg shadow-glow hover:shadow-[0_0_50px_rgba(232,93,76,0.5)] hover:-translate-y-[1px] transition-all duration-300 flex items-center justify-center gap-2" data-sfx="dl">
+          <a href="#" class="w-full py-4 bg-[#E85D4C] text-white font-bold rounded-xl text-lg shadow-glow hover:shadow-[0_0_50px_rgba(232,93,76,0.5)] hover:-translate-y-[1px] transition-all duration-300 flex items-center justify-center gap-2" data-sfx="dl">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2m-2 4h.01M17 16a4 4 0 01-8 0 4 4 0 00-8 0v.5a2 2 0 002 2h12a2 2 0 002-2v-.5z"></path></svg>
             Unirse al servidor
           </a>
@@ -298,24 +319,22 @@
   </div>
 </section>
 
-<div class="pixel-divider w-full h-[4px] bg-accent-red/20 border-b border-white/5 my-0"></div>
+<div class="pixel-divider w-full h-[4px] bg-[#E85D4C]/20 border-b border-white/5 my-0"></div>
 
-<!-- ============ GALERÃA ============ -->
+<!-- ===== GALERÍA ===== -->
 <section class="py-24 lg:py-32" id="galeria">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">GalerÃ­a</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">AsÃ­ va el launcher</h2>
-      <p class="text-text-secondary max-w-2xl mx-auto reveal">Capturas reales del desarrollo. Sin renders ni promesas vacÃ­as.</p>
+      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Galería</p>
+      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Así va el launcher</h2>
+      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Capturas reales del desarrollo. Sin renders ni promesas vacías.</p>
     </div>
     <div class="relative reveal">
-      <button class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-text-secondary hover:text-accent-red z-20" aria-label="Anterior">
+      <button class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#E85D4C] z-20" aria-label="Anterior">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
       </button>
-      <div class="overflow-hidden rounded-3xl border border-white/10 glass aspect-[16/9] relative" id="galleryTrack">
-        <!-- slides injected by JS -->
-      </div>
-      <button class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-text-secondary hover:text-accent-red z-20" aria-label="Siguiente">
+      <div class="overflow-hidden rounded-[32px] border border-white/10 glass aspect-[16/9] relative" id="galleryTrack"></div>
+      <button class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#E85D4C] z-20" aria-label="Siguiente">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </button>
       <div class="flex justify-center gap-2 mt-8" id="galleryDots"></div>
@@ -323,70 +342,70 @@
   </div>
 </section>
 
-<!-- ============ HOJA DE RUTA ============ -->
+<!-- ===== ROADMAP ===== -->
 <section class="py-24 lg:py-32 bg-white/5" id="roadmap">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">Hoja de ruta</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">Creciendo con la comunidad</h2>
-      <p class="text-text-secondary max-w-2xl mx-auto reveal">Sin promesas vacÃ­as. Cada fase avanza cuando estÃ¡ lista.</p>
+      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Hoja de ruta</p>
+      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Creciendo con la comunidad</h2>
+      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Sin promesas vacías. Cada fase avanza cuando está lista.</p>
     </div>
     <div class="relative max-w-3xl mx-auto reveal">
       <div class="absolute left-12 top-0 bottom-0 w-[2px] bg-white/10 z-0"></div>
       <div class="relative z-10 space-y-16">
         <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-accent-green text-white font-display font-bold flex items-center justify-center shadow-glow z-10">âœ“</div>
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#22C55E] text-white font-display font-bold flex items-center justify-center shadow-glow z-10">✓</div>
           <div class="flex-1">
             <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-text-muted">Fase 01</span>
-              <span class="text-xl font-bold text-text-primary">Concepto</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent-green text-white">Completado</span>
+              <span class="text-xs font-mono text-[#64748B]">Fase 01</span>
+              <span class="text-xl font-bold text-[#F8FAFC]">Concepto</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#22C55E] text-white">Completado</span>
             </div>
-            <p class="text-text-secondary mt-2 text-sm">DiseÃ±o y concepto inicial del launcher con identidad propia.</p>
+            <p class="text-[#94A3B8] mt-2 text-sm">Diseño y concepto inicial del launcher con identidad propia.</p>
           </div>
         </div>
         <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-accent-green text-white font-display font-bold flex items-center justify-center shadow-glow z-10">âœ“</div>
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#22C55E] text-white font-display font-bold flex items-center justify-center shadow-glow z-10">✓</div>
           <div class="flex-1">
             <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-text-muted">Fase 02</span>
-              <span class="text-xl font-bold text-text-primary">Desarrollo</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent-green text-white">Completado</span>
+              <span class="text-xs font-mono text-[#64748B]">Fase 02</span>
+              <span class="text-xl font-bold text-[#F8FAFC]">Desarrollo</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#22C55E] text-white">Completado</span>
             </div>
-            <p class="text-text-secondary mt-2 text-sm">ConstrucciÃ³n del launcher base con gestor de mods y selector de versiones.</p>
+            <p class="text-[#94A3B8] mt-2 text-sm">Construcción del launcher base con gestor de mods y selector de versiones.</p>
           </div>
         </div>
         <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-accent-red text-accent-red font-display font-bold flex items-center justify-center z-10">â—</div>
+          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-[#E85D4C] text-[#E85D4C] font-display font-bold flex items-center justify-center z-10">●</div>
           <div class="flex-1">
             <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-text-muted">Fase 03</span>
-              <span class="text-xl font-bold text-text-primary">Testing</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent-red text-white">Actual</span>
+              <span class="text-xs font-mono text-[#64748B]">Fase 03</span>
+              <span class="text-xl font-bold text-[#F8FAFC]">Testing</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E85D4C] text-white">Actual</span>
             </div>
-            <p class="text-text-secondary mt-2 text-sm">Pruebas, correcciones y estabilidad antes del primer release.</p>
+            <p class="text-[#94A3B8] mt-2 text-sm">Pruebas, correcciones y estabilidad antes del primer release.</p>
           </div>
         </div>
         <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white/20 text-text-muted font-display font-bold flex items-center justify-center z-10">â—‹</div>
+          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white/20 text-[#64748B] font-display font-bold flex items-center justify-center z-10">○</div>
           <div class="flex-1 opacity-60">
             <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-text-muted">Fase 04</span>
-              <span class="text-xl font-bold text-text-muted">Release</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold text-text-muted border border-white/10">Pendiente</span>
+              <span class="text-xs font-mono text-[#64748B]">Fase 04</span>
+              <span class="text-xl font-bold text-[#64748B]">Release</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold text-[#64748B] border border-white/10">Pendiente</span>
             </div>
-            <p class="text-text-secondary mt-2 text-sm">Primera versiÃ³n pÃºblica estable para Windows.</p>
+            <p class="text-[#94A3B8] mt-2 text-sm">Primera versión pública estable para Windows.</p>
           </div>
         </div>
         <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white/20 text-text-muted font-display font-bold flex items-center justify-center z-10">â—‹</div>
+          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white/20 text-[#64748B] font-display font-bold flex items-center justify-center z-10">○</div>
           <div class="flex-1 opacity-60">
             <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-text-muted">Fase 05</span>
-              <span class="text-xl font-bold text-text-muted">Actualizaciones</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold text-text-muted border border-white/10">Pendiente</span>
+              <span class="text-xs font-mono text-[#64748B]">Fase 05</span>
+              <span class="text-xl font-bold text-[#64748B]">Actualizaciones</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold text-[#64748B] border border-white/10">Pendiente</span>
             </div>
-            <p class="text-text-secondary mt-2 text-sm">Mejoras y nuevas funciones segÃºn feedback de la comunidad.</p>
+            <p class="text-[#94A3B8] mt-2 text-sm">Mejoras y nuevas funciones según feedback de la comunidad.</p>
           </div>
         </div>
       </div>
@@ -394,180 +413,183 @@
   </div>
 </section>
 
-<!-- ============ DESCARGA ============ -->
+<!-- ===== DESCARGA ===== -->
 <section class="py-24 lg:py-32 relative" id="descarga">
-  <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_rgba(232,93,76,0.12),transparent_70%)] pointer-events-none"></div>
+  <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(232,93,76,0.12),transparent_70%)] pointer-events-none"></div>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">Descarga</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">Consigue RagsMc Launcher</h2>
-      <p class="text-text-secondary max-w-2xl mx-auto reveal">v1.0.4 · Windows 10/11 · 11.0 MB · Gratis y sin registro</p>
+      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Descarga</p>
+      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Consigue RagsMc Launcher</h2>
+      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">v1.0.4 · Windows 10/11 · 11.0 MB · Gratis y sin registro</p>
     </div>
     <div class="glass p-8 lg:p-12 rounded-[32px] border border-white/10 shadow-glow reveal">
       <div class="text-center">
-        <a href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download class="w-full lg:w-auto flex flex-col lg:flex-row items-center justify-center gap-4 px-8 py-6 bg-accent-red text-white font-bold text-lg rounded-xl shadow-[0_0_40px_rgba(232,93,76,0.45)] hover:shadow-[0_0_60px_rgba(232,93,76,0.7)] hover:-translate-y-[2px] transition-all duration-300" data-sfx="dl">
+        <a href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download class="w-full lg:w-auto flex flex-col lg:flex-row items-center justify-center gap-4 px-8 py-6 bg-[#E85D4C] text-white font-bold text-lg rounded-xl shadow-[0_0_40px_rgba(232,93,76,0.45)] hover:shadow-[0_0_60px_rgba(232,93,76,0.7)] hover:-translate-y-[2px] transition-all duration-300" data-sfx="dl">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
           <span>Descargar para Windows</span>
         </a>
-        <p class="mt-3 text-xs font-mono text-text-muted">SHA-256: <span id="sha256" class="text-accent-green cursor-pointer select-all hover:underline" data-clipboard="BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A" title="Copiar">BA1147…4122A</span></p>
+        <p class="mt-3 text-xs font-mono text-[#64748B]">SHA-256: <span id="sha256" class="text-[#22C55E] cursor-pointer select-all hover:underline" data-clipboard="BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A" title="Copiar">BA1147…4122A</span></p>
       </div>
       <div class="mt-10 grid md:grid-cols-2 gap-6 text-center">
         <a href="#" class="glass p-4 rounded-xl text-left hover:bg-white/10 transition-colors border border-transparent hover:border-white/10">
-          <div class="text-text-muted text-xs uppercase tracking-wider mb-1">Descarga alternativa</div>
-          <div class="text-text-primary font-semibold">ZIP portable</div>
+          <div class="text-[#64748B] text-xs uppercase tracking-wider mb-1">Descarga alternativa</div>
+          <div class="text-[#F8FAFC] font-semibold">ZIP portable</div>
         </a>
         <a href="#" class="glass p-4 rounded-xl text-left hover:bg-white/10 transition-colors border border-transparent hover:border-white/10">
-          <div class="text-text-muted text-xs uppercase tracking-wider mb-1">Próximamente</div>
-          <div class="text-text-muted font-semibold">Linux</div>
+          <div class="text-[#64748B] text-xs uppercase tracking-wider mb-1">Próximamente</div>
+          <div class="text-[#64748B] font-semibold">Linux</div>
         </a>
       </div>
-      <p class="mt-8 text-xs text-text-muted">Código fuente en <a href="https://github.com/RagsnorWolf/ragsmc-launcher" target="_blank" rel="noopener" class="text-accent-red hover:underline">GitHub</a> · <a href="#" class="text-accent-green hover:underline">¿Tu antivirus lo marca? Lee esto</a></p>
+      <p class="mt-8 text-xs text-[#64748B]">Código fuente en <a href="https://github.com/RagsnorWolf/ragsmc-launcher" target="_blank" rel="noopener" class="text-[#E85D4C] hover:underline">GitHub</a> · <a href="#" class="text-[#22C55E] hover:underline">¿Tu antivirus lo marca? Lee esto</a></p>
     </div>
   </div>
 </section>
 
-<div class="pixel-divider w-full h-[4px] bg-accent-red/20 border-b border-white/5 my-0"></div>
+<div class="pixel-divider w-full h-[4px] bg-[#E85D4C]/20 border-b border-white/5 my-0"></div>
 
-<!-- ============ COMUNIDAD ============ -->
+<!-- ===== COMUNIDAD ===== -->
 <section class="py-24 lg:py-32" id="comunidad">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">Comunidad</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">Síguenos</h2>
-      <p class="text-text-secondary max-w-2xl mx-auto reveal">Contenido, avances y directos del proyecto.</p>
+      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Comunidad</p>
+      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Síguenos</h2>
+      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Contenido, avances y directos del proyecto.</p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" class="glass p-6 rounded-3xl flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-accent-red/50 reveal" data-delay="0" aria-label="Twitch de RagsMc">
-        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-        <span class="font-display font-bold text-text-primary">Twitch</span>
-        <span class="text-xs font-mono text-text-muted">@ragsnorwolf</span>
+      <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-[#E85D4C]/50 reveal" data-delay="0" aria-label="Twitch de RagsMc">
+        <svg class="w-8 h-8 text-[#7146FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+        <span class="font-display font-bold text-[#F8FAFC]">Twitch</span>
+        <span class="text-xs font-mono text-[#64748B]">@ragsnorwolf</span>
       </a>
-      <a href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener" class="glass p-6 rounded-3xl flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-black reveal" data-delay="100" aria-label="TikTok de RagsMc">
-        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0l12-2m-5 5v3.01a4 4 0 00-5.357-4.123m-5.357 4.123V19a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085m-5.357 4.123V18a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085z"></path></svg>
-        <span class="font-display font-bold text-text-primary">TikTok</span>
-        <span class="text-xs font-mono text-text-muted">@ragsnorwolf</span>
+      <a href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-black reveal" data-delay="100" aria-label="TikTok de RagsMc">
+        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0l12-2m-5 5v3.01a4 4 0 00-5.357-4.123m-5.357 4.123V19a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085zm-5.357 4.123V18a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085z"></path></svg>
+        <span class="font-display font-bold text-[#F8FAFC]">TikTok</span>
+        <span class="text-xs font-mono text-[#64748B]">@ragsnorwolf</span>
       </a>
-      <a href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener" class="glass p-6 rounded-3xl flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-red-500/50 reveal" data-delay="200" aria-label="YouTube de RagsMc">
-        <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <span class="font-display font-bold text-text-primary">YouTube</span>
-        <span class="text-xs font-mono text-text-muted">@RagsnorWolf_Games</span>
+      <a href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-[#DC2626]/50 reveal" data-delay="200" aria-label="YouTube de RagsMc">
+        <svg class="w-8 h-8 text-[#DC2626]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span class="font-display font-bold text-[#F8FAFC]">YouTube</span>
+        <span class="text-xs font-mono text-[#64748B]">@RagsnorWolf_Games</span>
       </a>
-      <a href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener" class="glass p-6 rounded-3xl flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-green-500/50 reveal" data-delay="300" aria-label="WhatsApp de RagsMc">
-        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 1014 0a7 7 0 00-14 0zM12 17a1 1 0 100-2a1 1 0 000 2zM12 7a1 1 0 100-2a1 1 0 000 2z"></path></svg>
-        <span class="font-display font-bold text-text-primary">WhatsApp</span>
-        <span class="text-xs font-mono text-text-muted">Canal oficial</span>
+      <a href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-[#22C55E]/50 reveal" data-delay="300" aria-label="WhatsApp de RagsMc">
+        <svg class="w-8 h-8 text-[#22C55E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 1014 0a7 7 0 00-14 0zM12 17a1 1 0 100-2a1 1 0 000 2zM12 7a1 1 0 100-2a1 1 0 000 2z"></path></svg>
+        <span class="font-display font-bold text-[#F8FAFC]">WhatsApp</span>
+        <span class="text-xs font-mono text-[#64748B]">Canal oficial</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ============ FAQ ============ -->
+<!-- ===== FAQ ===== -->
 <section class="py-24 lg:py-32 bg-white/5" id="faq">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-accent-red mb-2">Preguntas frecuentes</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight mb-4 reveal split-target">¿Tenés dudas?</h2>
+      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Preguntas frecuentes</p>
+      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">¿Tenés dudas?</h2>
     </div>
     <div class="space-y-3 reveal">
       <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-text-primary hover:text-accent-red transition-colors">
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
           <span>¿Qué es RagsMc Launcher?</span>
           <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </summary>
-        <div class="px-6 pb-4 text-text-secondary text-sm leading-relaxed">RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</div>
+        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</div>
       </details>
       <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-text-primary hover:text-accent-red transition-colors">
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
           <span>¿Es gratis?</span>
           <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </summary>
-        <div class="px-6 pb-4 text-text-secondary text-sm leading-relaxed">Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.</div>
+        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.</div>
       </details>
       <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-text-primary hover:text-accent-red transition-colors">
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
           <span>¿Qué sistemas son compatibles?</span>
           <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </summary>
-        <div class="px-6 pb-4 text-text-secondary text-sm leading-relaxed">Por ahora para Windows 10/11. Linux llegará próximamente.</div>
+        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">Por ahora para Windows 10/11. Linux llegará próximamente.</div>
       </details>
       <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-text-primary hover:text-accent-red transition-colors">
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
           <span>¿El launcher recopila mis datos?</span>
           <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </summary>
-        <div class="px-6 pb-4 text-text-secondary text-sm leading-relaxed">No. No recopilamos ni compartemos tus datos personales.</div>
+        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">No. No recopilamos ni compartemos tus datos personales.</div>
       </details>
       <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-text-primary hover:text-accent-red transition-colors">
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
           <span>¿Cómo me uno al servidor?</span>
           <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </summary>
-        <div class="px-6 pb-4 text-text-secondary text-sm leading-relaxed">Usá la dirección ragsmc.dpdns.org con la versión 1.21.1 Forge desde el launcher.</div>
+        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">Usá la dirección ragsmc.dpdns.org con la versión 1.21.1 Forge desde el launcher.</div>
       </details>
     </div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+<!-- ===== FOOTER ===== -->
 <footer class="border-t border-white/10 bg-white/5 py-12" id="contacto">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid md:grid-cols-4 gap-8 mb-10">
       <div class="reveal">
         <a href="#inicio" class="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
           <img src="./assets/logo/wolf.svg" class="w-6 h-6" alt="">
-          <span>Rags<span class="text-accent-red">Mc</span></span>
+          <span>Rags<span class="text-[#E85D4C]">Mc</span></span>
         </a>
-        <p class="mt-4 text-text-muted text-sm leading-relaxed max-w-xs">Launcher independiente de Minecraft con identidad propia. Hecho por la comunidad, para la comunidad.</p>
+        <p class="mt-4 text-[#64748B] text-sm leading-relaxed max-w-xs">Launcher independiente de Minecraft con identidad propia. Hecho por la comunidad, para la comunidad.</p>
         <div class="flex gap-3 mt-6">
-          <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-text-secondary hover:text-accent-red hover:bg-white/10 transition-colors" aria-label="Twitch"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></a>
-          <a href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-text-secondary hover:text-black hover:bg-white/10 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0l12-2m-5 5v3.01a4 4 0 00-5.357-4.123m-5.357 4.123V19a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085zm-5.357 4.123V18a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085z"></path></svg></a>
-          <a href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-text-secondary hover:text-red-500 hover:bg-white/10 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></a>
-          <a href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-text-secondary hover:text-green-500 hover:bg-white/10 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 1014 0a7 7 0 00-14 0zM12 17a1 1 0 100-2a1 1 0 000 2zM12 7a1 1 0 100-2a1 1 0 000 2z"></path></svg></a>
+          <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#7146FF] hover:bg-white/10 transition-colors" aria-label="Twitch"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></a>
+          <a href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-black hover:bg-white/10 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0l12-2m-5 5v3.01a4 4 0 00-5.357-4.123m-5.357 4.123V19a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085zm-5.357 4.123V18a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085z"></path></svg></a>
+          <a href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#DC2626] hover:bg-white/10 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></a>
+          <a href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#22C55E] hover:bg-white/10 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 1014 0a7 7 0 00-14 0zM12 17a1 1 0 100-2a1 1 0 000 2zM12 7a1 1 0 100-2a1 1 0 000 2z"></path></svg></a>
         </div>
       </div>
       <div class="reveal">
-        <h4 class="font-display font-bold text-text-primary mb-4">Producto</h4>
-        <ul class="space-y-2 text-sm text-text-secondary">
-          <li><a href="#inicio" class="hover:text-accent-red transition-colors">Inicio</a></li>
-          <li><a href="#features" class="hover:text-accent-red transition-colors">Características</a></li>
-          <li><a href="#servidor" class="hover:text-accent-red transition-colors">Servidor</a></li>
-          <li><a href="#descarga" class="hover:text-accent-red transition-colors">Descarga</a></li>
+        <h4 class="font-display font-bold text-[#F8FAFC] mb-4">Producto</h4>
+        <ul class="space-y-2 text-sm text-[#64748B]">
+          <li><a href="#inicio" class="hover:text-[#E85D4C] transition-colors">Inicio</a></li>
+          <li><a href="#features" class="hover:text-[#E85D4C] transition-colors">Características</a></li>
+          <li><a href="#servidor" class="hover:text-[#E85D4C] transition-colors">Servidor</a></li>
+          <li><a href="#descarga" class="hover:text-[#E85D4C] transition-colors">Descarga</a></li>
         </ul>
       </div>
       <div class="reveal">
-        <h4 class="font-display font-bold text-text-primary mb-4">Recursos</h4>
-        <ul class="space-y-2 text-sm text-text-secondary">
-          <li><a href="#galeria" class="hover:text-accent-red transition-colors">Galería</a></li>
-          <li><a href="#roadmap" class="hover:text-accent-red transition-colors">Hoja de ruta</a></li>
-          <li><a href="#comunidad" class="hover:text-accent-red transition-colors">Comunidad</a></li>
-          <li><a href="#faq" class="hover:text-accent-red transition-colors">FAQ</a></li>
+        <h4 class="font-display font-bold text-[#F8FAFC] mb-4">Recursos</h4>
+        <ul class="space-y-2 text-sm text-[#64748B]">
+          <li><a href="#galeria" class="hover:text-[#E85D4C] transition-colors">Galería</a></li>
+          <li><a href="#roadmap" class="hover:text-[#E85D4C] transition-colors">Hoja de ruta</a></li>
+          <li><a href="#comunidad" class="hover:text-[#E85D4C] transition-colors">Comunidad</a></li>
+          <li><a href="#faq" class="hover:text-[#E85D4C] transition-colors">FAQ</a></li>
         </ul>
       </div>
       <div class="reveal">
-        <h4 class="font-display font-bold text-text-primary mb-4">Legal</h4>
-        <ul class="space-y-2 text-sm text-text-secondary">
-          <li><a href="aviso-legal.html" class="hover:text-accent-red transition-colors">Aviso legal</a></li>
-          <li><a href="privacidad.html" class="hover:text-accent-red transition-colors">Privacidad</a></li>
-          <li><a href="cookies.html" class="hover:text-accent-red transition-colors">Cookies</a></li>
-          <li><a href="https://github.com/RagsnorWolf/ragsmc-launcher" target="_blank" rel="noopener" class="hover:text-accent-red transition-colors">GitHub</a></li>
+        <h4 class="font-display font-bold text-[#F8FAFC] mb-4">Legal</h4>
+        <ul class="space-y-2 text-sm text-[#64748B]">
+          <li><a href="aviso-legal.html" class="hover:text-[#E85D4C] transition-colors">Aviso legal</a></li>
+          <li><a href="privacidad.html" class="hover:text-[#E85D4C] transition-colors">Privacidad</a></li>
+          <li><a href="cookies.html" class="hover:text-[#E85D4C] transition-colors">Cookies</a></li>
+          <li><a href="https://github.com/RagsnorWolf/ragsmc-launcher" target="_blank" rel="noopener" class="hover:text-[#E85D4C] transition-colors">GitHub</a></li>
         </ul>
       </div>
     </div>
     <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-xs text-text-muted">© <span id="year">2026</span> RagsMc Launcher. Proyecto independiente.</p>
-      <p class="text-xs text-text-muted">Sin afiliación con Mojang ni Microsoft.</p>
+      <p class="text-xs text-[#64748B]">© <span id="year">2026</span> RagsMc Launcher. Proyecto independiente.</p>
+      <p class="text-xs text-[#64748B]">Sin afiliación con Mojang ni Microsoft.</p>
     </div>
   </div>
 </footer>
 
 <!-- TOAST -->
 <div class="toast toast-hidden" id="toast">
-  <div class="glass px-4 py-2 rounded-lg text-sm text-text-primary shadow-glow flex items-center gap-2">
-    <svg class="w-4 h-4 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+  <div class="glass px-4 py-2 rounded-lg text-[#F8FAFC] text-sm shadow-glow flex items-center gap-2">
+    <svg class="w-4 h-4 text-[#22C55E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
     <span id="toastMsg">Copiado al portapapeles</span>
   </div>
 </div>
 
+</main>
+
+<!-- ===== SCRIPTS ===== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
