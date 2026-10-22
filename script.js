@@ -1,889 +1,383 @@
 /* ============================================================
-   RagsMc Launcher — script.js
-   Tema claro/oscuro · ES/EN · reveal · lightbox · aviso · música
-   Vanilla JS · sin módulos · file:// safe
+   RAGSMC LAUNCHER — script.js
+   i18n, tema, música, loader, GSAP/Lenis/SplitText, partículas,
+   reveal al scroll, sonidos Minecraft, formularios, utilidades.
    ============================================================ */
 (function () {
-  'use strict';
+  "use strict";
 
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function $(s, c) { return (c || document).querySelector(s); }
-  function $all(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
-
-  /* ---------------- DICCIONARIO ES / EN ---------------- */
-  var I18N = {
+  /* ---------- i18n ---------- */
+  const i18n = {
     es: {
-      'skip': 'Saltar al contenido',
-      'brand.alt': 'Logo de lobo RagsMc',
-      'nav.home': 'Inicio', 'nav.project': 'Proyecto', 'nav.features': 'Características', 'nav.gallery': 'Galería',
-      'nav.community': 'Comunidad', 'nav.progress': 'Avance', 'nav.download': 'Descarga', 'nav.cta': 'Descargar', 'nav.menu': 'Abrir menú',
-      'theme.toggle': 'Cambiar tema',
-      'hero.badge': 'Proyecto independiente · En desarrollo',
-      'hero.sub': 'Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.',
-      'hero.cta1': 'Descargar para Windows', 'hero.cta2': 'Unirse a la comunidad',
-      'hero.note': 'Disponible para Windows · Linux próximamente.',
-      'about.kicker': 'Sobre el proyecto',
-      'about.badge': 'En desarrollo',
-      'about.title': '¿Qué es RagsMc Launcher?',
-      'about.p1': 'RagsMc Launcher es un proyecto independiente creado con el objetivo de ofrecer una experiencia moderna y personalizada para jugar Minecraft desde un único lugar.',
-      'about.p2': 'Actualmente se encuentra en construcción. Cada sistema, pantalla y decisión está siendo pensado para crear una base sólida, rápida y preparada para crecer.',
-      'about.s1': 'Proyecto indie', 'about.s2': 'Mundos posibles', 'about.s3': 'Identidad propia',
-      'feat.kicker': 'El núcleo',
-      'feat.title': 'Características',
-      'feat.desc': 'Una base enfocada en lo importante, preparada para evolucionar junto al proyecto.',
-      'feat.1t': 'Rápido',
-      'feat.1d': 'Diseñado para ofrecer una experiencia de inicio rápida y sencilla.',
-      'feat.2t': 'Minecraft',
-      'feat.2d': 'Pensado alrededor de la experiencia de Minecraft.',
-      'feat.3t': 'Personalizable',
-      'feat.3d': 'Preparado para futuras opciones de personalización.',
-      'feat.4t': 'Versiones',
-      'feat.4d': 'Preparado para gestionar diferentes versiones de Minecraft.',
-      'feat.5t': 'En desarrollo',
-      'feat.5d': 'El proyecto continúa evolucionando constantemente.',
-      'feat.6t': 'Futuro',
-      'feat.6d': 'Nuevas características serán incorporadas progresivamente.',
-      'gal.kicker': 'Galería', 'gal.title': 'El mundo que nos inspira',
-      'gal.desc': 'La estética y el ambiente que guían el diseño del proyecto.',
-      'gal.alt1': 'Bosque de Minecraft al atardecer', 'gal.alt2': 'Lago en las llanuras de Minecraft',
-      'gal.alt3': 'Claro con agua en la jungla de Minecraft', 'gal.alt4': 'Campamento con fogata en Minecraft',
-      'gal.alt5': 'Atardecer en el bosque de Minecraft',
-      'gal.alt6': 'Valle con lago en Minecraft',
-      'gal.alt7': 'Vuelo con élitros sobre la jungla en Minecraft',
-      'gal.alt8': 'Picos nevados en Minecraft',
-      'gal.alt9': 'Arboleda de cerezos en Minecraft',
-      'gal.alt10': 'Colina de cerezos junto al lago en Minecraft',
-      'gal.note': 'Imágenes conceptuales de referencia. No son capturas del launcher.',
-      'av.kicker': 'Avance del launcher',
-      'av.title': 'Así va el launcher',
-      'av.desc': 'Capturas reales del desarrollo. Sin renders ni promesas: esto es lo que ya existe hoy.',
-      'av.alt1': 'Pantalla principal del launcher RagsMc en desarrollo',
-      'av.alt2': 'Launcher RagsMc con noticias, gestor de mods y consola',
-      'av.alt3': 'Launcher RagsMc en desarrollo',
-      'av.c1': 'Pantalla Jugar', 'av.c2': 'Selector 1.21.10', 'av.c3': 'Noticias', 'av.c4': 'Gestor de Mods', 'av.c5': 'Consola',
-      'av.note': 'Iremos publicando cada avance aquí mismo.',
-      'faq.kicker': 'Preguntas Frecuentes', 'faq.title': '¿Tenés dudas?',
-      'faq.desc': 'Resolvemos las preguntas más comunes sobre RagsMc Launcher.',
-      'faq.q1': '¿Qué es RagsMc Launcher?',
-      'faq.a1': 'RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.',
-      'faq.q2': '¿Es gratis?',
-      'faq.a2': 'Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.',
-      'faq.q3': '¿En qué sistemas operativos está disponible?',
-      'faq.a3': 'Actualmente está disponible para Windows. La versión para Linux está en desarrollo y llegará próximamente.',
-      'faq.q5': '¿Cuándo estará disponible para Linux?',
-      'faq.a5': 'Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad para el proyecto.',
-      'faq.q6': '¿Cómo reporto un bug o sugerencia?',
-      'faq.a6': 'Podés comunicarte a través de nuestra sección de comunidad más abajo. Ahí nos encontrás activos y listos para ayudar.',
-      'faq.q7': '¿El launcher recopila mis datos?',
-      'faq.a7': 'No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.',
-      'faq.q8': '¿Puedo usar mis mods existentes?',
-      'faq.a8': 'Sí, el launcher tiene un gestor de mods integrado. Podés activar, desactivar y gestionar tus mods directamente desde la interfaz.',
-      'faq.support': '¿No encontraste lo que buscabas? Escribinos.',
-      'faq.supportbtn': 'Escríbenos en la comunidad',
-      'faq.subject': 'Asunto', 'faq.email': 'Tu correo', 'faq.msg': 'Tu mensaje...', 'faq.send': 'Enviar mensaje',
-      'road.kicker': 'Ruta de desarrollo',
-      'road.title': 'RagsMc Launcher está creciendo.',
-      'road.desc': 'El avance será progresivo: primero una experiencia estable y clara; después, nuevas posibilidades. Sin promesas vacías.',
-      'road.phase': 'Fase',
-      'road.p1t': 'Concepto', 'road.p1d': 'Diseño y concepto inicial.',
-      'road.p2t': 'Desarrollo', 'road.p2d': 'Construcción del launcher.',
-      'road.p3t': 'Testing', 'road.p3d': 'Pruebas, correcciones y estabilidad.',
-      'road.p4t': 'Release', 'road.p4d': 'Primera versión pública estable.',
-      'road.p5t': 'Actualizaciones', 'road.p5d': 'Mejoras y nuevas funciones.',
-      'road.done': 'Completado', 'road.now': 'Actual', 'road.next': 'Pendiente',
-      'soc.kicker': 'Comunidad', 'soc.title': 'Síguenos',
-      'soc.desc': 'Contenido, avances y directos del proyecto.',
-      'soc.twitch': 'Twitch de RagsMc', 'soc.tiktok': 'TikTok de RagsMc', 'soc.youtube': 'YouTube de RagsMc',
-      'soc.wa': 'WhatsApp de RagsMc', 'soc.official': 'Canal oficial',
-      'soc.twitchd': 'Directos y avances en vivo.',
-      'soc.wad': 'Avisos y novedades al instante.',
-      'soc.tiktokd': 'Clips y novedades en corto.',
-      'soc.ytd': 'Videos y devlogs.',
-      'dl.kicker': 'Descarga', 'dl.title': 'Consigue RagsMc Launcher',
-      'dl.desc': 'Ya disponible para Windows. Linux llegará próximamente.',
-      'dl.status': 'Versión 1.0.4 disponible para Windows',
-      'dl.statussub': 'Instalador de 11.0 MB, gratis y sin registro.',
-      'dl.notify': 'Avísame de novedades y nuevas versiones', 'dl.ph': 'tu@correo.com', 'dl.btn': 'Avisarme',
-      'dl.privacy': 'Tu correo se guarda solo en este dispositivo. Sin spam.',
-      'dl.soon': 'Próximamente',
-      'dl.support': '¿Dudas o sugerencias? Habla con nosotros en la comunidad.',
-      'dl.supportbtn': 'Ir a la comunidad',
-      'footer.note': 'Proyecto independiente. Sin afiliación con Mojang ni Microsoft.',
-      'noping.tab': '¿Tu Internet anda muy mal?',
-      'noping.logo': 'NoPing: abrir sitio oficial',
-      'noping.logoalt': 'Logo de NoPing',
-      'noping.kicker': 'Conexión',
-      'noping.title': '¿Lag en tus partidas?',
-      'noping.desc': 'NoPing es un programa que optimiza la ruta de tu conexión hacia los servidores de juego: en vez del camino congestionado de tu operadora, te lleva por la vía más rápida disponible.',
-      'noping.b1': 'Menos ping y menos tirones.',
-      'noping.b2': 'Conexión más estable.',
-      'noping.b3': 'Funciona con Minecraft y cientos de juegos.',
-      'noping.cta': 'Probar NoPing gratis',
-      'noping.video': 'Ver qué es NoPing en video',
-      'noping.note': 'Los resultados dependen de tu conexión. Enlace de referido.',
-      'lb.close': 'Cerrar',
-      'misc.top': 'Volver arriba',
-      'load.loading': 'Cargando mundo...',
-      'load.tipLabel': 'Consejo:',
-      'marquee': 'RAGSMC LAUNCHER <b>✦</b> MINECRAFT <b>✦</b> EN DESARROLLO <b>✦</b> MODO CLARO Y OSCURO <b>✦</b> ',
-      tips: ['El botón de música está abajo a la izquierda', 'Puedes cambiar entre modo claro y oscuro arriba', 'La galería se amplía con un clic', 'Dicen que el lobo esconde un rugido... hazle 3 clics'],
-      stages: ['Generando terreno...', 'Cargando chunks...', 'Despertando al Enderdragón...', 'Puliendo esmeraldas...'],
-      'music.toggle': 'Activar o pausar música',
-      'notify.ok': '¡Listo! Te avisaremos en cuanto esté disponible.',
-      'notify.err': 'Escribe un correo válido para avisarte.'
+      skip: "Saltar al contenido",
+      nav: { home: "Inicio", project: "Proyecto", features: "Características", server: "Servidor", gallery: "Galería", roadmap: "Hoja de ruta", progress: "Avance", download: "Descarga", community: "Comunidad", support: "Soporte", cta: "Descargar", menu: "Abrir menú" },
+      theme: { toggle: "Cambiar tema" },
+      hero: { badge: "Proyecto independiente · En desarrollo", sub: "Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.", cta1: "Descargar para Windows", cta2: "Unirse a la comunidad", note: "Versión 1.0.4 · Windows · Linux próximamente · Gratis y sin registro" },
+      about: { kicker: "Sobre el proyecto", badge: "En desarrollo", title: "¿Qué es RagsMc Launcher?", p1: "RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna y personalizada para jugar Minecraft desde un solo lugar.", p2: "Cada sistema, pantalla y decisión está siendo pensado para construir una base sólida, rápida y preparada para crecer junto a la comunidad.", s1: "Proyecto indie", s2: "Mundos posibles", s3: "Identidad propia" },
+      feat: { kicker: "El núcleo", title: "Características", desc: "Una base enfocada en lo importante, preparada para evolucionar junto al proyecto.", 1t: "Rápido", 1d: "Inicio veloz y experiencia fluida sin complicaciones.", 2t: "Minecraft", 2d: "Pensado desde y para la experiencia de Minecraft.", 3t: "Personalizable", 3d: "Preparado para futuras opciones de personalización.", 4t: "Versiones", 4d: "Gestión de diferentes versiones de Minecraft.", 5t: "En desarrollo", 5d: "El proyecto evoluciona constantemente con la comunidad.", 6t: "Futuro", 6d: "Nuevas características incorporadas progresivamente." },
+      server: { kicker: "El servidor", title: "Juega en RagsMC", p1: "RagsMc es un servidor de Minecraft pensado para la comunidad, con identidad propia y un entorno hecho para jugar junto a otros." },
+      gal: { kicker: "Galería", title: "El mundo que nos inspira", desc: "Estética y ambiente que guían el diseño del proyecto.", note: "Imágenes conceptuales de referencia. No son capturas del launcher.", alt1: "Bosque de Minecraft al atardecer", alt2: "Lago en las llanuras de Minecraft", alt3: "Claro con agua en la jungla de Minecraft", alt4: "Campamento con fogata en Minecraft", alt5: "Atardecer en el bosque de Minecraft", alt6: "Valle con lago en Minecraft", alt7: "Vuelo con élitros sobre la jungla de Minecraft", alt8: "Picos nevados en Minecraft", alt9: "Arboleda de cerezos en Minecraft", alt10: "Colina de cerezos junto al lago en Minecraft" },
+      road: { kicker: "Hoja de ruta", title: "RagsMc Launcher está creciendo.", desc: "Avance progresivo: primero una experiencia estable y clara, luego nuevas posibilidades. Sin promesas vacías.", phase: "Fase", p1t: "Concepto", p1d: "Diseño y concepto inicial del launcher.", p2t: "Desarrollo", p2d: "Construcción del launcher base.", p3t: "Testing", p3d: "Pruebas, correcciones y estabilidad.", p4t: "Release", p4d: "Primera versión pública estable.", p5t: "Actualizaciones", p5d: "Mejoras y nuevas funciones.", done: "Completado", now: "Actual", next: "Pendiente" },
+      av: { kicker: "Avance del launcher", title: "Así va el launcher", desc: "Capturas reales del desarrollo. Sin renders ni promesas: esto es lo que ya existe hoy.", c1: "Pantalla Jugar", c2: "Selector 1.21.10", c3: "Noticias", c4: "Gestor de Mods", c5: "Consola", note: "Iremos publicando cada avance aquí mismo." },
+      dl: { kicker: "Descarga", title: "Consigue RagsMc Launcher", desc: "Ya disponible para Windows. Linux llegará próximamente.", soon: "Próximamente", status: "Versión 1.0.4 disponible para Windows", statussub: "Instalador de 11.0 MB, gratis y sin registro.", notify: "Avísame de novedades y nuevas versiones", ph: "tu@correo.com", btn: "Avisarme", privacy: "Tu correo se guarda solo en este dispositivo. Sin spam.", support: "¿Dudas o sugerencias?", supportbtn: "Habla con la comunidad" },
+      soc: { kicker: "Comunidad", title: "Síguenos", desc: "Contenido, avances y directos del proyecto.", twitch: "Twitch de RagsMc", twitchd: "Directos y avances en vivo.", tiktok: "TikTok de RagsMc", tiktokd: "Clips y novedades en corto.", youtube: "YouTube de RagsMc", ytd: "Videos y devlogs.", wa: "WhatsApp de RagsMc", official: "Canal oficial", wad: "Avisos y novedades al instante." },
+      faq: { kicker: "Preguntas frecuentes", title: "¿Tenés dudas?", desc: "Resolvemos las preguntas más comunes sobre RagsMc Launcher.", q1: "¿Qué es RagsMc Launcher?", a1: "RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.", q2: "¿Es gratis?", a2: "Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.", q3: "¿En qué sistemas está disponible?", a3: "Por ahora para Windows. Linux está en nuestra ruta de desarrollo y llegará próximamente.", q4: "¿El launcher recopila mis datos?", a4: "No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.", q5: "¿Cuándo estará disponible para Linux?", a5: "Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad.", q6: "¿Cómo reporto un bug o sugerencia?", a6: "Escríbenos en la sección de comunidad. Ahí nos encontrás activos y listos para ayudar.", q7: "¿Puedo usar mis mods existentes?", a7: "Sí, el launcher tiene un gestor de mods integrado para activar, desactivar y gestionar tus mods.", subject: "Asunto", email: "Tu correo", msg: "Tu mensaje...", send: "Enviar mensaje" },
+      sup: { kicker: "Soporte", title: "¿Necesitás ayuda?", desc: "Escríbenos y te respondemos a la brevedad.", name: "Tu nombre", email: "Tu correo", msg: "Tu consulta...", send: "Enviar mensaje" },
+      footer: { note: "Proyecto independiente. Sin afiliación con Mojang ni Microsoft." },
+      misc: { top: "Volver arriba" },
+      music: { toggle: "Activar o pausar música" },
+      load: { loading: "Cargando mundo...", tipLabel: "Consejo:" },
+      noping: { tab: "¿Tu Internet anda muy mal?", close: "Cerrar", logoalt: "Logo de NoPing", kicker: "Conexión", title: "¿Lag en tus partidas?", desc: "NoPing es un programa que optimiza la ruta de tu conexión hacia los servidores de juego.", b1: "Menos ping y menos tirones.", b2: "Conexión más estable.", b3: "Funciona con Minecraft y cientos de juegos.", cta: "Probar NoPing gratis", video: "Ver qué es NoPing en video", note: "Los resultados dependen de tu conexión. Enlace de referido." },
+      brand: { alt: "Logo de lobo RagsMc" },
+      lb: { close: "Cerrar" }
     },
     en: {
-      'skip': 'Skip to content',
-      'brand.alt': 'RagsMc wolf logo',
-      'nav.home': 'Home', 'nav.project': 'Project', 'nav.features': 'Features', 'nav.gallery': 'Gallery',
-      'nav.community': 'Community', 'nav.progress': 'Progress', 'nav.download': 'Download', 'nav.cta': 'Download', 'nav.menu': 'Open menu',
-      'theme.toggle': 'Toggle theme',
-      'hero.badge': 'Independent project · In development',
-      'hero.sub': 'A fast, simple Minecraft launcher with its own identity. Made by players, for players.',
-      'hero.cta1': 'Download for Windows', 'hero.cta2': 'Join the community',
-      'hero.note': 'Available for Windows · Linux coming soon.',
-      'about.kicker': 'About the project',
-      'about.badge': 'In development',
-      'about.title': 'What is RagsMc Launcher?',
-      'about.p1': 'RagsMc Launcher is an independent project created to offer a modern, personalized experience for playing Minecraft from a single place.',
-      'about.p2': 'It is currently under construction. Every system, screen and decision is being designed to build a solid, fast base ready to grow.',
-      'about.s1': 'Indie project', 'about.s2': 'Possible worlds', 'about.s3': 'Own identity',
-      'feat.kicker': 'The core',
-      'feat.title': 'Features',
-      'feat.desc': 'A base focused on what matters, ready to evolve with the project.',
-      'feat.1t': 'Fast',
-      'feat.1d': 'Designed for a fast, simple startup experience.',
-      'feat.2t': 'Minecraft',
-      'feat.2d': 'Built around the Minecraft experience.',
-      'feat.3t': 'Customizable',
-      'feat.3d': 'Ready for future customization options.',
-      'feat.4t': 'Versions',
-      'feat.4d': 'Ready to manage different Minecraft versions.',
-      'feat.5t': 'In development',
-      'feat.5d': 'The project keeps evolving.',
-      'feat.6t': 'Future',
-      'feat.6d': 'New features will be added over time.',
-      'gal.kicker': 'Gallery', 'gal.title': 'The world that inspires us',
-      'gal.desc': "The aesthetics and atmosphere guiding the project's design.",
-      'gal.alt1': 'Minecraft forest at sunset', 'gal.alt2': 'Lake in the Minecraft plains',
-      'gal.alt3': 'Water clearing in the Minecraft jungle', 'gal.alt4': 'Minecraft camp with campfire',
-      'gal.alt5': 'Minecraft forest sunset',
-      'gal.alt6': 'Minecraft valley with lake',
-      'gal.alt7': 'Elytra flight over the Minecraft jungle',
-      'gal.alt8': 'Snowy peaks in Minecraft',
-      'gal.alt9': 'Cherry grove in Minecraft',
-      'gal.alt10': 'Cherry hill by the lake in Minecraft',
-      'gal.note': 'Conceptual reference images. Not launcher screenshots.',
-      'av.kicker': 'Launcher progress',
-      'av.title': 'How the launcher looks',
-      'av.desc': 'Real development screenshots. No renders, no promises: this is what already exists today.',
-      'av.alt1': 'RagsMc launcher main screen in development',
-      'av.alt2': 'RagsMc launcher with news, mod manager and console',
-      'av.alt3': 'RagsMc launcher in development',
-      'av.c1': 'Play screen', 'av.c2': '1.21.10 selector', 'av.c3': 'News', 'av.c4': 'Mod Manager', 'av.c5': 'Console',
-      'av.note': 'We will keep posting every step forward right here.',
-      'faq.kicker': 'Frequently Asked Questions', 'faq.title': 'Got questions?',
-      'faq.desc': 'We answer the most common questions about RagsMc Launcher.',
-      'faq.q1': 'What is RagsMc Launcher?',
-      'faq.a1': 'RagsMc Launcher is an independent Minecraft launcher designed to be fast, simple, and with its own identity. Made by players, for players.',
-      'faq.q2': 'Is it free?',
-      'faq.a2': 'Yes, RagsMc Launcher is completely free. No hidden costs or mandatory subscriptions.',
-      'faq.q3': 'Which operating systems is it available on?',
-      'faq.a3': 'Currently available for Windows. The Linux version is in development and coming soon.',
-      'faq.q5': 'When will it be available for Linux?',
-      'faq.a5': "It's on our development roadmap. No exact date yet, but it's a project priority.",
-      'faq.q6': 'How do I report a bug or suggestion?',
-      'faq.a6': 'You can reach us through our community section below. We are active and ready to help.',
-      'faq.q7': 'Does the launcher collect my data?',
-      'faq.a7': 'No. RagsMc Launcher does not collect or share your personal data. Your privacy matters.',
-      'faq.q8': 'Can I use my existing mods?',
-      'faq.a8': 'Yes, the launcher has a built-in mod manager. You can activate, deactivate, and manage your mods directly from the interface.',
-      'faq.support': "Didn't find what you were looking for? Write to us.",
-      'faq.supportbtn': 'Write to us in the community',
-      'faq.subject': 'Subject', 'faq.email': 'Your email', 'faq.msg': 'Your message...', 'faq.send': 'Send message',
-      'road.kicker': 'Development roadmap',
-      'road.title': 'RagsMc Launcher is growing.',
-      'road.desc': 'Progress will be gradual: first a stable, clear experience; then new possibilities. No empty promises.',
-      'road.phase': 'Phase',
-      'road.p1t': 'Concept', 'road.p1d': 'Design and initial concept.',
-      'road.p2t': 'Development', 'road.p2d': 'Building the launcher.',
-      'road.p3t': 'Testing', 'road.p3d': 'Tests, fixes and stability.',
-      'road.p4t': 'Release', 'road.p4d': 'First stable public release.',
-      'road.p5t': 'Updates', 'road.p5d': 'Improvements and new features.',
-      'road.done': 'Completed', 'road.now': 'Current', 'road.next': 'Pending',
-      'soc.kicker': 'Community', 'soc.title': 'Follow us',
-      'soc.desc': 'Content, updates and live streams from the project.',
-      'soc.twitch': 'RagsMc on Twitch', 'soc.tiktok': 'RagsMc on TikTok', 'soc.youtube': 'RagsMc on YouTube',
-      'soc.wa': 'RagsMc on WhatsApp', 'soc.official': 'Official channel',
-      'soc.twitchd': 'Live streams and sneak peeks.',
-      'soc.wad': 'News and updates instantly.',
-      'soc.tiktokd': 'Short clips and quick news.',
-      'soc.ytd': 'Videos and devlogs.',
-      'dl.kicker': 'Download', 'dl.title': 'Get RagsMc Launcher',
-      'dl.desc': 'Now available for Windows. Linux coming soon.',
-      'dl.status': 'Version 1.0.4 available for Windows',
-      'dl.statussub': '11.0 MB installer, free with no sign-up.',
-      'dl.notify': "Notify me of news and new releases", 'dl.ph': 'you@email.com', 'dl.btn': 'Notify me',
-      'dl.privacy': 'Your email is stored only on this device. No spam.',
-      'dl.soon': 'Coming soon',
-      'dl.support': 'Questions or suggestions? Talk to us in the community.',
-      'dl.supportbtn': 'Go to the community',
-      'footer.note': 'Independent project. Not affiliated with Mojang or Microsoft.',
-      'noping.tab': 'Is your Internet running badly?',
-      'noping.logo': 'NoPing: open official site',
-      'noping.logoalt': 'NoPing logo',
-      'noping.kicker': 'Connection',
-      'noping.title': 'Lag in your games?',
-      'noping.desc': 'NoPing is software that optimizes the route of your connection to game servers: instead of your ISP congested path, it takes you through the fastest available way.',
-      'noping.b1': 'Lower ping and fewer spikes.',
-      'noping.b2': 'More stable connection.',
-      'noping.b3': 'Works with Minecraft and hundreds of games.',
-      'noping.cta': 'Try NoPing free',
-      'noping.video': 'Watch what NoPing is',
-      'noping.note': 'Results depend on your connection. Referral link.',
-      'lb.close': 'Close',
-      'misc.top': 'Back to top',
-      'load.loading': 'Loading world...',
-      'load.tipLabel': 'Tip:',
-      'marquee': 'RAGSMC LAUNCHER <b>✦</b> MINECRAFT <b>✦</b> IN DEVELOPMENT <b>✦</b> DARK &amp; LIGHT MODE <b>✦</b> ',
-      tips: ['The music button is at the bottom left', 'You can switch between light and dark mode above', 'Click the gallery to enlarge it', 'They say the wolf hides a roar... click it 3 times'],
-      stages: ['Generating terrain...', 'Loading chunks...', 'Waking the Ender Dragon...', 'Polishing emeralds...'],
-      'music.toggle': 'Toggle music',
-      'notify.ok': "Done! We'll let you know as soon as it's available.",
-      'notify.err': 'Please enter a valid email address.'
+      skip: "Skip to content",
+      nav: { home: "Home", project: "Project", features: "Features", server: "Server", gallery: "Gallery", roadmap: "Roadmap", progress: "Progress", download: "Download", community: "Community", support: "Support", cta: "Download", menu: "Open menu" },
+      theme: { toggle: "Change theme" },
+      hero: { badge: "Independent project · In development", sub: "A fast, simple Minecraft launcher with its own identity. Made by players, for players.", cta1: "Download for Windows", cta2: "Join the community", note: "Version 1.0.4 · Windows · Linux coming soon · Free and no registration" },
+      about: { kicker: "About the project", badge: "In development", title: "What is RagsMc Launcher?", p1: "RagsMc Launcher is an independent project created to offer a modern and personalized experience to play Minecraft from a single place.", p2: "Each system, screen and decision is being thought to build a solid, fast base ready to grow with the community.", s1: "Indie project", s2: "Possible worlds", s3: "Own identity" },
+      feat: { kicker: "The core", title: "Features", desc: "A base focused on what matters, ready to evolve with the project.", 1t: "Fast", 1d: "Quick start and smooth experience without complications.", 2t: "Minecraft", 2d: "Made from and for the Minecraft experience.", 3t: "Customizable", 3d: "Prepared for future customization options.", 4t: "Versions", 4d: "Management of different Minecraft versions.", 5t: "In development", 5d: "The project constantly evolves with the community.", 6t: "Future", 6d: "New features added progressively." },
+      server: { kicker: "The server", title: "Play on RagsMC", p1: "RagsMc is a Minecraft server designed for the community, with its own identity and an environment made to play with others." },
+      gal: { kicker: "Gallery", title: "The world that inspires us", desc: "Aesthetic and atmosphere that guide the project design.", note: "Conceptual reference images. Not launcher screenshots.", alt1: "Minecraft forest at sunset", alt2: "Lake in Minecraft plains", alt3: "Clearing with water in Minecraft jungle", alt4: "Campfire camp in Minecraft", alt5: "Sunset in Minecraft forest", alt6: "Valley with lake in Minecraft", alt7: "Elytra flight over Minecraft jungle", alt8: "Snowy peaks in Minecraft", alt9: "Cherry grove in Minecraft", alt10: "Cherry hill next to lake in Minecraft" },
+      road: { kicker: "Roadmap", title: "RagsMc Launcher is growing.", desc: "Progressive advancement: first a stable and clear experience, then new possibilities. No empty promises.", phase: "Phase", p1t: "Concept", p1d: "Design and initial concept of the launcher.", p2t: "Development", p2d: "Building the base launcher.", p3t: "Testing", p3d: "Tests, fixes and stability.", p4t: "Release", p4d: "First stable public version.", p5t: "Updates", p5d: "Improvements and new features.", done: "Completed", now: "Current", next: "Pending" },
+      av: { kicker: "Launcher progress", title: "How the launcher is going", desc: "Real development captures. No renders or promises: this is what exists today.", c1: "Play screen", c2: "Version selector 1.21.10", c3: "News", c4: "Mods manager", c5: "Console", note: "We will publish each advance here." },
+      dl: { kicker: "Download", title: "Get RagsMc Launcher", desc: "Available for Windows. Linux coming soon.", soon: "Coming soon", status: "Version 1.0.4 available for Windows", statussub: "11.0 MB installer, free and no registration.", notify: "Notify me about news and new versions", ph: "your@email.com", btn: "Notify me", privacy: "Your email is stored only on this device. No spam.", support: "Questions or suggestions?", supportbtn: "Talk to the community" },
+      soc: { kicker: "Community", title: "Follow us", desc: "Content, news and live streams of the project.", twitch: "RagsMc Twitch", twitchd: "Live streams and news.", tiktok: "RagsMc TikTok", tiktokd: "Short clips and news.", youtube: "RagsMc YouTube", ytd: "Videos and devlogs.", wa: "RagsMc WhatsApp", official: "Official channel", wad: "News and updates instantly." },
+      faq: { kicker: "Frequently asked questions", title: "Got questions?", desc: "We answer the most common questions about RagsMc Launcher.", q1: "What is RagsMc Launcher?", a1: "RagsMc Launcher is an independent Minecraft launcher, designed to be fast, simple and with its own identity. Made by players, for players.", q2: "Is it free?", a2: "Yes, RagsMc Launcher is completely free. No hidden costs or mandatory subscriptions.", q3: "What systems is it available on?", a3: "For now Windows. Linux is on our roadmap and will be coming soon.", q4: "Does the launcher collect my data?", a4: "No. RagsMc Launcher does not collect or share your personal data. Your privacy matters.", q5: "When will Linux be available?", a5: "It's on our roadmap. No exact date yet, but it's a priority.", q6: "How do I report a bug or suggestion?", a6: "Write to us in the community section. We're active there and ready to help.", q7: "Can I use my existing mods?", a7: "Yes, the launcher has an integrated mods manager to activate, deactivate and manage your mods.", subject: "Subject", email: "Your email", msg: "Your message...", send: "Send message" },
+      sup: { kicker: "Support", title: "Need help?", desc: "Write to us and we'll reply as soon as possible.", name: "Your name", email: "Your email", msg: "Your inquiry...", send: "Send message" },
+      footer: { note: "Independent project. Not affiliated with Mojang or Microsoft." },
+      misc: { top: "Back to top" },
+      music: { toggle: "Activate or pause music" },
+      load: { loading: "Loading world...", tipLabel: "Tip:" },
+      noping: { tab: "Is your Internet very bad?", close: "Close", logoalt: "NoPing logo", kicker: "Connection", title: "Lag in your matches?", desc: "NoPing is a program that optimizes the route of your connection to game servers.", b1: "Less ping and fewer stutters.", b2: "More stable connection.", b3: "Works with Minecraft and hundreds of games.", cta: "Try NoPing for free", video: "See what NoPing is in video", note: "Results depend on your connection. Referral link." },
+      brand: { alt: "RagsMc wolf logo" },
+      lb: { close: "Close" }
     }
   };
 
-  var lang = 'es';
-  try { lang = localStorage.getItem('ragsmc-lang') || 'es'; } catch (e) {}
-  if (lang !== 'es' && lang !== 'en') lang = 'es';
-
-  function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.es[key] || key; }
-
-  function applyLang() {
-    document.documentElement.lang = lang;
-    $all('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
-    $all('[data-i18n-ph]').forEach(function (el) { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
-    $all('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
-    $all('[data-i18n-alt]').forEach(function (el) { el.setAttribute('alt', t(el.getAttribute('data-i18n-alt'))); });
-    $all('.lang-btn').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
-    try { localStorage.setItem('ragsmc-lang', lang); } catch (e) {}
+  let lang = localStorage.getItem("ragsmc-lang") || "es";
+  function t(key) {
+    const parts = key.split(".");
+    let obj = i18n[lang];
+    for (const p of parts) { if (!obj || !(p in obj)) return key; obj = obj[p]; }
+    return typeof obj === "string" ? obj : key;
   }
-  $all('.lang-btn').forEach(function (b) {
-    b.addEventListener('click', function () {
-      if (lang === b.getAttribute('data-lang')) return;
-      lang = b.getAttribute('data-lang');
+  function applyLang() {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+      el.placeholder = t(el.dataset.i18nPh);
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+      el.alt = t(el.dataset.i18nAlt);
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+      el.setAttribute("aria-label", t(el.dataset.i18nAria));
+    });
+    document.documentElement.lang = lang;
+    const esBtn = document.querySelector('.lang-btn[data-lang="es"]');
+    const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
+    if (esBtn) esBtn.classList.toggle("active", lang === "es");
+    if (enBtn) enBtn.classList.toggle("active", lang === "en");
+  }
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      lang = btn.dataset.lang;
+      localStorage.setItem("ragsmc-lang", lang);
       applyLang();
-      playSfx('enderman');
-      var msg = $('#notifyMsg');
-      if (msg && msg.textContent) msg.textContent = msg.classList.contains('ok') ? t('notify.ok') : t('notify.err');
+      playSfx("click");
     });
   });
 
-  /* ---------------- TEMA CLARO / OSCURO ---------------- */
-  var root = document.documentElement, metaTheme = $('#metaTheme');
-  var theme = 'dark';
-  try { theme = localStorage.getItem('ragsmc-theme') || theme; } catch (e) {}
-  if (!localStorage.getItem('ragsmc-theme') && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
-  function applyTheme() {
-    root.setAttribute('data-theme', theme);
-    if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#05070d' : '#f6f8fb');
-    try { localStorage.setItem('ragsmc-theme', theme); } catch (e) {}
+  /* ---------- Tema claro/oscuro ---------- */
+  const themeBtn = document.getElementById("themeBtn");
+  const metaTheme = document.getElementById("metaTheme");
+  const savedTheme = localStorage.getItem("ragsmc-theme");
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  let isDark = savedTheme ? savedTheme === "dark" : systemDark;
+  function setTheme(dark) {
+    isDark = dark;
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    localStorage.setItem("ragsmc-theme", dark ? "dark" : "light");
+    metaTheme.content = dark ? "#0b0f1a" : "#f7f3ee";
   }
-  var themeBtn = $('#themeBtn');
-  if (themeBtn) themeBtn.addEventListener('click', function () {
-    theme = theme === 'dark' ? 'light' : 'dark';
-    applyTheme();
-    playSfx('pop');
+  setTheme(isDark);
+  themeBtn.addEventListener("click", () => { setTheme(!isDark); playSfx("pop"); });
+
+  /* ---------- Año footer ---------- */
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------- Sonidos estilo Minecraft (WebAudio, sin archivos obligatorios) ---------- */
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = AudioCtx ? new AudioCtx() : null;
+  const sfxFiles = { click: "./assets/sfx/click.mp3", chest: "./assets/sfx/chest.mp3", pop: "./assets/sfx/pop.mp3", enderman: "./assets/sfx/enderman.mp3", portal: "./assets/sfx/portal.mp3", levelup: "./assets/sfx/levelup.mp3", dragon: "./assets/sfx/dragon.mp3", dl: "./assets/sfx/dl.mp3" };
+  function playSfx(name) {
+    const file = sfxFiles[name];
+    if (file && audioCtx) {
+      fetch(file).then(r => r.arrayBuffer()).then(buf => audioCtx.decodeAudioData(buf)).then(bd => {
+        const s = audioCtx.createBufferSource(); s.buffer = bd; s.connect(audioCtx.destination); s.start(0);
+      }).catch(() => synthSfx(name));
+    } else {
+      synthSfx(name);
+    }
+  }
+  function synthSfx(name) {
+    if (!audioCtx) return;
+    const t = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator(); const g = audioCtx.createGain();
+    osc.connect(g); g.connect(audioCtx.destination);
+    if (name === "click") { osc.type = "square"; osc.frequency.setValueAtTime(880, t); osc.frequency.exponentialRampToValueAtTime(1100, t + 0.08); g.gain.setValueAtTime(0.12, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.12); osc.start(t); osc.stop(t + 0.12); }
+    else if (name === "pop") { osc.type = "sine"; osc.frequency.setValueAtTime(600, t); osc.frequency.exponentialRampToValueAtTime(1200, t + 0.1); g.gain.setValueAtTime(0.15, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.18); osc.start(t); osc.stop(t + 0.18); }
+    else if (name === "dl") { osc.type = "sawtooth"; osc.frequency.setValueAtTime(220, t); osc.frequency.linearRampToValueAtTime(440, t + 0.15); g.gain.setValueAtTime(0.1, t); g.gain.linearRampToValueAtTime(0.001, t + 0.3); osc.start(t); osc.stop(t + 0.3); }
+    else { osc.type = "sine"; osc.frequency.setValueAtTime(440, t); g.gain.setValueAtTime(0.1, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.1); osc.start(t); osc.stop(t + 0.1); }
+  }
+  window.playSfx = playSfx;
+  document.addEventListener("click", e => {
+    const el = e.target.closest("[data-sfx]");
+    if (el) playSfx(el.dataset.sfx);
   });
-  applyTheme();
+
+  /* ---------- Música (c418.mp3 local, loop) ---------- */
+  const musicBtn = document.getElementById("musicBtn");
+  const music = new Audio("./assets/audio/c418.mp3");
+  music.loop = true;
+  music.volume = 0.3;
+  let musicStarted = false;
+  function toggleMusic() {
+    if (!musicStarted) {
+      music.play().catch(() => {});
+      musicStarted = true;
+    }
+    if (music.paused) { music.play(); musicBtn.setAttribute("aria-pressed", "true"); }
+    else { music.pause(); musicBtn.setAttribute("aria-pressed", "false"); }
+    playSfx("portal");
+  }
+  musicBtn.addEventListener("click", toggleMusic);
+  document.body.addEventListener("click", () => { if (!musicStarted) { music.play().catch(() => {}); musicStarted = true; musicBtn.setAttribute("aria-pressed", "true"); } }, { once: true });
+
+  /* ---------- Loader ---------- */
+  const loader = document.getElementById("loader");
+  const loaderFill = document.getElementById("loaderFill");
+  const loaderStage = document.getElementById("loaderStage");
+  const loaderTip = document.getElementById("loaderTip");
+  const tipsES = ["El lobo protege a la manada.", "El cuervo vigila desde el cielo.", "Cada bloque cuenta.", "Preparando tu experiencia Minecraft.", "Sin promesas vacías."];
+  const tipsEN = ["The wolf protects the pack.", "The raven watches from the sky.", "Every block counts.", "Preparing your Minecraft experience.", "No empty promises."];
+  const stages = ["Generando terreno...", "Despertando al Enderdragón...", "Cargando texturas...", "Conectando al servidor...", "Listo para jugar."];
+  const stagesEN = ["Generating terrain...", "Awakening the Enderdragon...", "Loading textures...", "Connecting to server...", "Ready to play."];
+  let prog = 0;
+  const loaderInterval = setInterval(() => {
+    prog += Math.random() * 12;
+    if (prog >= 100) { prog = 100; clearInterval(loaderInterval); }
+    loaderFill.style.width = prog + "%";
+    if (loaderStage) loaderStage.textContent = lang === "es" ? stages[Math.min(Math.floor(prog / 22), stages.length - 1)] : stagesEN[Math.min(Math.floor(prog / 22), stagesEN.length - 1)];
+    if (loaderTip) loaderTip.textContent = lang === "es" ? tipsES[Math.floor(Math.random() * tipsES.length)] : tipsEN[Math.floor(Math.random() * tipsEN.length)];
+    if (prog >= 100) {
+      setTimeout(() => {
+        loader.classList.add("done");
+        initAnimations();
+      }, 350);
+    }
+  }, 120);
+
+  /* ---------- GSAP / Lenis / SplitText ---------- */
+  function initAnimations() {
+    try {
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+    } catch (e) { console.warn("GSAP plugins no cargaron", e); }
+    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: "vertical", gestureDirection: "vertical", smooth: true, touchMultiplier: 1.35 });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    lenis.on("scroll", () => {
+      const s = window.pageYOffset || document.documentElement.scrollTop;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById("progressFill").style.width = (s / h * 100) + "%";
+      updateNavbar();
+    });
+
+    // SplitText título hero
+    try {
+      const split = new SplitText(".hero-title span", { type: "chars, words", charsClass: "char" });
+      gsap.from(split.chars, { opacity: 0, y: 40, rotateX: -40, duration: 0.7, stagger: 0.035, ease: "back.out(1.7)", delay: 0.4 });
+    } catch (e) { console.warn("SplitText no disponible", e); }
+
+    // Hero entrada
+    gsap.to(".hero-coords", { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: "power2.out" });
+    gsap.to(".hero-mascots img", { y: "-=10", duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: 0.6 });
+
+    // Reveal secciones
+    gsap.utils.toArray(".reveal").forEach(el => {
+      const delay = el.dataset.delay ? parseInt(el.dataset.delay) / 1000 : 0;
+      ScrollTrigger.create({ trigger: el, start: "top 82%", end: "bottom 20%", once: true, onEnter: () => { el.classList.add("visible"); gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay, ease: "power2.out" }); } });
+    });
+
+    // Cards tilt 3D
+    document.querySelectorAll(".card, .soc-card, .os-btn.ready").forEach(el => {
+      el.addEventListener("mousemove", e => {
+        const rect = el.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+        const cx = rect.width / 2; const cy = rect.height / 2;
+        const dx = (x - cx) / cx; const dy = (y - cy) / cy;
+        el.style.transform = `perspective(700px) rotateX(${-dy * 6}deg) rotateY(${dx * 6}deg) scale(1.02)`;
+      });
+      el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+    });
+
+    // Botones magnéticos (solo PC)
+    if (window.matchMedia("(pointer: fine)").matches) {
+      document.querySelectorAll(".btn-primary.btn-lg").forEach(btn => {
+        btn.addEventListener("mousemove", e => {
+          const rect = btn.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, { x: x * 0.35, y: y * 0.35, duration: 0.5, ease: "power2.out" });
+        });
+        btn.addEventListener("mouseleave", () => gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "power2.out" }));
+      });
+    }
+
+    // Coordenadas hero animadas
+    setInterval(() => {
+      document.getElementById("cX").textContent = Math.floor(Math.random() * 2000) - 1000;
+      document.getElementById("cY").textContent = 64 + Math.floor(Math.random() * 4) - 2;
+      document.getElementById("cZ").textContent = Math.floor(Math.random() * 2000) - 1000;
+    }, 1500);
+
+    // Partículas hero (canvas)
+    const canvas = document.getElementById("heroParticles");
+    if (canvas) {
+      const ctx = canvas.getContext("2d"); let w, h, particles = [];
+      function resize() { w = canvas.width = canvas.parentElement.clientWidth; h = canvas.height = canvas.parentElement.clientHeight; }
+      window.addEventListener("resize", resize); resize();
+      for (let i = 0; i < 35; i++) particles.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35, r: Math.random() * 2 + 1, a: Math.random() * 0.6 + 0.2 });
+      function drawParticles() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "#22c55e";
+        for (const p of particles) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+          ctx.globalAlpha = p.a;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+        requestAnimationFrame(drawParticles);
+      }
+      drawParticles();
+    }
+
+    // Marquee duplicado
+    const track = document.getElementById("marqueeTrack");
+    if (track) {
+      const dup = track.cloneNode(true); dup.setAttribute("aria-hidden", "true"); track.parentNode.appendChild(dup);
+    }
+
+    // Roadmap línea progreso
+    ScrollTrigger.create({ trigger: ".road-line", start: "top 70%", once: true, onEnter: () => { gsap.to("#roadLineFill", { width: "100%", duration: 1.4, ease: "power2.inOut" }); } });
+  }
+
+  /* ---------- Navbar scroll ---------- */
+  const navbar = document.getElementById("navbar");
+  let lastY = 0;
+  function updateNavbar() {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+    if (y > 40) navbar.classList.add("nav-scrolled"); else navbar.classList.remove("nav-scrolled");
+    lastY = y;
+  }
+
+  /* ---------- Menú móvil ---------- */
+  const burger = document.getElementById("burger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  burger.addEventListener("click", () => {
+    const open = mobileMenu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  });
+  document.querySelectorAll(".mobile-menu a").forEach(a => {
+    a.addEventListener("click", () => { mobileMenu.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); });
+  });
+
+  /* ---------- Scroll suave anclas ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener("click", e => {
+      const id = a.getAttribute("href").slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth" }); }
+    });
+  });
+
+  /* ---------- Volver arriba ---------- */
+  const toTop = document.getElementById("toTop");
+  window.addEventListener("scroll", () => {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+    toTop.classList.toggle("visible", y > 400);
+  });
+  toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  /* ---------- Lightbox galería ---------- */
+  const lightbox = document.getElementById("lightbox");
+  const lightImg = document.getElementById("lightImg");
+  const lightClose = lightbox.querySelector(".lightbox-x");
+  document.querySelectorAll(".gal-item").forEach(item => {
+    item.addEventListener("click", () => {
+      lightImg.src = item.dataset.full;
+      lightImg.alt = item.querySelector("img").alt || "";
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    });
+  });
+  function closeLightbox() { lightbox.classList.remove("open"); lightbox.setAttribute("aria-hidden", "true"); }
+  lightClose.addEventListener("click", closeLightbox);
+  lightbox.querySelector(".lightbox-backdrop").addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
+  /* ---------- Cargar imágenes de galería (clase .loaded) ---------- */
+  document.querySelectorAll("img[loading='lazy']").forEach(img => {
+    img.addEventListener("load", () => img.classList.add("loaded"));
+  });
+
+  /* ---------- Copiar IP servidor ---------- */
+  document.querySelectorAll(".ip-copy").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const val = btn.dataset.clipboard;
+      try { await navigator.clipboard.writeText(val); btn.textContent = "¡Copiado!"; setTimeout(() => btn.textContent = "Copiar", 1400); } catch (e) { console.warn("No se pudo copiar", e); }
+      playSfx("click");
+    });
+  });
+
+  /* ---------- Formulario novedades (localStorage, sin backend) ---------- */
+  const notifyForm = document.getElementById("notifyForm");
+  const notifyMsg = document.getElementById("notifyMsg");
+  notifyForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const email = notifyForm.elements.email.value.trim();
+    if (!email) return;
+    const list = JSON.parse(localStorage.getItem("ragsmc-notify") || "[]");
+    if (!list.includes(email)) { list.push(email); localStorage.setItem("ragsmc-notify", JSON.stringify(list)); }
+    notifyMsg.textContent = lang === "es" ? "Te avisaremos cuando haya novedades." : "We'll let you know when there's news.";
+    notifyMsg.style.color = "#4ade80";
+    notifyForm.reset();
+    playSfx("levelup");
+    setTimeout(() => { notifyMsg.textContent = ""; }, 4500);
+  });
+
+  /* ---------- Formulario soporte (Formspool) ---------- */
+  const supportForm = document.getElementById("supportForm");
+  const supportMsg = document.getElementById("supportMsg");
+  supportForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = supportForm.querySelector("button[type='submit']");
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+    btn.disabled = true;
+    try {
+      const fd = new FormData(supportForm);
+      const res = await fetch("https://formsubmit.co/RagsnorWolf@gmail.com", { method: "POST", body: fd, headers: { Accept: "application/json" } });
+      if (res.ok) { supportMsg.textContent = lang === "es" ? "Mensaje enviado. ¡Gracias!" : "Message sent. Thanks!"; supportMsg.style.color = "#4ade80"; supportForm.reset(); playSfx("levelup"); }
+      else throw new Error("Error");
+    } catch (err) { supportMsg.textContent = lang === "es" ? "No se pudo enviar. Intenta de nuevo." : "Could not send. Try again."; supportMsg.style.color = "#ef4444"; playSfx("pop"); }
+    finally { btn.innerHTML = orig; btn.disabled = false; setTimeout(() => { supportMsg.textContent = ""; }, 5000); }
+  });
+
+  /* ---------- Aplicar idioma inicial ---------- */
   applyLang();
 
-  /* ---------------- SCROLL: navbar, progreso, to-top, parallax hero ---------------- */
-  var nav = $('#navbar'), burger = $('#burger'), mMenu = $('#mobileMenu');
-  var progressFill = $('#progressFill'), toTop = $('#toTop'), heroContent = $('.hero-content');
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      ticking = false;
-      var y = window.scrollY || 0;
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      if (nav) nav.classList.toggle('scrolled', y > 24);
-      if (progressFill) progressFill.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-      if (toTop) toTop.classList.toggle('show', y > 700);
-      if (heroContent && !reduceMotion && y < window.innerHeight) {
-        heroContent.style.transform = 'translateY(' + (y * 0.22) + 'px)';
-        heroContent.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.85));
-      }
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-  if (toTop) toTop.addEventListener('click', function () {
-    playSfx('pop');
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-  });
-  if (burger && mMenu) {
-    burger.addEventListener('click', function () {
-      var open = mMenu.classList.toggle('open');
-      burger.classList.toggle('open', open);
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    $all('a', mMenu).forEach(function (a) {
-      a.addEventListener('click', function () {
-        mMenu.classList.remove('open'); burger.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
-  /* link activo según sección visible */
-  var navLinks = $all('.nav-link');
-  if ('IntersectionObserver' in window) {
-    var navObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          navLinks.forEach(function (l) { l.classList.toggle('active', l.getAttribute('data-nav') === e.target.id); });
-        }
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    ['inicio', 'proyecto', 'features', 'galeria', 'comunidad', 'descarga'].forEach(function (id) {
-      var el = document.getElementById(id); if (el) navObs.observe(el);
-    });
-  }
-
-  /* ---------------- REVEAL ON SCROLL ---------------- */
-  var revealEls = $all('.reveal');
-  if ('IntersectionObserver' in window && !reduceMotion) {
-    var ro = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          var d = parseInt(e.target.getAttribute('data-delay') || '0', 10);
-          setTimeout(function () { e.target.classList.add('visible'); }, d);
-          ro.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(function (el) { ro.observe(el); });
-  } else { revealEls.forEach(function (el) { el.classList.add('visible'); }); }
-
-  /* ---------------- LIGHTBOX ---------------- */
-  var lightbox = $('#lightbox'), lightImg = $('#lightImg');
-  function openLight(src, alt) {
-    lightImg.src = src; lightImg.alt = alt || '';
-    lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLight() {
-    lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-  $all('.gal-item').forEach(function (item) {
-    item.addEventListener('click', function () {
-      playSfx('chest');
-      var img = $('img', item);
-      openLight(item.getAttribute('data-full'), img ? img.alt : '');
-    });
-  });
-  $all('[data-close]', lightbox).forEach(function (el) { el.addEventListener('click', closeLight); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLight(); });
-
-  /* ---------------- FORMULARIO DE AVISO ---------------- */
-  var form = $('#notifyForm'), mail = $('#notifyMail'), msg = $('#notifyMsg');
-  if (form) {
-    try { var prev = localStorage.getItem('ragsmc-notify'); if (prev && mail) mail.value = prev; } catch (e) {}
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var v = (mail.value || '').trim();
-      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-      if (!ok) {
-        msg.textContent = t('notify.err'); msg.className = 'notify-msg err';
-        playSfx('click');
-        mail.focus(); return;
-      }
-      try { localStorage.setItem('ragsmc-notify', v); } catch (err) {}
-      msg.textContent = t('notify.ok'); msg.className = 'notify-msg ok';
-      playSfx('levelup');
-      mail.value = v;
-    });
-  }
-
-  /* ---------------- MÚSICA ----------------
-     Autoplay al entrar + loop. El botón la enciende/apaga a voluntad.
-     1) Si existe ./assets/audio/c418.mp3 (tu propio archivo), lo reproduce en bucle.
-     2) Si no, genera un ambiente tranquilo con WebAudio (sin archivos). */
-  var musicBtn = $('#musicBtn');
-  var musicOn = false, musicMode = null, fileAudio = null;
-  var wantOn = true, retryArmed = false; // wantOn: el usuario (o el autoplay) la quiere sonando
-  var AC = null, master = null, genTimer = null, genStep = 0;
-
-  var SCALE = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33, 659.25, 783.99]; // pentatónica Do mayor
-  var MELODY = [0, 2, 4, 2, 5, 4, 2, 1, 0, -1, -1, 0, 2, 4, 7, 5, 4, 2, 0, -1];
-
-  function ensureCtx() {
-    if (AC) return true;
-    var Ctor = window.AudioContext || window.webkitAudioContext;
-    if (!Ctor) return false;
-    AC = new Ctor();
-    master = AC.createGain();
-    master.gain.value = 0.32;
-    var delay = AC.createDelay(1.0);
-    delay.delayTime.value = 0.42;
-    var fb = AC.createGain(); fb.gain.value = 0.35;
-    var wet = AC.createGain(); wet.gain.value = 0.35;
-    master.connect(AC.destination);
-    master.connect(delay); delay.connect(fb); fb.connect(delay);
-    delay.connect(wet); wet.connect(AC.destination);
-    return true;
-  }
-  function softNote(freq, when, vol, dur) {
-    var o = AC.createOscillator(), g = AC.createGain();
-    o.type = 'triangle'; o.frequency.value = freq;
-    g.gain.setValueAtTime(0.0001, when);
-    g.gain.exponentialRampToValueAtTime(vol, when + 1.4);
-    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
-    o.connect(g); g.connect(master);
-    o.start(when); o.stop(when + dur + 0.2);
-  }
-  function genTick() {
-    clearTimeout(genTimer); genTimer = null;
-    if (!wantOn || musicMode !== 'gen' || !AC) return;
-    if (AC.state === 'running') {
-      var now = AC.currentTime + 0.1;
-      var idx = MELODY[genStep % MELODY.length];
-      var f = idx < 0 ? SCALE[0] / 2 : SCALE[idx % SCALE.length];
-      softNote(f, now, 0.12, 5.5);
-      if (genStep % 4 === 0) softNote(SCALE[0] / 2, now, 0.06, 7); // bajo suave
-      genStep++;
-      uiPlaying(true);
-      genTimer = setTimeout(genTick, 2600 + Math.random() * 1800);
-    } else {
-      uiPlaying(false);
-      genTimer = setTimeout(genTick, 1000); // reintentar hasta tener permiso
-    }
-  }
-  function pauseAll() {
-    if (fileAudio) fileAudio.pause();
-    clearTimeout(genTimer); genTimer = null;
-    if (AC) { try { AC.suspend(); } catch (e) {} }
-    uiPlaying(false);
-  }
-  function beginPlayback() {
-    if (!wantOn) return;
-    if (musicMode === 'file') startFile();
-    else if (musicMode === 'gen') {
-      if (!ensureCtx()) return;
-      try { AC.resume(); } catch (e) {}
-      genTick();
-      armRetry();
-    }
-  }
-  function armRetry() {
-    // los navegadores bloquean el audio hasta el primer gesto: reintentar entonces
-    if (retryArmed) return;
-    retryArmed = true;
-    var h = function () {
-      if (!wantOn || musicOn) { unsub(); return; }
-      beginPlayback();
-      setTimeout(function () { if (musicOn || !wantOn) unsub(); }, 1500);
-    };
-    var unsub = function () {
-      retryArmed = false;
-      window.removeEventListener('pointerdown', h);
-      window.removeEventListener('keydown', h);
-      window.removeEventListener('touchstart', h);
-    };
-    window.addEventListener('pointerdown', h);
-    window.addEventListener('keydown', h);
-    window.addEventListener('touchstart', h);
-  }
-  function detectFile(cb) {
-    var done = false;
-    function fin(v) { if (!done) { done = true; cb(v); } }
-    // en http(s): HEAD liviano (no descarga los 3 MB para detectar)
-    if (location.protocol.indexOf('http') === 0 && window.fetch) {
-      try {
-        fetch('./assets/audio/c418.mp3', { method: 'HEAD', cache: 'no-store' })
-          .then(function (r) { fin(!!(r && r.ok)); }, function () { fin(false); });
-      } catch (e) { fin(false); return; }
-      setTimeout(function () { fin(false); }, 4000);
-      return;
-    }
-    // en file:// (doble clic local): sonda con Audio
-    var a = new Audio();
-    a.addEventListener('canplaythrough', function () { fin(true); });
-    a.addEventListener('error', function () { fin(false); });
-    try { a.src = './assets/audio/c418.mp3'; a.load(); } catch (e) { fin(false); return; }
-    setTimeout(function () { fin(false); }, 4000);
-  }
-  function startFile() {
-    if (!fileAudio) {
-      fileAudio = new Audio('./assets/audio/c418.mp3');
-      fileAudio.loop = true; // al terminar, vuelve a empezar solo
-      fileAudio.volume = 0.3;
-      fileAudio.addEventListener('playing', function () { uiPlaying(true); });
-    }
-    var pr = null;
-    try { pr = fileAudio.play(); } catch (e) { pr = null; }
-    if (pr && typeof pr.catch === 'function') {
-      pr.catch(function () { armRetry(); }); // bloqueado: esperar al primer gesto
-    } else {
-      setTimeout(function () {
-        if (fileAudio && !fileAudio.paused) uiPlaying(true); else armRetry();
-      }, 600);
-    }
-  }
-  function uiPlaying(on) {
-    musicOn = on;
-    if (musicBtn) {
-      musicBtn.classList.toggle('playing', on);
-      musicBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    }
-  }
-  var detecting = false, pendingCb = [];
-  function detectMode(cb) {
-    if (musicMode) { if (cb) cb(); return; }
-    if (cb) pendingCb.push(cb);
-    if (detecting) return;
-    detecting = true;
-    detectFile(function (found) {
-      musicMode = found ? 'file' : 'gen';
-      detecting = false;
-      var cbs = pendingCb; pendingCb = [];
-      cbs.forEach(function (f) { f(); });
-    });
-  }
-  function startAutoMusic() { detectMode(function () { beginPlayback(); }); }
-  if (musicBtn) musicBtn.addEventListener('click', function () {
-    if (wantOn) { wantOn = false; pauseAll(); playSfx('click'); return; } // el usuario la apaga
-    wantOn = true; // el usuario la enciende
-    playSfx('portal');
-    detectMode(function () { beginPlayback(); });
-  });
-
-  /* ---------------- SONIDO CLIC ESTILO MINECRAFT ----------------
-     Cada enlace o botón reproduce un "tock" corto generado con WebAudio. */
-  var sctx = null;
-  function mcClick() {
-    try {
-      var Ctor = window.AudioContext || window.webkitAudioContext;
-      if (!Ctor) return;
-      if (!sctx) sctx = new Ctor();
-      if (sctx.state === 'suspended') sctx.resume();
-      var t = sctx.currentTime + 0.01;
-      var o = sctx.createOscillator(), g = sctx.createGain();
-      o.type = 'square';
-      o.frequency.setValueAtTime(880, t);
-      o.frequency.exponentialRampToValueAtTime(590, t + 0.055);
-      g.gain.setValueAtTime(0.09, t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
-      o.connect(g); g.connect(sctx.destination);
-      o.start(t); o.stop(t + 0.09);
-      var o2 = sctx.createOscillator(), g2 = sctx.createGain();
-      o2.type = 'triangle';
-      o2.frequency.setValueAtTime(300, t);
-      o2.frequency.exponentialRampToValueAtTime(170, t + 0.07);
-      g2.gain.setValueAtTime(0.07, t);
-      g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
-      o2.connect(g2); g2.connect(sctx.destination);
-      o2.start(t); o2.stop(t + 0.1);
-    } catch (e) {}
-  }
-  document.addEventListener('click', function (e) {
-    var el = e.target.closest ? e.target.closest('a,button') : null;
-    if (!el || el.disabled) return;
-    if (el.hasAttribute('data-sfx') || el.closest('.gal-item')) return; // tiene sonido propio
-    playSfx('click');
-  });
-  document.addEventListener('click', function (e) {
-    var d = e.target.closest ? e.target.closest('[data-sfx="dl"]') : null;
-    if (d) playSfx('levelup'); // empieza una descarga
-  });
-
-  /* ---------------- BOTONES MAGNÉTICOS (sutil) ---------------- */
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion) {
-    $all('.hero-cta .btn').forEach(function (b) {
-      b.classList.add('magnetic');
-      b.addEventListener('mousemove', function (e) {
-        var r = b.getBoundingClientRect();
-        var dx = (e.clientX - r.left - r.width / 2) * 0.1;
-        var dy = (e.clientY - r.top - r.height / 2) * 0.16;
-        b.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
-      });
-      b.addEventListener('mouseleave', function () { b.style.transform = ''; });
-    });
-  }
-
-  /* ---------------- PANTALLA DE CARGA ---------------- */
-  var loader = $('#loader'), loaderFill = $('#loaderFill'),
-      loaderStage = $('#loaderStage'), loaderTip = $('#loaderTip');
-  var loadP = 0, loadDone = false, stageI = 0;
-  if (loaderTip) {
-    var tipArr = (I18N[lang] && I18N[lang].tips) || [];
-    loaderTip.textContent = tipArr[Math.floor(Math.random() * tipArr.length)] || '';
-  }
-  var stageIv = setInterval(function () {
-    if (loadDone || !loaderStage) { clearInterval(stageIv); return; }
-    var arr = (I18N[lang] && I18N[lang].stages) || [];
-    loaderStage.textContent = arr[stageI % arr.length] || '';
-    stageI++;
-  }, 650);
-  var loadIv = setInterval(function () {
-    loadP = Math.min(90, loadP + Math.random() * 14 + 4);
-    if (loaderFill) loaderFill.style.width = loadP + '%';
-  }, 180);
-  function finishLoad() {
-    if (loadDone) return;
-    loadDone = true;
-    clearInterval(loadIv); clearInterval(stageIv);
-    if (loaderFill) loaderFill.style.width = '100%';
-    setTimeout(function () {
-      document.body.classList.add('loaded');
-      if (loader) {
-        loader.classList.add('done');
-        loader.setAttribute('aria-hidden', 'true');
-        setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 600);
-      }
-      startAutoMusic();
-    }, 350);
-  }
-  // la carga NO depende de recursos lentos: tiempo fijo tras DOM listo
-  setTimeout(finishLoad, 1900);
-  window.addEventListener('load', function () { setTimeout(finishLoad, 600); });
-  setTimeout(finishLoad, 6000); // seguridad
-
-  /* ---------------- SFX: SONIDOS REALES SI EXISTEN ----------------
-     Coloca tus .mp3/.ogg en assets/audio/sfx/ (ver LEEME.txt).
-     Si falta alguno, usa el "tock" sintetizado. */
-  var SFX_FILES = {
-    click: ['click.mp3', 'click.ogg'],
-    chest: ['chest.mp3', 'chest.ogg'],
-    pop: ['pop.mp3', 'pop.ogg'],
-    enderman: ['enderman.mp3', 'enderman.ogg'],
-    portal: ['portal.mp3', 'portal.ogg'],
-    levelup: ['levelup.mp3', 'levelup.ogg'],
-    dragon: ['dragon.mp3', 'dragon.ogg']
-  };
-  var SFX_VOL = { click: 0.35, chest: 0.5, pop: 0.4, enderman: 0.45, portal: 0.4, levelup: 0.5, dragon: 0.6 };
-  var sfxCache = {};
-  function probeSfx(name, i) {
-    var list = SFX_FILES[name];
-    if (i >= list.length) { sfxCache[name] = null; return; }
-    var a = new Audio(), done = false;
-    a.addEventListener('canplaythrough', function () {
-      if (done) return; done = true;
-      sfxCache[name] = './assets/audio/sfx/' + list[i];
-    });
-    a.addEventListener('error', function () { if (!done) { done = true; probeSfx(name, i + 1); } });
-    try { a.src = './assets/audio/sfx/' + list[i]; a.load(); }
-    catch (e) { done = true; probeSfx(name, i + 1); return; }
-    setTimeout(function () { if (!done) { done = true; probeSfx(name, i + 1); } }, 2500);
-  }
-  function preloadSfx() { Object.keys(SFX_FILES).forEach(function (n) { probeSfx(n, 0); }); }
-  function playSfx(name) {
-    var url = sfxCache[name];
-    if (url) {
-      try {
-        var a = new Audio(url);
-        a.volume = SFX_VOL[name] || 0.4;
-        var pr = a.play();
-        if (pr && pr.catch) pr.catch(function () {});
-      } catch (e) {}
-      return;
-    }
-    mcClick(); // respaldo sintetizado
-  }
-  // elementos con sonido propio (no usan el clic global)
-  ['themeBtn', 'toTop', 'musicBtn'].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) el.setAttribute('data-sfx', '1');
-  });
-  $all('.lang-btn').forEach(function (b) { b.setAttribute('data-sfx', '1'); });
-  var subBtn = $('#notifyForm button[type="submit"]');
-  if (subBtn) subBtn.setAttribute('data-sfx', '1');
-  if (document.readyState === 'complete') preloadSfx();
-  else window.addEventListener('load', preloadSfx);
-
-  /* easter egg: 3 clics rápidos al lobo = rugido del dragón */
-  var logoClicks = [];
-  $all('.brand').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var now = Date.now();
-      logoClicks = logoClicks.filter(function (x) { return now - x < 1200; });
-      logoClicks.push(now);
-      if (logoClicks.length >= 3) {
-        logoClicks = [];
-        playSfx('dragon');
-        var img = $('img', b);
-        if (img) { img.classList.remove('wiggle'); void img.offsetWidth; img.classList.add('wiggle'); }
-      }
-    });
-  });
-
-  /* ---------------- TÍTULO HERO LETRA POR LETRA ---------------- */
-  function splitHero() {
-    if (reduceMotion) return;
-    var h = $('.hero-title');
-    if (!h || h.dataset.split) return;
-    h.dataset.split = '1';
-    var idx = 0;
-    (function walk(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
-        if (n.nodeType === 3) {
-          var frag = document.createDocumentFragment();
-          n.textContent.split('').forEach(function (ch) {
-            if (ch === ' ') frag.appendChild(document.createTextNode(' '));
-            else {
-              var s = document.createElement('span');
-              s.className = 'ch'; s.textContent = ch;
-              s.style.animationDelay = (0.35 + idx * 0.032).toFixed(2) + 's';
-              frag.appendChild(s); idx++;
-            }
-          });
-          node.replaceChild(frag, n);
-        } else if (n.nodeType === 1) walk(n);
-      });
-    })(h);
-  }
-  splitHero();
-
-  /* ---------------- RIPPLE EN BOTONES ---------------- */
-  document.addEventListener('click', function (e) {
-    if (reduceMotion) return;
-    var b = e.target.closest ? e.target.closest('.btn') : null;
-    if (!b) return;
-    var r = b.getBoundingClientRect(), m = Math.max(r.width, r.height);
-    var s = document.createElement('span');
-    s.className = 'ripple';
-    s.style.width = s.style.height = m + 'px';
-    s.style.left = (e.clientX - r.left - m / 2) + 'px';
-    s.style.top = (e.clientY - r.top - m / 2) + 'px';
-    b.appendChild(s);
-    setTimeout(function () { s.remove(); }, 650);
-  });
-
-  /* ---------------- MARQUEE ---------------- */
-  function buildMarquee() {
-    var tr = $('#marqueeTrack');
-    if (!tr) return;
-    var s = t('marquee');
-    tr.innerHTML = '<span>' + s + '</span><span>' + s + '</span>';
-  }
-  buildMarquee();
-  $all('.lang-btn').forEach(function (b) { b.addEventListener('click', buildMarquee); });
-
-  /* ---------------- PARTÍCULAS PIXEL EN EL HERO ---------------- */
-  function initParticles() {
-    var cv = $('#heroParticles');
-    if (!cv || reduceMotion) return;
-    var ctx = cv.getContext('2d'), W = 0, H = 0, ps = [];
-    function size() {
-      var r = cv.parentNode.getBoundingClientRect();
-      W = cv.width = Math.max(1, r.width);
-      H = cv.height = Math.max(1, r.height);
-    }
-    size();
-    window.addEventListener('resize', size);
-    var cols = ['0,230,122', '255,255,255', '255,200,120'];
-    for (var i = 0; i < 45; i++) ps.push({
-      x: Math.random(), y: Math.random(),
-      s: Math.random() * 3 + 1, v: Math.random() * 0.0006 + 0.0002,
-      o: Math.random() * 0.5 + 0.2, ph: Math.random() * 6.28, c: i % 3
-    });
-    (function tick() {
-      requestAnimationFrame(tick);
-      if (document.hidden) return;
-      ctx.clearRect(0, 0, W, H);
-      var tm = Date.now() / 1000;
-      for (var j = 0; j < ps.length; j++) {
-        var p = ps[j];
-        p.y -= p.v;
-        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
-        var x = (p.x + Math.sin(tm * 0.7 + p.ph) * 0.008) * W, y = p.y * H;
-        ctx.fillStyle = 'rgba(' + cols[p.c] + ',' + (p.o * (0.7 + 0.3 * Math.sin(tm * 2 + p.ph))).toFixed(3) + ')';
-        ctx.fillRect(x, y, p.s, p.s);
-      }
-    })();
-  }
-  initParticles();
-
-  /* ---------------- PANEL NOPING ---------------- */
-  var nopingTab = $('#nopingTab'), nopingPanel = $('#nopingPanel'),
-      nopingBackdrop = $('#nopingBackdrop'), nopingClose = $('#nopingClose');
-  function openNoping() {
-    if (!nopingPanel) return;
-    nopingPanel.classList.add('open');
-    nopingPanel.setAttribute('aria-hidden', 'false');
-    if (nopingBackdrop) nopingBackdrop.hidden = false;
-    document.body.style.overflow = 'hidden';
-    playSfx('pop');
-    if (nopingClose) nopingClose.focus();
-  }
-  function closeNoping() {
-    if (!nopingPanel) return;
-    nopingPanel.classList.remove('open');
-    nopingPanel.setAttribute('aria-hidden', 'true');
-    if (nopingBackdrop) nopingBackdrop.hidden = true;
-    document.body.style.overflow = '';
-  }
-  if (nopingTab) {
-    nopingTab.setAttribute('data-sfx', '1');
-    nopingTab.addEventListener('click', openNoping);
-  }
-  if (nopingClose) nopingClose.addEventListener('click', function () { closeNoping(); playSfx('click'); });
-  if (nopingBackdrop) nopingBackdrop.addEventListener('click', closeNoping);
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && nopingPanel && nopingPanel.classList.contains('open')) closeNoping();
-  });
-
-  /* año dinámico */
-  var year = $('#year');
-  if (year) year.textContent = String(new Date().getFullYear());
-
-  /* shot slider arrows */
-  document.querySelectorAll('.shot-slider').forEach(function(slider){
-    var track=slider.querySelector('.shot-track');
-    var left=slider.querySelector('.shot-arrow-left');
-    var right=slider.querySelector('.shot-arrow-right');
-    if(!track||!left||!right)return;
-    var items=track.querySelectorAll('.gal-item');
-    var idx=0;
-    function scrollToItem(i){
-      if(i<0)i=0;if(i>=items.length)i=items.length-1;
-      idx=i;
-      items[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
-    }
-    left.addEventListener('click',function(){scrollToItem(idx-1)});
-    right.addEventListener('click',function(){scrollToItem(idx+1)});
-  });
-
-  /* FAQ form — AJAX submit */
-  var faqForm=$('#faqForm'),faqMsg=$('#faqFormMsg');
-  if(faqForm){
-    faqForm.addEventListener('submit',function(e){
-      e.preventDefault();
-      var btn=faqForm.querySelector('button[type="submit"]');
-      var origHTML=btn.innerHTML;
-      btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i><span>...</span>';
-      btn.disabled=true;
-      fetch(faqForm.action,{method:'POST',body:new FormData(faqForm),headers:{'Accept':'application/json'}})
-        .then(function(r){return r.json()})
-        .then(function(){
-          faqForm.reset();
-          faqMsg.className='faq-form-msg ok';
-          faqMsg.textContent='¡Mensaje enviado! Te responderemos pronto.';
-          btn.innerHTML=origHTML;
-          btn.disabled=false;
-          setTimeout(function(){faqMsg.textContent='';},5000);
-        })
-        .catch(function(){
-          faqMsg.className='faq-form-msg err';
-          faqMsg.textContent='Hubo un error. Intentá de nuevo.';
-          btn.innerHTML=origHTML;
-          btn.disabled=false;
-        });
-    });
-  }
+  // Exponer para uso global
+  window.RagsMc = { t, lang, setTheme, playSfx };
 })();

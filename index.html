@@ -3,30 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RagsMc Launcher — Un launcher de Minecraft rápido y simple</title>
-<meta name="description" content="RagsMc Launcher: un launcher de Minecraft independiente, rápido y fácil de usar. Proyecto en desarrollo.">
-<meta name="theme-color" content="#05070d" id="metaTheme">
+<title>RagsMc Launcher — Tu Minecraft. Tus reglas. Nuestro launcher.</title>
+<meta name="description" content="RagsMc Launcher: launcher independiente de Minecraft, rápido y con identidad propia. Proyecto en desarrollo. Descarga para Windows.">
+<meta name="theme-color" content="#0b0f1a" id="metaTheme">
 <meta property="og:title" content="RagsMc Launcher">
-<meta property="og:description" content="Un launcher de Minecraft rápido, simple y con identidad propia. En desarrollo.">
+<meta property="og:description" content="Launcher independiente de Minecraft. Rápido, simple y con identidad propia. En desarrollo.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="./assets/images/gallery-lake.jpg">
+<meta property="og:url" content="https://ragslaunchermc.dpdns.org/">
 <link rel="icon" type="image/svg+xml" href="./assets/logo/wolf.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Press+Start+2P&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="./styles.css">
-<noscript><style>.loader,.progress{display:none !important}.hero-content>*{opacity:1 !important}</style></noscript>
+<noscript><style>.loader,.progress{display:none !important}.hero-content>*{opacity:1 !important;transform:none !important}section{opacity:1 !important}#heroParticles{display:none}</style></noscript>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8BEQYDQMY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Z8BEQYDQMY');
+</script>
 </head>
 <body>
-<!-- ============ PANTALLA DE CARGA ============ -->
+<!-- ============ PANTALLA DE CARGA (MINECRAFT) ============ -->
 <div class="loader" id="loader" aria-hidden="false" role="status">
   <div class="loader-box">
-    <img src="./assets/logo/wolf.svg" alt="" class="loader-logo" width="76" height="76">
-    <p class="loader-brand">RAGSMC LAUNCHER</p>
-    <div class="loader-bar"><span id="loaderFill"></span></div>
-    <p class="loader-stage"><span data-i18n="load.loading">Cargando mundo...</span> <span id="loaderStage"></span></p>
-    <p class="loader-tip"><strong data-i18n="load.tipLabel">Consejo:</strong> <span id="loaderTip"></span></p>
+    <div class="loader-sky"></div>
+    <div class="loader-ground"></div>
+    <img src="./assets/logo/wolf.svg" alt="Logo lobo RagsMc" class="loader-logo" width="64" height="64">
+    <p class="loader-brand">RAGSMC <span>LAUNCHER</span></p>
+    <div class="loader-bar">
+      <div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>
+    </div>
+    <p class="loader-stage"><span id="loaderStage">Generando mundo...</span></p>
+    <p class="loader-tip"><strong>Consejo:</strong> <span id="loaderTip">El lobo protege a la manada.</span></p>
   </div>
 </div>
 <a class="skip-link" href="#inicio" data-i18n="skip">Saltar al contenido</a>
@@ -37,15 +50,18 @@
   <div class="nav-inner">
     <a href="#inicio" class="brand" aria-label="RagsMc Launcher">
       <img src="./assets/logo/wolf.svg" width="32" height="32" alt="Logo de lobo RagsMc" data-i18n-alt="brand.alt" class="brand-logo">
-      <span class="brand-text">RagsMc</span>
+      <span class="brand-text">Rags<span>Mc</span></span>
     </a>
     <nav class="nav-links" aria-label="Principal">
       <a href="#inicio" class="nav-link active" data-nav="inicio" data-i18n="nav.home">Inicio</a>
       <a href="#proyecto" class="nav-link" data-nav="proyecto" data-i18n="nav.project">Proyecto</a>
       <a href="#features" class="nav-link" data-nav="features" data-i18n="nav.features">Características</a>
+      <a href="#servidor" class="nav-link" data-nav="servidor" data-i18n="nav.server">Servidor</a>
       <a href="#galeria" class="nav-link" data-nav="galeria" data-i18n="nav.gallery">Galería</a>
-      <a href="#comunidad" class="nav-link" data-nav="comunidad" data-i18n="nav.community">Comunidad</a>
+      <a href="#roadmap" class="nav-link" data-nav="roadmap" data-i18n="nav.roadmap">Hoja de ruta</a>
+      <a href="#avance" class="nav-link" data-nav="avance" data-i18n="nav.progress">Avance</a>
       <a href="#descarga" class="nav-link" data-nav="descarga" data-i18n="nav.download">Descarga</a>
+      <a href="#comunidad" class="nav-link" data-nav="comunidad" data-i18n="nav.community">Comunidad</a>
     </nav>
     <div class="nav-actions">
       <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema" data-i18n-aria="theme.toggle">
@@ -63,9 +79,12 @@
     <a href="#inicio" data-i18n="nav.home">Inicio</a>
     <a href="#proyecto" data-i18n="nav.project">Proyecto</a>
     <a href="#features" data-i18n="nav.features">Características</a>
+    <a href="#servidor" data-i18n="nav.server">Servidor</a>
     <a href="#galeria" data-i18n="nav.gallery">Galería</a>
-    <a href="#comunidad" data-i18n="nav.community">Comunidad</a>
+    <a href="#roadmap" data-i18n="nav.roadmap">Hoja de ruta</a>
+    <a href="#avance" data-i18n="nav.progress">Avance</a>
     <a href="#descarga" data-i18n="nav.download">Descarga</a>
+    <a href="#comunidad" data-i18n="nav.community">Comunidad</a>
   </div>
 </header>
 
@@ -73,21 +92,26 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
   <div class="hero-media" aria-hidden="true">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/gallery-lake.jpg">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="./assets/images/gallery-lake.jpg">
       <source src="./assets/videos/hero.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+    <div class="hero-coords">
+      <div class="coord"><span>X</span><span id="cX">0</span></div>
+      <div class="coord"><span>Y</span><span id="cY">64</span></div>
+      <div class="coord"><span>Z</span><span id="cZ">0</span></div>
+    </div>
   </div>
   <div class="container hero-content">
-    <p class="badge"><span class="badge-dot"></span><span data-i18n="hero.badge">Proyecto independiente · En desarrollo</span></p>
-    <h1 class="hero-title">RagsMc <span>Launcher</span></h1>
-    <p class="hero-sub" data-i18n="hero.sub">Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</p>
-    <div class="hero-cta">
+    <p class="badge reveal"><span class="badge-dot"></span><span data-i18n="hero.badge">Proyecto independiente · En desarrollo</span></p>
+    <h1 class="hero-title reveal"><span data-split>RagsMc</span> <span data-split>Launcher</span></h1>
+    <p class="hero-sub reveal" data-i18n="hero.sub">Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</p>
+    <div class="hero-cta reveal">
       <a href="#descarga" class="btn btn-primary btn-lg" data-sfx="dl"><i class="fa-solid fa-download"></i><span data-i18n="hero.cta1">Descargar para Windows</span></a>
-      <a href="#comunidad" class="btn btn-secondary btn-lg"><i class="fa-solid fa-users"></i><span data-i18n="hero.cta2">Unirse a la comunidad</span></a>
+      <a href="#comunidad" class="btn btn-outline btn-lg" data-sfx="click"><i class="fa-solid fa-users"></i><span data-i18n="hero.cta2">Unirse a la comunidad</span></a>
     </div>
-    <p class="hero-note" data-i18n="hero.note">Disponible para Windows · Linux próximamente.</p>
+    <p class="hero-note reveal" data-i18n="hero.note">Versión 1.0.4 · Windows · Linux próximamente · Gratis y sin registro</p>
   </div>
   <div class="hero-mascots" aria-hidden="true">
     <img src="./assets/logo/wolf.svg" alt="" class="float-a">
@@ -95,18 +119,20 @@
   </div>
 </section>
 
-<!-- ============ ABOUT / PROYECTO ============ -->
-<section class="section bg-photo" id="proyecto">
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ PROYECTO ============ -->
+<section class="section bg-photo" id="proyecto" style="--bg-img:url('./assets/images/gallery-forest.jpg')">
   <div class="container about-grid">
     <div class="about-side reveal">
-      <p class="kicker" data-i18n="about.kicker">Sobre el proyecto</p>
+      <p class="kicker reveal" data-i18n="about.kicker">Sobre el proyecto</p>
       <div class="about-bars" aria-hidden="true"><span></span><span></span><span></span></div>
     </div>
     <div class="about-main">
       <p class="dev-badge reveal"><i class="fa-regular fa-circle-dot"></i><span data-i18n="about.badge">En desarrollo</span></p>
       <h2 class="section-title reveal" data-i18n="about.title">¿Qué es RagsMc Launcher?</h2>
-      <p class="about-lead reveal" data-i18n="about.p1">RagsMc Launcher es un proyecto independiente creado con el objetivo de ofrecer una experiencia moderna y personalizada para jugar Minecraft desde un único lugar.</p>
-      <p class="section-desc reveal" data-i18n="about.p2">Actualmente se encuentra en construcción. Cada sistema, pantalla y decisión está siendo pensado para crear una base sólida, rápida y preparada para crecer.</p>
+      <p class="about-lead reveal" data-i18n="about.p1">RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna y personalizada para jugar Minecraft desde un solo lugar.</p>
+      <p class="section-desc reveal" data-i18n="about.p2">Cada sistema, pantalla y decisión está siendo pensado para construir una base sólida, rápida y preparada para crecer junto a la comunidad.</p>
       <div class="about-stats reveal">
         <div><strong>01</strong><span data-i18n="about.s1">Proyecto indie</span></div>
         <div><strong>∞</strong><span data-i18n="about.s2">Mundos posibles</span></div>
@@ -115,57 +141,86 @@
     </div>
   </div>
 </section>
+
 <div class="pixel-divider" aria-hidden="true"></div>
 
-<!-- ============ FEATURES ============ -->
-<section class="section bg-photo" id="features">
+<!-- ============ CARACTERÍSTICAS ============ -->
+<section class="section" id="features">
   <div class="container">
-    <p class="kicker reveal" data-i18n="feat.kicker">El núcleo</p>
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="kicker reveal" data-i18n="feat.kicker">El núcleo</p>
       <h2 class="section-title reveal" data-i18n="feat.title">Características</h2>
       <p class="section-desc reveal" data-i18n="feat.desc">Una base enfocada en lo importante, preparada para evolucionar junto al proyecto.</p>
     </div>
     <div class="feat-grid">
-      <article class="card reveal">
-        <div class="card-top"><span class="card-icon"><i class="fa-solid fa-bolt"></i></span><span class="feat-code">RMC—01</span></div>
+      <article class="card reveal" data-delay="0">
+        <div class="card-top"><span class="card-icon">⚡</span><span class="feat-code">RMC—01</span></div>
         <h3 data-i18n="feat.1t">Rápido</h3>
-        <p data-i18n="feat.1d">Diseñado para ofrecer una experiencia de inicio rápida y sencilla.</p>
+        <p data-i18n="feat.1d">Inicio veloz y experiencia fluida sin complicaciones.</p>
       </article>
       <article class="card reveal" data-delay="70">
-        <div class="card-top"><span class="card-icon"><i class="fa-solid fa-gamepad"></i></span><span class="feat-code">RMC—02</span></div>
+        <div class="card-top"><span class="card-icon">🧱</span><span class="feat-code">RMC—02</span></div>
         <h3 data-i18n="feat.2t">Minecraft</h3>
-        <p data-i18n="feat.2d">Pensado alrededor de la experiencia de Minecraft.</p>
+        <p data-i18n="feat.2d">Pensado desde y para la experiencia de Minecraft.</p>
       </article>
       <article class="card reveal" data-delay="140">
-        <div class="card-top"><span class="card-icon"><i class="fa-solid fa-sliders"></i></span><span class="feat-code">RMC—03</span></div>
+        <div class="card-top"><span class="card-icon">🎨</span><span class="feat-code">RMC—03</span></div>
         <h3 data-i18n="feat.3t">Personalizable</h3>
         <p data-i18n="feat.3d">Preparado para futuras opciones de personalización.</p>
       </article>
-      <article class="card reveal">
-        <div class="card-top"><span class="card-icon"><i class="fa-solid fa-layer-group"></i></span><span class="feat-code">RMC—04</span></div>
+      <article class="card reveal" data-delay="0">
+        <div class="card-top"><span class="card-icon">📦</span><span class="feat-code">RMC—04</span></div>
         <h3 data-i18n="feat.4t">Versiones</h3>
-        <p data-i18n="feat.4d">Preparado para gestionar diferentes versiones de Minecraft.</p>
+        <p data-i18n="feat.4d">Gestión de diferentes versiones de Minecraft.</p>
       </article>
       <article class="card reveal" data-delay="70">
-        <div class="card-top"><span class="card-icon"><i class="fa-solid fa-wrench"></i></span><span class="feat-code">RMC—05</span></div>
+        <div class="card-top"><span class="card-icon">🔧</span><span class="feat-code">RMC—05</span></div>
         <h3 data-i18n="feat.5t">En desarrollo</h3>
-        <p data-i18n="feat.5d">El proyecto continúa evolucionando constantemente.</p>
+        <p data-i18n="feat.5d">El proyecto evoluciona constantemente con la comunidad.</p>
       </article>
       <article class="card reveal" data-delay="140">
-        <div class="card-top"><span class="card-icon"><i class="fa-solid fa-rocket"></i></span><span class="feat-code">RMC—06</span></div>
+        <div class="card-top"><span class="card-icon">🚀</span><span class="feat-code">RMC—06</span></div>
         <h3 data-i18n="feat.6t">Futuro</h3>
-        <p data-i18n="feat.6d">Nuevas características serán incorporadas progresivamente.</p>
+        <p data-i18n="feat.6d">Nuevas características incorporadas progresivamente.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ============ GALLERY ============ -->
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ SERVIDOR ============ -->
+<section class="section bg-photo" id="servidor" style="--bg-img:url('./assets/images/gallery-jungle.jpg')">
+  <div class="container server-grid">
+    <div class="server-side reveal">
+      <p class="kicker reveal" data-i18n="server.kicker">El servidor</p>
+      <h2 class="section-title reveal" data-i18n="server.title">Juega en RagsMC</h2>
+      <p class="server-lead reveal" data-i18n="server.p1">RagsMc es un servidor de Minecraft pensado para la comunidad, con identidad propia y un entorno hecho para jugar junto a otros.</p>
+      <div class="server-ips reveal">
+        <div class="ip-card"><span class="ip-label">Dirección</span><span class="ip-value">ragsmc.dpdns.org</span><button class="ip-copy" data-clipboard="ragsmc.dpdns.org" data-sfx="click" title="Copiar">Copiar</button></div>
+        <div class="ip-card"><span class="ip-label">Versión</span><span class="ip-value">1.21.10</span><span class="ip-chip">Forge</span></div>
+        <div class="ip-card"><span class="ip-label">Modo</span><span class="ip-value">Supervivencia</span><span class="ip-chip">NoPremium</span></div>
+      </div>
+    </div>
+    <div class="server-visual reveal">
+      <div class="server-frame">
+        <img src="./assets/images/gallery-jungle.jpg" alt="Mundo del servidor RagsMC" loading="lazy">
+        <div class="server-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ GALERÍA ============ -->
 <section class="section section-alt" id="galeria">
   <div class="container">
-    <p class="kicker reveal" data-i18n="gal.kicker">Galería</p>
-    <h2 class="section-title reveal" data-i18n="gal.title">El mundo que nos inspira</h2>
-    <p class="section-desc reveal" data-i18n="gal.desc">La estética y el ambiente que guían el diseño del proyecto.</p>
+    <div class="section-head reveal">
+      <p class="kicker reveal" data-i18n="gal.kicker">Galería</p>
+      <h2 class="section-title reveal" data-i18n="gal.title">El mundo que nos inspira</h2>
+      <p class="section-desc reveal" data-i18n="gal.desc">Estética y ambiente que guían el diseño del proyecto.</p>
+    </div>
     <div class="gal-grid">
       <button class="gal-item reveal" data-full="./assets/images/gallery-forest.jpg">
         <img src="./assets/images/gallery-forest.jpg" alt="Bosque de Minecraft al atardecer" data-i18n-alt="gal.alt1" loading="lazy">
@@ -186,7 +241,7 @@
         <img src="./assets/images/gallery-valley.jpg" alt="Valle con lago en Minecraft" data-i18n-alt="gal.alt6" loading="lazy">
       </button>
       <button class="gal-item reveal" data-delay="80" data-full="./assets/images/gallery-elytra.jpg">
-        <img src="./assets/images/gallery-elytra.jpg" alt="Vuelo con élitros sobre la jungla en Minecraft" data-i18n-alt="gal.alt7" loading="lazy">
+        <img src="./assets/images/gallery-elytra.jpg" alt="Vuelo con élitros sobre la jungla de Minecraft" data-i18n-alt="gal.alt7" loading="lazy">
       </button>
       <button class="gal-item wide reveal" data-full="./assets/images/gallery-peaks.jpg">
         <img src="./assets/images/gallery-peaks.jpg" alt="Picos nevados en Minecraft" data-i18n-alt="gal.alt8" loading="lazy">
@@ -202,34 +257,37 @@
   </div>
 </section>
 
+<div class="pixel-divider" aria-hidden="true"></div>
+
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
 
-<!-- ============ ROADMAP ============ -->
-<section class="section bg-photo" id="roadmap">
+<!-- ============ HOJA DE RUTA ============ -->
+<section class="section" id="roadmap">
   <div class="container">
-    <p class="kicker reveal" data-i18n="road.kicker">Ruta de desarrollo</p>
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="kicker reveal" data-i18n="road.kicker">Hoja de ruta</p>
       <h2 class="section-title reveal" data-i18n="road.title">RagsMc Launcher está creciendo.</h2>
-      <p class="section-desc reveal" data-i18n="road.desc">El avance será progresivo: primero una experiencia estable y clara; después, nuevas posibilidades. Sin promesas vacías.</p>
+      <p class="section-desc reveal" data-i18n="road.desc">Avance progresivo: primero una experiencia estable y clara, luego nuevas posibilidades. Sin promesas vacías.</p>
     </div>
+    <div class="road-line"><div class="road-line-fill" id="roadLineFill"></div></div>
     <div class="road-grid">
       <article class="road-card done reveal">
-        <span class="road-dot"><i class="fa-solid fa-check"></i></span>
+        <span class="road-dot done"><i class="fa-solid fa-check"></i></span>
         <p class="road-phase"><span data-i18n="road.phase">Fase</span> 01</p>
         <h3 data-i18n="road.p1t">Concepto</h3>
-        <p data-i18n="road.p1d">Diseño y concepto inicial.</p>
+        <p data-i18n="road.p1d">Diseño y concepto inicial del launcher.</p>
         <span class="road-tag done" data-i18n="road.done">Completado</span>
       </article>
       <article class="road-card done reveal" data-delay="90">
-        <span class="road-dot"><i class="fa-solid fa-check"></i></span>
+        <span class="road-dot done"><i class="fa-solid fa-check"></i></span>
         <p class="road-phase"><span data-i18n="road.phase">Fase</span> 02</p>
         <h3 data-i18n="road.p2t">Desarrollo</h3>
-        <p data-i18n="road.p2d">Construcción del launcher.</p>
+        <p data-i18n="road.p2d">Construcción del launcher base.</p>
         <span class="road-tag done" data-i18n="road.done">Completado</span>
       </article>
       <article class="road-card now reveal" data-delay="180">
-        <span class="road-dot">3</span>
+        <span class="road-dot now">3</span>
         <p class="road-phase"><span data-i18n="road.phase">Fase</span> 03</p>
         <h3 data-i18n="road.p3t">Testing</h3>
         <p data-i18n="road.p3d">Pruebas, correcciones y estabilidad.</p>
@@ -253,24 +311,26 @@
   </div>
 </section>
 
-<!-- ============ AVANCE DEL LAUNCHER ============ -->
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ AVANCE ============ -->
 <section class="section" id="avance">
   <div class="container">
-    <p class="kicker reveal" data-i18n="av.kicker">Avance del launcher</p>
-    <div class="section-head">
+    <div class="section-head reveal">
+      <p class="kicker reveal" data-i18n="av.kicker">Avance del launcher</p>
       <h2 class="section-title reveal" data-i18n="av.title">Así va el launcher</h2>
       <p class="section-desc reveal" data-i18n="av.desc">Capturas reales del desarrollo. Sin renders ni promesas: esto es lo que ya existe hoy.</p>
     </div>
     <div class="shot-slider reveal">
       <button class="shot-arrow shot-arrow-left" aria-label="Anterior">&#10094;</button>
       <div class="shot-track">
-        <button class="gal-item shot" data-full="./assets/images/launcher-avance-1.png">
+        <button class="gal-item shot reveal" data-full="./assets/images/launcher-avance-1.png">
           <img src="./assets/images/launcher-avance-1.png" alt="Pantalla principal del launcher RagsMc en desarrollo" data-i18n-alt="av.alt1" loading="lazy">
         </button>
-        <button class="gal-item shot" data-delay="80" data-full="./assets/images/launcher-avance-2.png">
+        <button class="gal-item shot reveal" data-delay="80" data-full="./assets/images/launcher-avance-2.png">
           <img src="./assets/images/launcher-avance-2.png" alt="Launcher RagsMc con noticias, gestor de mods y consola" data-i18n-alt="av.alt2" loading="lazy">
         </button>
-        <button class="gal-item shot" data-delay="160" data-full="./assets/images/launcher-avance-3.png">
+        <button class="gal-item shot reveal" data-delay="160" data-full="./assets/images/launcher-avance-3.png">
           <img src="./assets/images/launcher-avance-3.png" alt="Launcher RagsMc en desarrollo" data-i18n-alt="av.alt3" loading="lazy">
         </button>
       </div>
@@ -287,64 +347,55 @@
   </div>
 </section>
 
-<!-- ============ FAQ ============ -->
-<section class="section section-alt" id="faq">
-  <div class="container">
-    <p class="kicker center reveal" data-i18n="faq.kicker">Preguntas Frecuentes</p>
-    <h2 class="section-title center reveal" data-i18n="faq.title">¿Tenés dudas?</h2>
-    <p class="section-desc center reveal" data-i18n="faq.desc">Resolvemos las preguntas más comunes sobre RagsMc Launcher.</p>
-    <div class="faq-list">
-      <details class="faq-item reveal">
-        <summary class="faq-q" data-i18n="faq.q1">¿Qué es RagsMc Launcher?</summary>
-        <p class="faq-a" data-i18n="faq.a1">RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.</p>
-      </details>
-      <details class="faq-item reveal" data-delay="40">
-        <summary class="faq-q" data-i18n="faq.q2">¿Es gratis?</summary>
-        <p class="faq-a" data-i18n="faq.a2">Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.</p>
-      </details>
-      <details class="faq-item reveal" data-delay="80">
-        <summary class="faq-q" data-i18n="faq.q3">¿En qué sistemas operativos está disponible?</summary>
-      <details class="faq-item reveal" data-delay="160">
-        <summary class="faq-q" data-i18n="faq.q5">¿Cuándo estará disponible para Linux?</summary>
-        <p class="faq-a" data-i18n="faq.a5">Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad para el proyecto.</p>
-      </details>
-      <details class="faq-item reveal" data-delay="200">
-        <summary class="faq-q" data-i18n="faq.q6">¿Cómo reporto un bug o sugerencia?</summary>
-        <p class="faq-a" data-i18n="faq.a6">Podés comunicarte a través de nuestra sección de comunidad más abajo. Ahí nos encontrás activos y listos para ayudar.</p>
-      </details>
-      <details class="faq-item reveal" data-delay="240">
-        <summary class="faq-q" data-i18n="faq.q7">¿El launcher recopila mis datos?</summary>
-        <p class="faq-a" data-i18n="faq.a7">No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.</p>
-      </details>
-      <details class="faq-item reveal" data-delay="280">
-        <summary class="faq-q" data-i18n="faq.q8">¿Puedo usar mis mods existentes?</summary>
-        <p class="faq-a" data-i18n="faq.a8">Sí, el launcher tiene un gestor de mods integrado. Podés activar, desactivar y gestionar tus mods directamente desde la interfaz.</p>
-      </details>
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ DESCARGA ============ -->
+<section class="section bg-photo" id="descarga" style="--bg-img:url('./assets/images/gallery-peaks.jpg')">
+  <div class="container narrow">
+    <div class="section-head center reveal">
+      <p class="kicker center reveal" data-i18n="dl.kicker">Descarga</p>
+      <h2 class="section-title center reveal" data-i18n="dl.title">Consigue RagsMc Launcher</h2>
+      <p class="section-desc center reveal" data-i18n="dl.desc">Ya disponible para Windows. Linux llegará próximamente.</p>
     </div>
-    <div class="faq-support reveal">
-      <i class="fa-regular fa-circle-question"></i>
-      <div class="faq-support-content">
-        <p data-i18n="faq.support">¿No encontraste lo que buscabas? Escribinos.</p>
-        <form class="faq-form" id="faqForm" action="https://formsubmit.co/RagsnorWolf@gmail.com" method="POST">
-          <input type="text" name="_subject" placeholder="Asunto" data-i18n-ph="faq.subject" required>
-          <input type="email" name="email" placeholder="Tu correo" data-i18n-ph="faq.email" required>
-          <textarea name="message" rows="3" placeholder="Tu mensaje..." data-i18n-ph="faq.msg" required></textarea>
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i><span data-i18n="faq.send">Enviar mensaje</span></button>
-        </form>
-        <p class="faq-form-msg" id="faqFormMsg" role="status" aria-live="polite"></p>
+    <div class="os-row reveal" aria-label="Sistemas operativos">
+      <a class="os-btn ready" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download="RagsMC_Launcher_Setup_v1.0.4.exe" data-sfx="dl"><i class="fa-brands fa-windows"></i><span>Windows</span><em>v1.0.4 · 11 MB</em></a>
+      <button class="os-btn" disabled><i class="fa-brands fa-linux"></i><span>Linux</span><em data-i18n="dl.soon">Próximamente</em></button>
+    </div>
+    <div class="status-card reveal">
+      <span class="status-dot" aria-hidden="true"></span>
+      <div>
+        <strong data-i18n="dl.status">Versión 1.0.4 disponible para Windows</strong>
+        <p data-i18n="dl.statussub">Instalador de 11.0 MB, gratis y sin registro.</p>
+        <p style="margin-top:6px;font-size:11px;color:#888;word-break:break-all;">SHA-256: <code style="color:#4ade80;">BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A</code></p>
+        <p style="margin-top:4px;font-size:11px;color:#888;">Código fuente en GitHub · <a href="./FALSE_POSITIVE_GUIDE.md" target="_blank" style="color:#4ade80;">¿Tu antivirus lo marca? Lee esto</a></p>
       </div>
+    </div>
+    <form class="notify reveal" id="notifyForm" novalidate>
+      <label for="notifyMail" data-i18n="dl.notify">Avísame de novedades y nuevas versiones</label>
+      <div class="notify-row">
+        <input type="email" id="notifyMail" name="email" autocomplete="email" data-i18n-ph="dl.ph" placeholder="tu@correo.com" required aria-describedby="notifyMsg">
+        <button type="submit" class="btn btn-primary" data-sfx="click"><i class="fa-solid fa-bell"></i><span data-i18n="dl.btn">Avisarme</span></button>
+      </div>
+      <p class="notify-msg" id="notifyMsg" role="status" aria-live="polite"></p>
+      <p class="fine-print" data-i18n="dl.privacy">Tu correo se guarda solo en este dispositivo. Sin spam.</p>
+    </form>
+    <div class="support-line reveal">
+      <i class="fa-regular fa-circle-question"></i>
+      <p><span data-i18n="dl.support">¿Dudas o sugerencias?</span> <a href="#comunidad" data-i18n="dl.supportbtn">Habla con la comunidad</a></p>
     </div>
   </div>
 </section>
 
-<!-- ============ COMMUNITY / SOCIAL ============ -->
-<section class="section section-alt bg-photo" id="comunidad">
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ COMUNIDAD ============ -->
+<section class="section section-alt bg-photo" id="comunidad" style="--bg-img:url('./assets/images/gallery-camp.jpg')">
   <div class="container">
-    <p class="kicker center reveal" data-i18n="soc.kicker">Comunidad</p>
-    <h2 class="section-title center reveal" data-i18n="soc.title">Síguenos</h2>
-    <p class="section-desc center reveal" data-i18n="soc.desc">Contenido, avances y directos del proyecto.</p>
+    <div class="section-head center reveal">
+      <p class="kicker center reveal" data-i18n="soc.kicker">Comunidad</p>
+      <h2 class="section-title center reveal" data-i18n="soc.title">Síguenos</h2>
+      <p class="section-desc center reveal" data-i18n="soc.desc">Contenido, avances y directos del proyecto.</p>
+    </div>
     <div class="soc-grid">
       <a class="soc-card reveal" href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" aria-label="Twitch de RagsMc" data-i18n-aria="soc.twitch">
         <span class="soc-icon twitch"><i class="fa-brands fa-twitch"></i></span>
@@ -378,42 +429,74 @@
   </div>
 </section>
 
-<!-- ============ DOWNLOAD ============ -->
-<section class="section bg-photo" id="descarga">
-  <div class="container narrow">
-    <p class="kicker center reveal" data-i18n="dl.kicker">Descarga</p>
-    <h2 class="section-title center reveal" data-i18n="dl.title">Consigue RagsMc Launcher</h2>
-    <p class="section-desc center reveal" data-i18n="dl.desc">Ya disponible para Windows. Linux llegará próximamente.</p>
-    <div class="os-row reveal" aria-label="Sistemas operativos">
-      <a class="os-btn ready" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download="RagsMC_Launcher_Setup_v1.0.4.exe" data-sfx="dl"><i class="fa-brands fa-windows"></i><span>Windows</span><em>v1.0.4</em></a>
-      <button class="os-btn" disabled><i class="fa-brands fa-linux"></i><span>Linux</span><em data-i18n="dl.soon">Próximamente</em></button>
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head center reveal">
+      <p class="kicker center reveal" data-i18n="faq.kicker">Preguntas frecuentes</p>
+      <h2 class="section-title center reveal" data-i18n="faq.title">¿Tenés dudas?</h2>
+      <p class="section-desc center reveal" data-i18n="faq.desc">Resolvemos las preguntas más comunes sobre RagsMc Launcher.</p>
     </div>
-    <div class="status-card reveal">
-      <span class="status-dot" aria-hidden="true"></span>
-      <div>
-        <strong data-i18n="dl.status">Versión 1.0.4 disponible para Windows</strong>
-        <p data-i18n="dl.statussub">Instalador de 11.0 MB, gratis y sin registro.</p>
-        <p style="margin-top:6px;font-size:11px;color:#666;word-break:break-all;">SHA-256: <code style="color:#4ade80;">BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A</code></p>
-        <p style="margin-top:4px;font-size:11px;color:#888;">Código fuente en GitHub · <a href="./FALSE_POSITIVE_GUIDE.md" target="_blank" style="color:#4ade80;">¿Tu antivirus lo marca? Lee esto</a></p>
-      </div>
-    </div>
-    <form class="notify reveal" id="notifyForm" novalidate>
-      <label for="notifyMail" data-i18n="dl.notify">Avísame de novedades y nuevas versiones</label>
-      <div class="notify-row">
-        <input type="email" id="notifyMail" name="email" autocomplete="email"
-               data-i18n-ph="dl.ph" placeholder="tu@correo.com" required aria-describedby="notifyMsg">
-        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-bell"></i><span data-i18n="dl.btn">Avisarme</span></button>
-      </div>
-      <p class="notify-msg" id="notifyMsg" role="status" aria-live="polite"></p>
-      <p class="fine-print" data-i18n="dl.privacy">Tu correo se guarda solo en este dispositivo. Sin spam.</p>
-    </form>
-    <div class="support-line reveal">
-      <i class="fa-regular fa-circle-question"></i>
-      <p><span data-i18n="dl.support">¿Dudas o sugerencias? Habla con nosotros en la comunidad.</span> <a href="#comunidad" data-i18n="dl.supportbtn">Ir a la comunidad</a></p>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary class="faq-q" data-i18n="faq.q1">¿Qué es RagsMc Launcher?</summary>
+        <p class="faq-a" data-i18n="faq.a1">RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="40">
+        <summary class="faq-q" data-i18n="faq.q2">¿Es gratis?</summary>
+        <p class="faq-a" data-i18n="faq.a2">Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="80">
+        <summary class="faq-q" data-i18n="faq.q3">¿En qué sistemas está disponible?</summary>
+        <p class="faq-a" data-i18n="faq.a3">Por ahora para Windows. Linux está en nuestra ruta de desarrollo y llegará próximamente.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="120">
+        <summary class="faq-q" data-i18n="faq.q4">¿El launcher recopila mis datos?</summary>
+        <p class="faq-a" data-i18n="faq.a4">No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="160">
+        <summary class="faq-q" data-i18n="faq.q5">¿Cuándo estará disponible para Linux?</summary>
+        <p class="faq-a" data-i18n="faq.a5">Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="200">
+        <summary class="faq-q" data-i18n="faq.q6">¿Cómo reporto un bug o sugerencia?</summary>
+        <p class="faq-a" data-i18n="faq.a6">Escríbenos en la sección de comunidad. Ahí nos encontrás activos y listos para ayudar.</p>
+      </details>
+      <details class="faq-item reveal" data-delay="240">
+        <summary class="faq-q" data-i18n="faq.q7">¿Puedo usar mis mods existentes?</summary>
+        <p class="faq-a" data-i18n="faq.a7">Sí, el launcher tiene un gestor de mods integrado para activar, desactivar y gestionar tus mods.</p>
+      </details>
     </div>
   </div>
 </section>
+
+<div class="pixel-divider" aria-hidden="true"></div>
+
+<!-- ============ SOPORTE ============ -->
+<section class="section" id="soporte">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="kicker reveal" data-i18n="sup.kicker">Soporte</p>
+      <h2 class="section-title reveal" data-i18n="sup.title">¿Necesitás ayuda?</h2>
+      <p class="section-desc reveal" data-i18n="sup.desc">Escríbenos y te respondemos a la brevedad.</p>
+    </div>
+    <form class="support-form reveal" id="supportForm" action="https://formsubmit.co/RagsnorWolf@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Consulta RagsMc Launcher">
+      <input type="hidden" name="_captcha" value="false">
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Tu nombre" data-i18n-ph="sup.name" required>
+        <input type="email" name="email" placeholder="Tu correo" data-i18n-ph="sup.email" required>
+      </div>
+      <textarea name="message" rows="4" placeholder="Tu consulta..." data-i18n-ph="sup.msg" required></textarea>
+      <button type="submit" class="btn btn-primary btn-lg" data-sfx="click"><i class="fa-solid fa-paper-plane"></i><span data-i18n="sup.send">Enviar mensaje</span></button>
+    </form>
+    <p class="support-ok" id="supportMsg" role="status" aria-live="polite"></p>
+  </div>
+</section>
 </main>
+
 <div class="pixel-divider" aria-hidden="true"></div>
 
 <!-- ============ FOOTER ============ -->
@@ -421,7 +504,7 @@
   <div class="container footer-inner">
     <a href="#inicio" class="brand">
       <img src="./assets/logo/wolf.svg" width="26" height="26" alt="Logo de lobo RagsMc" data-i18n-alt="brand.alt" class="brand-logo">
-      <span class="brand-text">RagsMc</span>
+      <span class="brand-text">Rags<span>Mc</span></span>
     </a>
     <div class="footer-social">
       <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" aria-label="Twitch de RagsMc" data-i18n-aria="soc.twitch"><i class="fa-brands fa-twitch"></i></a>
@@ -433,48 +516,29 @@
       <a href="#inicio" data-i18n="nav.home">Inicio</a>
       <a href="#proyecto" data-i18n="nav.project">Proyecto</a>
       <a href="#features" data-i18n="nav.features">Características</a>
+      <a href="#servidor" data-i18n="nav.server">Servidor</a>
       <a href="#galeria" data-i18n="nav.gallery">Galería</a>
+      <a href="#roadmap" data-i18n="nav.roadmap">Hoja de ruta</a>
       <a href="#avance" data-i18n="nav.progress">Avance</a>
       <a href="#comunidad" data-i18n="nav.community">Comunidad</a>
       <a href="#descarga" data-i18n="nav.download">Descarga</a>
+      <a href="#soporte" data-i18n="nav.support">Soporte</a>
     </nav>
     <p class="footer-note" data-i18n="footer.note">Proyecto independiente. Sin afiliación con Mojang ni Microsoft.</p>
     <p class="footer-copy">© <span id="year">2026</span> RagsMc</p>
   </div>
 </footer>
 
-<!-- NOPING: pestaña lateral + panel -->
-<button class="side-tab" id="nopingTab" aria-haspopup="dialog" aria-controls="nopingPanel" data-sfx="1">
-  <img src="./assets/images/noping-logo.png" alt="" class="side-tab-logo" aria-hidden="true">
-  <span class="side-tab-text"><i class="fa-solid fa-wifi" aria-hidden="true"></i><span data-i18n="noping.tab">¿Tu Internet anda muy mal?</span></span>
-</button>
-<div class="drawer-backdrop" id="nopingBackdrop" hidden></div>
-<aside class="drawer" id="nopingPanel" role="dialog" aria-modal="true" aria-labelledby="nopingTitle" aria-hidden="true">
-  <button class="drawer-x" id="nopingClose" aria-label="Cerrar" data-i18n-aria="lb.close"><i class="fa-solid fa-xmark"></i></button>
-  <a href="https://nopi.ng/ragsnorwolf-at-gmailcom" target="_blank" rel="noopener sponsored" aria-label="NoPing" data-i18n-aria="noping.logo"><img src="./assets/images/noping-logo.png" alt="Logo de NoPing" data-i18n-alt="noping.logoalt" class="drawer-logo" loading="lazy"></a>
-  <p class="kicker" data-i18n="noping.kicker">Conexión</p>
-  <h2 id="nopingTitle" data-i18n="noping.title">¿Lag en tus partidas?</h2>
-  <p class="drawer-desc" data-i18n="noping.desc">NoPing es un programa que optimiza la ruta de tu conexión hacia los servidores de juego: en vez del camino congestionado de tu operadora, te lleva por la vía más rápida disponible.</p>
-  <ul class="drawer-list">
-    <li><i class="fa-solid fa-bolt"></i><span data-i18n="noping.b1">Menos ping y menos tirones.</span></li>
-    <li><i class="fa-solid fa-signal"></i><span data-i18n="noping.b2">Conexión más estable.</span></li>
-    <li><i class="fa-solid fa-gamepad"></i><span data-i18n="noping.b3">Funciona con Minecraft y cientos de juegos.</span></li>
-  </ul>
-  <a class="btn btn-primary btn-lg drawer-cta" href="https://nopi.ng/ragsnorwolf-at-gmailcom" target="_blank" rel="noopener sponsored"><i class="fa-solid fa-rocket"></i><span data-i18n="noping.cta">Probar NoPing gratis</span></a>
-  <a class="btn btn-outline btn-lg drawer-cta drawer-video" href="https://www.youtube.com/watch?v=N0C_Yrimmvw&t=32s" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i><span data-i18n="noping.video">Ver qué es NoPing en video</span></a>
-  <p class="fine-print" data-i18n="noping.note">Los resultados dependen de tu conexión. Enlace de referido.</p>
-</aside>
-
-<!-- TO TOP -->
+<!-- ============ VOLVER ARRIBA ============ -->
 <button class="to-top" id="toTop" aria-label="Volver arriba" data-i18n-aria="misc.top"><i class="fa-solid fa-arrow-up"></i></button>
 
-<!-- MUSIC PLAYER -->
+<!-- ============ MÚSICA ============ -->
 <button class="music-btn" id="musicBtn" aria-label="Activar o pausar música" data-i18n-aria="music.toggle" aria-pressed="false" title="Música">
   <span class="eq" aria-hidden="true"><span></span><span></span><span></span></span>
   <i class="fa-solid fa-music music-icon" aria-hidden="true"></i>
 </button>
 
-<!-- LIGHTBOX -->
+<!-- ============ LIGHTBOX ============ -->
 <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Imagen ampliada">
   <div class="lightbox-backdrop" data-close></div>
   <figure class="lightbox-box">
@@ -483,6 +547,10 @@
   </figure>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/bundled/lenis.min.js"></script>
 <script src="./script.js"></script>
 </body>
 </html>
