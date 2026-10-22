@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso Legal | RagsMc Launcher</title>
+<meta name="description" content="Aviso legal de RagsMc Launcher. Proyecto independiente de Minecraft.">
+<link rel="icon" type="image/svg+xml" href="./assets/logo/wolf.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<style>
+  .legal-page { max-width: 760px; margin: 0 auto; padding: 80px 20px; line-height: 1.8; }
+  .legal-page h2 { font-family: var(--font-pixel); color: var(--accent-bright); font-size: clamp(24px, 5vw, 32px); margin: 30px 0 14px; }
+  .legal-page p { color: var(--text-dim); margin-bottom: 16px; font-size: clamp(14px, 1.2vw, 17px); }
+  .legal-page .back { display: inline-block; margin-top: 30px; color: var(--accent-bright); text-decoration: none; font-weight: 700; }
+  .legal-page .back:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<header class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="brand"><img src="./assets/logo/wolf.svg" width="32" height="32" alt="Logo de lobo RagsMc"><span class="brand-text">Rags<span>Mc</span></span></a>
+    <nav class="nav-links"><a href="#" class="nav-link active" data-i18n="nav.home">Inicio</a></nav>
+    <div class="nav-actions"><a href="#descarga" class="btn btn-primary btn-sm" data-sfx="dl"><i class="fa-solid fa-download"></i> Descargar</a></div>
+  </div>
+</header>
+<main>
+  <div class="legal-page">
+    <h2>Aviso Legal</h2>
+    <p><strong>RagsMc Launcher</strong> es un proyecto independiente de código abierto creado por Gonzalo Díaz (@RagsnorWolf). No está afiliado, patrocinado ni respaldado por Mojang Studios, Microsoft Corporation ni ninguna otra entidad relacionada con Minecraft.</p>
+    <p>Minecraft es una marca registrada de Mojang Synergies AB. El uso del nombre "RagsMc" y los activos visuales (lobo, creeper) son propiedad del autor del proyecto.</p>
+    <p>Este launcher se distribuye "tal cual", sin garantías de ningún tipo. El autor no se hace responsable de daños, pérdida de datos o problemas derivados del uso del software.</p>
+    <p>La descarga y uso del launcher es bajo tu propia responsabilidad. Se recomienda analizar el instalador con tu antivirus antes de ejecutarlo.</p>
+    <p>Para dudas, contáctanos a través de la sección Comunidad o por correo: <strong>gonzalo30diaz@gmail.com</strong></p>
+    <a href="#" class="back" data-i18n="nav.home">← Volver al inicio</a>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href="#" class="brand" style="justify-content:center"><img src="./assets/logo/wolf.svg" width="26" height="26" alt="Logo de lobo RagsMc"><span class="brand-text">Rags<span>Mc</span></span></a>
+    <nav class="footer-links" style="justify-content:center; gap:16px 26px;">
+      <a href="privacidad.html" data-i18n="legal.privacy">Política de privacidad</a>
+      <a href="cookies.html" data-i18n="legal.cookies">Aviso de cookies</a>
+    </nav>
+    <p class="footer-copy">© <span id="year">2026</span> RagsMc</p>
+  </div>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

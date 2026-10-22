@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad | RagsMc Launcher</title>
+<meta name="description" content="Política de privacidad de RagsMc Launcher. Proyecto independiente de Minecraft.">
+<link rel="icon" type="image/svg+xml" href="./assets/logo/wolf.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<style>
+  .legal-page { max-width: 760px; margin: 0 auto; padding: 80px 20px; line-height: 1.8; }
+  .legal-page h2 { font-family: var(--font-pixel); color: var(--accent-bright); font-size: clamp(24px, 5vw, 32px); margin: 30px 0 14px; }
+  .legal-page p { color: var(--text-dim); margin-bottom: 16px; font-size: clamp(14px, 1.2vw, 17px); }
+  .legal-page .back { display: inline-block; margin-top: 30px; color: var(--accent-bright); text-decoration: none; font-weight: 700; }
+  .legal-page .back:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<header class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="brand"><img src="./assets/logo/wolf.svg" width="32" height="32" alt="Logo de lobo RagsMc"><span class="brand-text">Rags<span>Mc</span></span></a>
+    <nav class="nav-links"><a href="#" class="nav-link active" data-i18n="nav.home">Inicio</a></nav>
+    <div class="nav-actions"><a href="#descarga" class="btn btn-primary btn-sm" data-sfx="dl"><i class="fa-solid fa-download"></i> Descargar</a></div>
+  </div>
+</header>
+<main>
+  <div class="legal-page">
+    <h2>Política de Privacidad</h2>
+    <p>RagsMc Launcher no recopila, almacena ni comparte datos personales de los usuarios. El launcher funciona localmente en tu equipo y no envía información a servidores externos (excepto los servicios opcionales que tú elijas usar, como Notificaciones o Soporte).</p>
+    <p><strong>Datos del formulario de novedades:</strong> Si te suscribes para recibir avisos, tu correo electrónico se guarda únicamente en tu navegador (localStorage) y no se transmite a ningún servidor.</p>
+    <p><strong>Formulario de soporte:</strong> Si envías un mensaje a través del formulario de contacto, los datos se envían a Formspool para gestionar la consulta. No se utilizan para fines de marketing.</p>
+    <p><strong>Cookies:</strong> Este sitio utiliza Cookiebot para gestionar el consentimiento de cookies y Google Analytics para medir el tráfico de forma anónima.</p>
+    <p>Puedes consultar nuestra Política de Cookies para más detalles.</p>
+    <p>Responsable: Gonzalo Díaz (@RagsnorWolf) · Correo: <strong>gonzalo30diaz@gmail.com</strong></p>
+    <a href="#" class="back" data-i18n="nav.home">← Volver al inicio</a>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href="#" class="brand" style="justify-content:center"><img src="./assets/logo/wolf.svg" width="26" height="26" alt="Logo de lobo RagsMc"><span class="brand-text">Rags<span>Mc</span></span></a>
+    <nav class="footer-links" style="justify-content:center; gap:16px 26px;">
+      <a href="aviso-legal.html" data-i18n="legal.terms">Aviso legal</a>
+      <a href="cookies.html" data-i18n="legal.cookies">Aviso de cookies</a>
+    </nav>
+    <p class="footer-copy">© <span id="year">2026</span> RagsMc</p>
+  </div>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

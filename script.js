@@ -115,6 +115,11 @@
         name: "Tu nombre", email: "Tu correo", msg: "Tu consulta...", send: "Enviar mensaje"
       },
       footer: { note: "Proyecto independiente. Sin afiliación con Mojang ni Microsoft." },
+      legal: {
+        terms: "Aviso legal",
+        privacy: "Política de privacidad",
+        cookies: "Aviso de cookies"
+      },
       misc: { top: "Volver arriba" },
       music: { toggle: "Activar o pausar música" },
       load: { loading: "Cargando mundo...", tipLabel: "Consejo:" },
@@ -237,6 +242,11 @@
         name: "Your name", email: "Your email", msg: "Your inquiry...", send: "Send message"
       },
       footer: { note: "Independent project. Not affiliated with Mojang or Microsoft." },
+      legal: {
+        terms: "Legal Notice",
+        privacy: "Privacy Policy",
+        cookies: "Cookie Notice"
+      },
       misc: { top: "Back to top" },
       music: { toggle: "Activate or pause music" },
       load: { loading: "Loading world...", tipLabel: "Tip:" },
@@ -729,6 +739,9 @@
   if (notifyForm) {
     notifyForm.addEventListener("submit", e => {
       e.preventDefault();
+      // Honeypot: si el campo oculto tiene valor, es un bot → no enviar
+      const website = notifyForm.elements.website;
+      if (website && website.value.trim() !== "") return;
       const email = notifyForm.elements.email.value.trim();
       if (!email) return;
       const list = JSON.parse(localStorage.getItem("ragsmc-notify") || "[]");
@@ -750,6 +763,9 @@
   if (supportForm) {
     supportForm.addEventListener("submit", async e => {
       e.preventDefault();
+      // Honeypot: si el campo oculto tiene valor, es un bot → no enviar
+      const website = supportForm.elements.website;
+      if (website && website.value.trim() !== "") return;
       const btn = supportForm.querySelector("button[type='submit']");
       const orig = btn.innerHTML;
       btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';

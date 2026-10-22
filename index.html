@@ -28,6 +28,42 @@
   gtag('js', new Date());
   gtag('config', 'G-Z8BEQYDQMY');
 </script>
+
+<!-- Datos estructurados -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "RagsMc Launcher",
+  "url": "https://ragslaunchermc.dpdns.org/",
+  "logo": "./assets/logo/wolf.svg",
+  "sameAs": [
+    "https://www.twitch.tv/ragsnorwolf",
+    "https://www.tiktok.com/@ragsnorwolf",
+    "https://www.youtube.com/@RagsnorWolf_Games",
+    "https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RagsMc Launcher",
+  "applicationCategory": "Game",
+  "operatingSystem": "Windows",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Minecraft players"
+  }
+}
+</script>
 </head>
 <body>
 <!-- ============ PANTALLA DE CARGA (MINECRAFT) ============ -->
@@ -378,6 +414,8 @@
         <input type="email" id="notifyMail" name="email" autocomplete="email" data-i18n-ph="dl.ph" placeholder="tu@correo.com" required aria-describedby="notifyMsg">
         <button type="submit" class="btn btn-primary" data-sfx="click"><i class="fa-solid fa-bell"></i><span data-i18n="dl.btn">Avisarme</span></button>
       </div>
+      <!-- Campo honeypot anti-spam (invisible para humanos) -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;" aria-hidden="true">
       <p class="notify-msg" id="notifyMsg" role="status" aria-live="polite"></p>
       <p class="fine-print" data-i18n="dl.privacy">Tu correo se guarda solo en este dispositivo. Sin spam.</p>
     </form>
@@ -492,6 +530,8 @@
         <input type="email" name="email" placeholder="Tu correo" data-i18n-ph="sup.email" required>
       </div>
       <textarea name="message" rows="4" placeholder="Tu consulta..." data-i18n-ph="sup.msg" required></textarea>
+      <!-- Campo honeypot anti-spam (invisible para humanos) -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;" aria-hidden="true">
       <button type="submit" class="btn btn-primary btn-lg" data-sfx="click"><i class="fa-solid fa-paper-plane"></i><span data-i18n="sup.send">Enviar mensaje</span></button>
     </form>
     <p class="support-ok" id="supportMsg" role="status" aria-live="polite"></p>
@@ -525,6 +565,13 @@
       <a href="#comunidad" data-i18n="nav.community">Comunidad</a>
       <a href="#descarga" data-i18n="nav.download">Descarga</a>
       <a href="#soporte" data-i18n="nav.support">Soporte</a>
+    </nav>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="aviso-legal.html" data-i18n="legal.terms">Aviso legal</a>
+      <span aria-hidden="true">·</span>
+      <a href="privacidad.html" data-i18n="legal.privacy">Política de privacidad</a>
+      <span aria-hidden="true">·</span>
+      <a href="cookies.html" data-i18n="legal.cookies">Aviso de cookies</a>
     </nav>
     <p class="footer-note" data-i18n="footer.note">Proyecto independiente. Sin afiliación con Mojang ni Microsoft.</p>
     <p class="footer-copy">© <span id="year">2026</span> RagsMc</p>
