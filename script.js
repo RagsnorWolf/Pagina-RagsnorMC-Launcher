@@ -1,675 +1,203 @@
 /* ============================================================
    RAGSMC LAUNCHER — script.js
-   i18n, tema, música, loader, GSAP/Lenis/SplitText, partículas,
-   reveal al scroll, sonidos Minecraft, formularios, utilidades.
-   ============================================================ */
+   Loader, GSAP/Lenis/SplitText, partículas, reveal, sonidos,
+   tema/i18n, copia al portapapel, menú móvil, carrusel, FAQ,
+   formularios.  ============================================================ */
 (function () {
   "use strict";
 
   /* ---------- i18n ---------- */
   const i18n = {
     es: {
-      skip: "Saltar al contenido",
-      nav: {
-        home: "Inicio", project: "Proyecto", features: "Características",
-        server: "Servidor", gallery: "Galería", roadmap: "Hoja de ruta",
-        progress: "Avance", download: "Descarga", community: "Comunidad",
-        support: "Soporte", cta: "Descargar", menu: "Abrir menú"
-      },
+      nav: { home: "Inicio", acerca: "Acerca", features: "Características", servidor: "Servidor", galeria: "Galería", roadmap: "Hoja de ruta", descarga: "Descarga", comunidad: "Comunidad" },
       theme: { toggle: "Cambiar tema" },
-      hero: {
-        badge: "Proyecto independiente · En desarrollo",
-        sub: "Un launcher de Minecraft rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.",
-        cta1: "Descargar para Windows", cta2: "Unirse a la comunidad",
-        note: "Versión 1.0.4 · Windows · Linux próximamente · Gratis y sin registro"
-      },
-      about: {
-        kicker: "Sobre el proyecto", badge: "En desarrollo",
-        title: "¿Qué es RagsMc Launcher?",
-        p1: "RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna y personalizada para jugar Minecraft desde un solo lugar.",
-        p2: "Cada sistema, pantalla y decisión está siendo pensado para construir una base sólida, rápida y preparada para crecer junto a la comunidad.",
-        s1: "Proyecto indie", s2: "Mundos posibles", s3: "Identidad propia"
-      },
-      feat: {
-        kicker: "El núcleo", title: "Características",
-        desc: "Una base enfocada en lo importante, preparada para evolucionar junto al proyecto.",
-        "1t": "Rápido", "1d": "Inicio veloz y experiencia fluida sin complicaciones.",
-        "2t": "Minecraft", "2d": "Pensado desde y para la experiencia de Minecraft.",
-        "3t": "Personalizable", "3d": "Preparado para futuras opciones de personalización.",
-        "4t": "Versiones", "4d": "Gestión de diferentes versiones de Minecraft.",
-        "5t": "En desarrollo", "5d": "El proyecto evoluciona constantemente con la comunidad.",
-        "6t": "Futuro", "6d": "Nuevas características incorporadas progresivamente."
-      },
-      server: {
-        kicker: "El servidor", title: "Juega en RagsMC",
-        p1: "RagsMc es un servidor de Minecraft pensado para la comunidad, con identidad propia y un entorno hecho para jugar junto a otros."
-      },
-      gal: {
-        kicker: "Galería", title: "El mundo que nos inspira",
-        desc: "Estética y ambiente que guían el diseño del proyecto.",
-        note: "Imágenes conceptuales de referencia. No son capturas del launcher.",
-        alt1: "Bosque de Minecraft al atardecer", alt2: "Lago en las llanuras de Minecraft",
-        alt3: "Claro con agua en la jungla de Minecraft", alt4: "Campamento con fogata en Minecraft",
-        alt5: "Atardecer en el bosque de Minecraft", alt6: "Valle con lago en Minecraft",
-        alt7: "Vuelo con élitros sobre la jungla de Minecraft", alt8: "Picos nevados en Minecraft",
-        alt9: "Arboleda de cerezos en Minecraft", alt10: "Colina de cerezos junto al lago en Minecraft"
-      },
-      road: {
-        kicker: "Hoja de ruta", title: "RagsMc Launcher está creciendo.",
-        desc: "Avance progresivo: primero una experiencia estable y clara, luego nuevas posibilidades. Sin promesas vacías.",
-        phase: "Fase",
-        "p1t": "Concepto", "p1d": "Diseño y concepto inicial del launcher.",
-        "p2t": "Desarrollo", "p2d": "Construcción del launcher base.",
-        "p3t": "Testing", "p3d": "Pruebas, correcciones y estabilidad.",
-        "p4t": "Release", "p4d": "Primera versión pública estable.",
-        "p5t": "Actualizaciones", "p5d": "Mejoras y nuevas funciones.",
-        done: "Completado", now: "Actual", next: "Pendiente"
-      },
-      av: {
-        kicker: "Avance del launcher", title: "Así va el launcher",
-        desc: "Capturas reales del desarrollo. Sin renders ni promesas: esto es lo que ya existe hoy.",
-        "c1": "Pantalla Jugar", "c2": "Selector 1.21.10", "c3": "Noticias",
-        "c4": "Gestor de Mods", "c5": "Consola",
-        note: "Iremos publicando cada avance aquí mismo."
-      },
-      dl: {
-        kicker: "Descarga", title: "Consigue RagsMc Launcher",
-        desc: "Ya disponible para Windows. Linux llegará próximamente.",
-        soon: "Próximamente",
-        status: "Versión 1.0.4 disponible para Windows",
-        statussub: "Instalador de 11.0 MB, gratis y sin registro.",
-        notify: "Avísame de novedades y nuevas versiones",
-        ph: "tu@correo.com", btn: "Avisarme",
-        privacy: "Tu correo se guarda solo en este dispositivo. Sin spam.",
-        support: "¿Dudas o sugerencias?", supportbtn: "Habla con la comunidad"
-      },
-      soc: {
-        kicker: "Comunidad", title: "Síguenos",
-        desc: "Contenido, avances y directos del proyecto.",
-        twitch: "Twitch de RagsMc", twitchd: "Directos y avances en vivo.",
-        tiktok: "TikTok de RagsMc", tiktokd: "Clips y novedades en corto.",
-        youtube: "YouTube de RagsMc", ytd: "Videos y devlogs.",
-        wa: "WhatsApp de RagsMc", official: "Canal oficial", wad: "Avisos y novedades al instante."
-      },
-      faq: {
-        kicker: "Preguntas frecuentes", title: "¿Tenés dudas?",
-        desc: "Resolvemos las preguntas más comunes sobre RagsMc Launcher.",
-        q1: "¿Qué es RagsMc Launcher?",
-        a1: "RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Está hecho por jugadores, para jugadores.",
-        q2: "¿Es gratis?", a2: "Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.",
-        q3: "¿En qué sistemas está disponible?",
-        a3: "Por ahora para Windows. Linux está en nuestra ruta de desarrollo y llegará próximamente.",
-        q4: "¿El launcher recopila mis datos?",
-        a4: "No. RagsMc Launcher no recopila ni comparte tus datos personales. Tu privacidad es importante.",
-        q5: "¿Cuándo estará disponible para Linux?",
-        a5: "Está en nuestra ruta de desarrollo. No hay una fecha exacta todavía, pero es una prioridad.",
-        q6: "¿Cómo reporto un bug o sugerencia?",
-        a6: "Escríbenos en la sección de comunidad. Ahí nos encontrás activos y listos para ayudar.",
-        q7: "¿Puedo usar mis mods existentes?",
-        a7: "Sí, el launcher tiene un gestor de mods integrado para activar, desactivar y gestionar tus mods.",
-        subject: "Asunto", email: "Tu correo", msg: "Tu mensaje...", send: "Enviar mensaje"
-      },
-      sup: {
-        kicker: "Soporte", title: "¿Necesitás ayuda?",
-        desc: "Escríbenos y te respondemos a la brevedad.",
-        name: "Tu nombre", email: "Tu correo", msg: "Tu consulta...", send: "Enviar mensaje"
-      },
-      footer: { note: "Proyecto independiente. Sin afiliación con Mojang ni Microsoft." },
-      legal: {
-        terms: "Aviso legal",
-        privacy: "Política de privacidad",
-        cookies: "Aviso de cookies"
-      },
-      misc: { top: "Volver arriba" },
-      music: { toggle: "Activar o pausar música" },
-      load: { loading: "Cargando mundo...", tipLabel: "Consejo:" },
-      noping: {
-        tab: "¿Tu Internet anda muy mal?", close: "Cerrar", logoalt: "Logo de NoPing",
-        kicker: "Conexión", title: "¿Lag en tus partidas?",
-        desc: "NoPing es un programa que optimiza la ruta de tu conexión hacia los servidores de juego.",
-        b1: "Menos ping y menos tirones.", b2: "Conexión más estable.",
-        b3: "Funciona con Minecraft y cientos de juegos.",
-        cta: "Probar NoPing gratis", video: "Ver qué es NoPing en video",
-        note: "Los resultados dependen de tu conexión. Enlace de referido."
-      },
-      brand: { alt: "Logo de lobo RagsMc" },
+      hero: { badge: "Proyecto independiente · v1.0.4", sub: "Rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.", cta1: "Descargar para Windows", cta2: "Ver capturas", note: "Gratis · Sin registro · Windows 10/11" },
+      about: { kicker: "Sobre el proyecto", title: "Un launcher con identidad propia", p1: "RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna, rápida y personalizada para jugar Minecraft desde un solo lugar. Sin telemetría, sin registro obligatorio y con el control en tus manos.", p2: "Cada pantalla, sistema y decisión está siendo diseñado para construir una base sólida, estable y preparada para crecer junto a la comunidad." },
+      feat: { kicker: "El núcleo", title: "Diseñado para jugar, no para configurar", desc: "Una base enfocada en lo importante, preparada para evolucionar junto al proyecto sin complejidades innecesarias.", "1t": "Inicio ultra-rápido", "1d": "Arranque veloz y sin complicaciones para que pases menos tiempo esperando y más tiempo jugando.", "2t": "Gestor de mods integrado", "2d": "Instala, activa y desactiva mods desde una interfaz integrada sin salir del launcher.", "3t": "Múltiples versiones", "3d": "Selector de versiones de Minecraft, incluyendo 1.21.1 Forge y otras configuraciones.", "4t": "Personalización total", "4d": "Temas, apariencia y opciones de personalización para que el launcher sea tuyo.", "5t": "Actualizaciones automáticas", "5d": "El launcher se mantiene al día con las últimas versiones y parches de forma automática.", "6t": "Diseño propio", "6d": "Estética premium inspirada en Minecraft pero con acabado de producto profesional moderno." },
+      server: { kicker: "El servidor", title: "Juega en RagsMc", desc: "Conéctate a la comunidad con una dirección estable y sin complicaciones." },
+      gal: { kicker: "Galería", title: "Así va el launcher", desc: "Capturas reales del desarrollo. Sin renders ni promesas vacías." },
+      road: { kicker: "Hoja de ruta", title: "Creciendo con la comunidad", desc: "Sin promesas vacías. Cada fase avanza cuando está lista.", phase: "Fase", "p1t": "Concepto", "p1d": "Diseño y concepto inicial del launcher con identidad propia.", "p2t": "Desarrollo", "p2d": "Construcción del launcher base con gestor de mods y selector de versiones.", "p3t": "Testing", "p3d": "Pruebas, correcciones y estabilidad antes del primer release.", "p4t": "Release", "p4d": "Primera versión pública estable para Windows.", "p5t": "Actualizaciones", "p5d": "Mejoras y nuevas funciones según feedback de la comunidad.", done: "Completado", now: "Actual", next: "Pendiente" },
+      dl: { kicker: "Descarga", title: "Consigue RagsMc Launcher", sub: "v1.0.4 · Windows 10/11 · 11.0 MB · Gratis y sin registro", cta: "Descargar para Windows", sha: "SHA-256:", alt: "Descarga alternativa", zip: "ZIP portable", linux: "Linux", linuxSoon: "Próximamente", src: "Código fuente en", av: "¿Tu antivirus lo marca? Lee esto", notify: "Avísame de novedades y nuevas versiones", btn: "Avisarme", ph: "tu@correo.com", privacy: "Tu correo se guarda solo en este dispositivo. Sin spam." },
+      soc: { kicker: "Comunidad", title: "Síguenos", desc: "Contenido, avances y directos del proyecto.", twitch: "Twitch de RagsMc", tiktok: "TikTok de RagsMc", youtube: "YouTube de RagsMc", wa: "WhatsApp de RagsMc" },
+      faq: { kicker: "Preguntas frecuentes", title: "¿Tenés dudas?", q1: "¿Qué es RagsMc Launcher?", a1: "RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.", q2: "¿Es gratis?", a2: "Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.", q3: "¿Qué sistemas son compatibles?", a3: "Por ahora para Windows 10/11. Linux llegará próximamente.", q4: "¿El launcher recopila mis datos?", a4: "No. No recopilamos ni compartemos tus datos personales.", q5: "¿Cómo me uno al servidor?", a5: "Usá la dirección ragsmc.dpdns.org con la versión 1.21.1 Forge desde el launcher." },
+      misc: { top: "Volver arriba", copy: "Copiado al portapapeles" },
       lb: { close: "Cerrar" }
     },
     en: {
-      skip: "Skip to content",
-      nav: {
-        home: "Home", project: "Project", features: "Features", server: "Server",
-        gallery: "Gallery", roadmap: "Roadmap", progress: "Progress",
-        download: "Download", community: "Community", support: "Support",
-        cta: "Download", menu: "Open menu"
-      },
+      nav: { home: "Home", acerca: "About", features: "Features", servidor: "Server", galeria: "Gallery", roadmap: "Roadmap", descarga: "Download", comunidad: "Community" },
       theme: { toggle: "Change theme" },
-      hero: {
-        badge: "Independent project · In development",
-        sub: "A fast, simple Minecraft launcher with its own identity. Made by players, for players.",
-        cta1: "Download for Windows", cta2: "Join the community",
-        note: "Version 1.0.4 · Windows · Linux coming soon · Free and no registration"
-      },
-      about: {
-        kicker: "About the project", badge: "In development",
-        title: "What is RagsMc Launcher?",
-        p1: "RagsMc Launcher is an independent project created to offer a modern and personalized experience to play Minecraft from a single place.",
-        p2: "Each system, screen and decision is being thought to build a solid, fast base ready to grow with the community.",
-        s1: "Indie project", s2: "Possible worlds", s3: "Own identity"
-      },
-      feat: {
-        kicker: "The core", title: "Features",
-        desc: "A base focused on what matters, ready to evolve with the project.",
-        "1t": "Fast", "1d": "Quick start and smooth experience without complications.",
-        "2t": "Minecraft", "2d": "Made from and for the Minecraft experience.",
-        "3t": "Customizable", "3d": "Prepared for future customization options.",
-        "4t": "Versions", "4d": "Management of different Minecraft versions.",
-        "5t": "In development", "5d": "The project constantly evolves with the community.",
-        "6t": "Future", "6d": "New features added progressively."
-      },
-      server: {
-        kicker: "The server", title: "Play on RagsMC",
-        p1: "RagsMc is a Minecraft server designed for the community, with its own identity and an environment made to play with others."
-      },
-      gal: {
-        kicker: "Gallery", title: "The world that inspires us",
-        desc: "Aesthetic and atmosphere that guide the project design.",
-        note: "Conceptual reference images. Not launcher screenshots.",
-        alt1: "Minecraft forest at sunset", alt2: "Lake in Minecraft plains",
-        alt3: "Clearing with water in Minecraft jungle", alt4: "Campfire camp in Minecraft",
-        alt5: "Sunset in Minecraft forest", alt6: "Valley with lake in Minecraft",
-        alt7: "Elytra flight over Minecraft jungle", alt8: "Snowy peaks in Minecraft",
-        alt9: "Cherry grove in Minecraft", alt10: "Cherry hill next to lake in Minecraft"
-      },
-      road: {
-        kicker: "Roadmap", title: "RagsMc Launcher is growing.",
-        desc: "Progressive advancement: first a stable and clear experience, then new possibilities. No empty promises.",
-        phase: "Phase",
-        "p1t": "Concept", "p1d": "Design and initial concept of the launcher.",
-        "p2t": "Development", "p2d": "Building the base launcher.",
-        "p3t": "Testing", "p3d": "Tests, fixes and stability.",
-        "p4t": "Release", "p4d": "First stable public version.",
-        "p5t": "Updates", "p5d": "Improvements and new features.",
-        done: "Completed", now: "Current", next: "Pending"
-      },
-      av: {
-        kicker: "Launcher progress", title: "How the launcher is going",
-        desc: "Real development captures. No renders or promises: this is what exists today.",
-        "c1": "Play screen", "c2": "Version selector 1.21.10", "c3": "News",
-        "c4": "Mods manager", "c5": "Console",
-        note: "We will publish each advance here."
-      },
-      dl: {
-        kicker: "Download", title: "Get RagsMc Launcher",
-        desc: "Available for Windows. Linux coming soon.",
-        soon: "Coming soon",
-        status: "Version 1.0.4 available for Windows",
-        statussub: "11.0 MB installer, free and no registration.",
-        notify: "Notify me about news and new versions",
-        ph: "your@email.com", btn: "Notify me",
-        privacy: "Your email is stored only on this device. No spam.",
-        support: "Questions or suggestions?", supportbtn: "Talk to the community"
-      },
-      soc: {
-        kicker: "Community", title: "Follow us",
-        desc: "Content, news and live streams of the project.",
-        twitch: "RagsMc Twitch", twitchd: "Live streams and news.",
-        tiktok: "RagsMc TikTok", tiktokd: "Short clips and news.",
-        youtube: "RagsMc YouTube", ytd: "Videos and devlogs.",
-        wa: "RagsMc WhatsApp", official: "Official channel", wad: "News and updates instantly."
-      },
-      faq: {
-        kicker: "Frequently asked questions", title: "Got questions?",
-        desc: "We answer the most common questions about RagsMc Launcher.",
-        q1: "What is RagsMc Launcher?",
-        a1: "RagsMc Launcher is an independent Minecraft launcher, designed to be fast, simple and with its own identity. Made by players, for players.",
-        q2: "Is it free?", a2: "Yes, RagsMc Launcher is completely free. No hidden costs or mandatory subscriptions.",
-        q3: "What systems is it available on?",
-        a3: "For now Windows. Linux is on our roadmap and will be coming soon.",
-        q4: "Does the launcher collect my data?",
-        a4: "No. RagsMc Launcher does not collect or share your personal data. Your privacy matters.",
-        q5: "When will Linux be available?",
-        a5: "It's on our roadmap. No exact date yet, but it's a priority.",
-        q6: "How do I report a bug or suggestion?",
-        a6: "Write to us in the community section. We're active there and ready to help.",
-        q7: "Can I use my existing mods?",
-        a7: "Yes, the launcher has an integrated mods manager to activate, deactivate and manage your mods.",
-        subject: "Subject", email: "Your email", msg: "Your message...", send: "Send message"
-      },
-      sup: {
-        kicker: "Support", title: "Need help?",
-        desc: "Write to us and we'll reply as soon as possible.",
-        name: "Your name", email: "Your email", msg: "Your inquiry...", send: "Send message"
-      },
-      footer: { note: "Independent project. Not affiliated with Mojang or Microsoft." },
-      legal: {
-        terms: "Legal Notice",
-        privacy: "Privacy Policy",
-        cookies: "Cookie Notice"
-      },
-      misc: { top: "Back to top" },
-      music: { toggle: "Activate or pause music" },
-      load: { loading: "Loading world...", tipLabel: "Tip:" },
-      noping: {
-        tab: "Is your Internet very bad?", close: "Close", logoalt: "NoPing logo",
-        kicker: "Connection", title: "Lag in your matches?",
-        desc: "NoPing is a program that optimizes the route of your connection to game servers.",
-        b1: "Less ping and fewer stutters.", b2: "More stable connection.",
-        b3: "Works with Minecraft and hundreds of games.",
-        cta: "Try NoPing for free", video: "See what NoPing is in video",
-        note: "Results depend on your connection. Referral link."
-      },
-      brand: { alt: "RagsMc wolf logo" },
+      hero: { badge: "Independent project · v1.0.4", sub: "Fast, simple and with its own identity. Made by players, for players.", cta1: "Download for Windows", cta2: "See captures", note: "Free · No registration · Windows 10/11" },
+      about: { kicker: "About the project", title: "A launcher with its own identity", p1: "RagsMc Launcher is an independent project created to offer a modern, fast and personalized experience to play Minecraft from a single place. No telemetry, no mandatory registration and control in your hands.", p2: "Each screen, system and decision is being designed to build a solid, stable base ready to grow with the community." },
+      feat: { kicker: "The core", title: "Designed to play, not to configure", desc: "A base focused on what matters, ready to evolve with the project without unnecessary complexity.", "1t": "Ultra-fast start", "1d": "Quick and uncomplicated launch so you spend less time waiting and more time playing.", "2t": "Integrated mods manager", "2d": "Install, activate and deactivate mods from an integrated interface without leaving the launcher.", "3t": "Multiple versions", "3d": "Minecraft version selector, including 1.21.1 Forge and other configurations.", "4t": "Total customization", "4d": "Themes, appearance and customization options so the launcher is yours.", "5t": "Automatic updates", "5d": "The launcher stays up to date with the latest versions and patches automatically.", "6t": "Own design", "6d": "Premium aesthetic inspired by Minecraft but with a professional product finish." },
+      server: { kicker: "The server", title: "Play on RagsMc", desc: "Connect to the community with a stable address and no complications." },
+      gal: { kicker: "Gallery", title: "How the launcher is going", desc: "Real development captures. No renders or empty promises." },
+      road: { kicker: "Roadmap", title: "Growing with the community", desc: "No empty promises. Each phase advances when it's ready.", phase: "Phase", "p1t": "Concept", "p1d": "Design and initial concept of the launcher with its own identity.", "p2t": "Development", "p2d": "Building the base launcher with mods manager and version selector.", "p3t": "Testing", "p3d": "Tests, fixes and stability before the first release.", "p4t": "Release", "p4d": "First stable public version for Windows.", "p5t": "Updates", "p5d": "Improvements and new features according to community feedback.", done: "Completed", now: "Current", next: "Pending" },
+      dl: { kicker: "Download", title: "Get RagsMc Launcher", sub: "v1.0.4 · Windows 10/11 · 11.0 MB · Free and no registration", cta: "Download for Windows", sha: "SHA-256:", alt: "Alternative download", zip: "ZIP portable", linux: "Linux", linuxSoon: "Coming soon", src: "Source code on", av: "Antivirus flagged it? Read this", notify: "Notify me about news and new versions", btn: "Notify me", ph: "your@email.com", privacy: "Your email is stored only on this device. No spam." },
+      soc: { kicker: "Community", title: "Follow us", desc: "Content, news and live streams of the project.", twitch: "RagsMc Twitch", tiktok: "RagsMc TikTok", youtube: "RagsMc YouTube", wa: "RagsMc WhatsApp" },
+      faq: { kicker: "Frequently asked questions", title: "Got questions?", q1: "What is RagsMc Launcher?", a1: "RagsMc Launcher is an independent Minecraft launcher, designed to be fast, simple and with its own identity. Made by players, for players.", q2: "Is it free?", a2: "Yes, RagsMc Launcher is completely free. No hidden costs or mandatory subscriptions.", q3: "What systems are compatible?", a3: "For now Windows 10/11. Linux will be coming soon.", q4: "Does the launcher collect my data?", a4: "No. We do not collect or share your personal data.", q5: "How do I join the server?", a5: "Use the address ragsmc.dpdns.org with version 1.21.1 Forge from the launcher." },
+      misc: { top: "Back to top", copy: "Copied to clipboard" },
       lb: { close: "Close" }
     }
   };
-
   let lang = localStorage.getItem("ragsmc-lang") || "es";
-  function t(key) {
-    const parts = key.split(".");
-    let obj = i18n[lang];
-    for (const p of parts) {
-      if (!obj || !(p in obj)) return key;
-      obj = obj[p];
-    }
-    return typeof obj === "string" ? obj : key;
+  function t(k) {
+    const p = k.split(".");
+    let o = i18n[lang];
+    for (const x of p) { if (!o || !(x in o)) return k; o = o[x]; }
+    return typeof o === "string" ? o : k;
   }
   function applyLang() {
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      el.textContent = t(el.dataset.i18n);
-    });
-    document.querySelectorAll("[data-i18n-ph]").forEach(el => {
-      el.placeholder = t(el.dataset.i18nPh);
-    });
-    document.querySelectorAll("[data-i18n-alt]").forEach(el => {
-      el.alt = t(el.dataset.i18nAlt);
-    });
-    document.querySelectorAll("[data-i18n-aria]").forEach(el => {
-      el.setAttribute("aria-label", t(el.dataset.i18nAria));
-    });
+    document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = t(el.dataset.i18n));
+    document.querySelectorAll("[data-i18n-ph]").forEach(el => el.placeholder = t(el.dataset.i18nPh));
+    document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
     document.documentElement.lang = lang;
-    const esBtn = document.querySelector('.lang-btn[data-lang="es"]');
-    const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
-    if (esBtn) esBtn.classList.toggle("active", lang === "es");
-    if (enBtn) enBtn.classList.toggle("active", lang === "en");
   }
-  document.querySelectorAll(".lang-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      lang = btn.dataset.lang;
-      localStorage.setItem("ragsmc-lang", lang);
-      applyLang();
-      playSfx("click");
-    });
-  });
+  document.querySelectorAll(".lang-btn").forEach(b => b.addEventListener("click", () => { lang = b.dataset.lang; localStorage.setItem("ragsmc-lang", lang); applyLang(); playSfx("click"); }));
 
-  /* ---------- Tema claro/oscuro ---------- */
+  /* ---------- Tema ---------- */
   const themeBtn = document.getElementById("themeBtn");
-  const metaTheme = document.getElementById("metaTheme");
-  const savedTheme = localStorage.getItem("ragsmc-theme");
-  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  let isDark = savedTheme ? savedTheme === "dark" : systemDark;
-  function setTheme(dark) {
-    isDark = dark;
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    localStorage.setItem("ragsmc-theme", dark ? "dark" : "light");
-    metaTheme.content = dark ? "#0b0f1a" : "#f7f3ee";
+  const sun = document.getElementById("themeSun");
+  const moon = document.getElementById("themeMoon");
+  const dark = localStorage.getItem("ragsmc-theme") !== "light";
+  function setTheme(d) {
+    document.documentElement.setAttribute("data-theme", d ? "dark" : "light");
+    localStorage.setItem("ragsmc-theme", d ? "dark" : "light");
+    if (sun) { sun.classList.toggle("hidden", d); }
+    if (moon) { moon.classList.toggle("hidden", !d); }
   }
-  setTheme(isDark);
-  themeBtn.addEventListener("click", () => { setTheme(!isDark); playSfx("pop"); });
+  setTheme(dark);
+  if (themeBtn) themeBtn.addEventListener("click", () => { setTheme(document.documentElement.getAttribute("data-theme") !== "dark"); playSfx("pop"); });
 
-  /* ---------- Año footer ---------- */
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* ---------- Año ---------- */
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
 
-  /* ---------- Sonidos estilo Minecraft (WebAudio) ---------- */
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  const audioCtx = AudioCtx ? new AudioCtx() : null;
-  const sfxFiles = {
-    click: "./assets/sfx/click.mp3", chest: "./assets/sfx/chest.mp3",
-    pop: "./assets/sfx/pop.mp3", enderman: "./assets/sfx/enderman.mp3",
-    portal: "./assets/sfx/portal.mp3", levelup: "./assets/sfx/levelup.mp3",
-    dragon: "./assets/sfx/dragon.mp3", dl: "./assets/sfx/dl.mp3"
-  };
-  function playSfx(name) {
-    const file = sfxFiles[name];
-    if (file && audioCtx) {
-      fetch(file).then(r => r.arrayBuffer()).then(buf => audioCtx.decodeAudioData(buf)).then(bd => {
-        const s = audioCtx.createBufferSource();
-        s.buffer = bd;
-        s.connect(audioCtx.destination);
-        s.start(0);
-      }).catch(() => synthSfx(name));
-    } else {
-      synthSfx(name);
-    }
+  /* ---------- Sonidos WebAudio ---------- */
+  const ACtx = window.AudioContext || window.webkitAudioContext;
+  const ctx = ACtx ? new ACtx() : null;
+  function synth(name) {
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    if (name === "click") { o.type = "square"; o.frequency.setValueAtTime(880, t); o.frequency.exponentialRampToValueAtTime(1100, t + 0.08); g.gain.setValueAtTime(0.12, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.12); o.start(t); o.stop(t + 0.12); }
+    else if (name === "pop") { o.type = "sine"; o.frequency.setValueAtTime(600, t); o.frequency.exponentialRampToValueAtTime(1200, t + 0.1); g.gain.setValueAtTime(0.15, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.18); o.start(t); o.stop(t + 0.18); }
+    else if (name === "dl") { o.type = "sawtooth"; o.frequency.setValueAtTime(220, t); o.frequency.linearRampToValueAtTime(440, t + 0.15); g.gain.setValueAtTime(0.1, t); g.gain.linearRampToValueAtTime(0.001, t + 0.3); o.start(t); o.stop(t + 0.3); }
+    else { o.type = "sine"; o.frequency.setValueAtTime(440, t); g.gain.setValueAtTime(0.1, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.1); o.start(t); o.stop(t + 0.1); }
   }
-  function synthSfx(name) {
-    if (!audioCtx) return;
-    const t = audioCtx.currentTime;
-    const osc = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    osc.connect(g);
-    g.connect(audioCtx.destination);
-    if (name === "click") {
-      osc.type = "square";
-      osc.frequency.setValueAtTime(880, t);
-      osc.frequency.exponentialRampToValueAtTime(1100, t + 0.08);
-      g.gain.setValueAtTime(0.12, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
-      osc.start(t);
-      osc.stop(t + 0.12);
-    } else if (name === "pop") {
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(600, t);
-      osc.frequency.exponentialRampToValueAtTime(1200, t + 0.1);
-      g.gain.setValueAtTime(0.15, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
-      osc.start(t);
-      osc.stop(t + 0.18);
-    } else if (name === "dl") {
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(220, t);
-      osc.frequency.linearRampToValueAtTime(440, t + 0.15);
-      g.gain.setValueAtTime(0.1, t);
-      g.gain.linearRampToValueAtTime(0.001, t + 0.3);
-      osc.start(t);
-      osc.stop(t + 0.3);
-    } else {
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(440, t);
-      g.gain.setValueAtTime(0.1, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
-      osc.start(t);
-      osc.stop(t + 0.1);
-    }
+  function playSfx(n) {
+    const f = { click: "./assets/sfx/click.mp3", pop: "./assets/sfx/pop.mp3", dl: "./assets/sfx/dl.mp3" }[n];
+    if (f && ctx) { fetch(f).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(bd => { const s = ctx.createBufferSource(); s.buffer = bd; s.connect(ctx.destination); s.start(0); }).catch(() => synth(n)); }
+    else synth(n);
   }
-  window.playSfx = playSfx;
-  document.addEventListener("click", e => {
-    const el = e.target.closest("[data-sfx]");
-    if (el) playSfx(el.dataset.sfx);
-  });
+  document.addEventListener("click", e => { const el = e.target.closest("[data-sfx]"); if (el) playSfx(el.dataset.sfx); });
 
-  /* ---------- Música (c418.mp3 local, loop) ---------- */
+  /* ---------- Música ---------- */
   const musicBtn = document.getElementById("musicBtn");
   const music = new Audio("./assets/audio/c418.mp3");
   music.loop = true;
   music.volume = 0.3;
-  let musicStarted = false;
-  function toggleMusic() {
-    if (!musicStarted) {
-      music.play().catch(() => {});
-      musicStarted = true;
-    }
-    if (music.paused) {
-      music.play();
-      musicBtn.setAttribute("aria-pressed", "true");
-    } else {
-      music.pause();
-      musicBtn.setAttribute("aria-pressed", "false");
-    }
+  let started = false;
+  if (musicBtn) musicBtn.addEventListener("click", () => {
+    if (!started) { music.play().catch(() => {}); started = true; }
+    if (music.paused) { music.play(); } else { music.pause(); }
     playSfx("portal");
-  }
-  if (musicBtn) musicBtn.addEventListener("click", toggleMusic);
-  document.body.addEventListener("click", () => {
-    if (!musicStarted) {
-      music.play().catch(() => {});
-      musicStarted = true;
-      if (musicBtn) musicBtn.setAttribute("aria-pressed", "true");
-    }
-  }, { once: true });
+  });
+  document.body.addEventListener("click", () => { if (!started) { music.play().catch(() => {}); started = true; } }, { once: true });
 
-  /* ---------- Loader (Minecraft) con fail-safe ---------- */
-  const loader = document.getElementById("loader");
-  const loaderFill = document.getElementById("loaderFill");
-  const loaderStage = document.getElementById("loaderStage");
-  const loaderTip = document.getElementById("loaderTip");
-  const tipsES = [
-    "El lobo protege a la manada.", "El cuervo vigila desde el cielo.",
-    "Cada bloque cuenta.", "Preparando tu experiencia Minecraft.", "Sin promesas vacías."
-  ];
-  const tipsEN = [
-    "The wolf protects the pack.", "The raven watches from the sky.",
-    "Every block counts.", "Preparing your Minecraft experience.", "No empty promises."
-  ];
-  const stages = ["Generando terreno...", "Despertando al Enderdragón...", "Cargando texturas...", "Conectando al servidor...", "Listo para jugar."];
-  const stagesEN = ["Generating terrain...", "Awakening the Enderdragon...", "Loading textures...", "Connecting to server...", "Ready to play."];
-
-  function hideLoader() {
-    if (!loader) return;
-    loader.classList.add("done");
-  }
-
+  /* ---------- Loader ---------- */
+  const loader = document.getElementById("loaderBox");
+  const fill = document.getElementById("loaderFill");
+  const pct = document.getElementById("loaderPct");
   let prog = 0;
-  const loaderInterval = setInterval(() => {
-    prog += Math.random() * 12;
-    if (prog >= 100) {
-      prog = 100;
-      clearInterval(loaderInterval);
-    }
-    if (loaderFill) loaderFill.style.width = prog + "%";
-    if (loaderStage) {
-      const st = lang === "es" ? stages : stagesEN;
-      loaderStage.textContent = st[Math.min(Math.floor(prog / 22), st.length - 1)];
-    }
-    if (loaderTip) {
-      const tp = lang === "es" ? tipsES : tipsEN;
-      loaderTip.textContent = tp[Math.floor(Math.random() * tp.length)];
-    }
+  const li = setInterval(() => {
+    prog += Math.random() * 13;
+    if (prog >= 100) { prog = 100; clearInterval(li); }
+    if (fill) fill.style.width = prog + "%";
+    if (pct) pct.textContent = Math.floor(prog);
     if (prog >= 100) {
       setTimeout(() => {
-        hideLoader();
+        if (loader) loader.classList.add("done");
         initAnimations();
       }, 350);
     }
-  }, 120);
-
-  // Fail-safe: si algo falla, ocultar el loader y lanzar animaciones igual
-  setTimeout(() => {
-    if (loader && !loader.classList.contains("done")) {
-      hideLoader();
-      initAnimations();
-    }
-  }, 4000);
+  }, 100);
+  setTimeout(() => { if (loader && !loader.classList.contains("done")) { loader.classList.add("done"); initAnimations(); } }, 5000);
 
   /* ---------- GSAP / Lenis / SplitText ---------- */
   function initAnimations() {
-    try {
-      if (typeof gsap !== "undefined") {
-        gsap.registerPlugin(ScrollTrigger, SplitText);
-      }
-    } catch (e) {
-      console.warn("GSAP plugins no cargaron", e);
-    }
-
+    try { if (typeof gsap !== "undefined") gsap.registerPlugin(ScrollTrigger, SplitText); } catch (e) { console.warn("GSAP plugins", e); }
     let lenis;
     try {
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: "vertical",
-        gestureDirection: "vertical",
-        smooth: true,
-        touchMultiplier: 1.35
-      });
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
+      lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 1.35 });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
       requestAnimationFrame(raf);
-      lenis.on("scroll", () => {
-        const s = window.pageYOffset || document.documentElement.scrollTop;
-        const h = document.documentElement.scrollHeight - window.innerHeight;
-        const pf = document.getElementById("progressFill");
-        if (pf) pf.style.width = (s / h * 100) + "%";
-        updateNavbar();
-      });
-    } catch (e) {
-      console.warn("Lenis no cargó", e);
-      window.addEventListener("scroll", () => {
-        const s = window.pageYOffset || document.documentElement.scrollTop;
-        const h = document.documentElement.scrollHeight - window.innerHeight;
-        const pf = document.getElementById("progressFill");
-        if (pf) pf.style.width = (s / h * 100) + "%";
-        updateNavbar();
-      });
-    }
+      lenis.on("scroll", () => { const s = window.pageYOffset || document.documentElement.scrollTop; const h = document.documentElement.scrollHeight - window.innerHeight; document.getElementById("progressFill") && (document.getElementById("progressFill").style.width = (s / h * 100) + "%"); updateNavbar(); });
+    } catch (e) { console.warn("Lenis", e); window.addEventListener("scroll", () => { updateNavbar(); }); }
 
-    // SplitText título hero
+    // SplitText hero
     try {
       if (typeof SplitText !== "undefined" && typeof gsap !== "undefined") {
-        const split = new SplitText(".hero-title span", { type: "chars, words", charsClass: "char" });
-        gsap.from(split.chars, {
-          opacity: 0, y: 40, rotateX: -40, duration: 0.7, stagger: 0.035,
-          ease: "back.out(1.7)", delay: 0.4
-        });
+        const split = new SplitText(".split-target", { type: "chars, words", charsClass: "char" });
+        gsap.from(split.chars, { opacity: 0, y: 40, rotateX: -40, duration: 0.7, stagger: 0.035, ease: "back.out(1.7)", delay: 0.4 });
       }
-    } catch (e) {
-      console.warn("SplitText no disponible", e);
-    }
-
-    // Hero entrada
-    try {
-      if (typeof gsap !== "undefined") {
-        gsap.to(".hero-coords", { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: "power2.out" });
-        gsap.to(".hero-mascots img", { y: "-=10", duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: 0.6 });
-      }
-    } catch (e) { console.warn("Hero anim falló", e); }
+    } catch (e) { console.warn("SplitText", e); }
 
     // Reveal secciones
     try {
       if (typeof gsap !== "undefined") {
         gsap.utils.toArray(".reveal").forEach(el => {
-          const delay = el.dataset.delay ? parseInt(el.dataset.delay) / 1000 : 0;
-          ScrollTrigger.create({
-            trigger: el, start: "top 82%", end: "bottom 20%", once: true,
-            onEnter: () => {
-              el.classList.add("visible");
-              gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay, ease: "power2.out" });
-            }
-          });
+          const d = el.dataset.delay ? parseInt(el.dataset.delay) / 1000 : 0;
+          ScrollTrigger.create({ trigger: el, start: "top 82%", once: true, onEnter: () => { el.classList.add("visible"); gsap.to(el, { opacity: 1, y: 0, filter: "blur(0)", duration: 0.7, delay: d, ease: "power2.out" }); } });
         });
       }
-    } catch (e) { console.warn("Reveal falló", e); }
+    } catch (e) { console.warn("Reveal", e); }
 
-    // Cards tilt 3D
-    document.querySelectorAll(".card, .soc-card, .os-btn.ready").forEach(el => {
-      el.addEventListener("mousemove", e => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const dx = (x - cx) / cx;
-        const dy = (y - cy) / cy;
-        el.style.transform = `perspective(700px) rotateX(${-dy * 6}deg) rotateY(${dx * 6}deg) scale(1.02)`;
-      });
-      el.addEventListener("mouseleave", () => { el.style.transform = ""; });
-    });
-
-    // Botones magnéticos (solo PC)
-    if (window.matchMedia("(pointer: fine)").matches) {
-      document.querySelectorAll(".btn-primary.btn-lg").forEach(btn => {
-        btn.addEventListener("mousemove", e => {
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(btn, { x: x * 0.35, y: y * 0.35, duration: 0.5, ease: "power2.out" });
-        });
-        btn.addEventListener("mouseleave", () => gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "power2.out" }));
-      });
-    }
-
-    // Coordenadas hero animadas
+    // Hero coords animadas
     setInterval(() => {
-      const cX = document.getElementById("cX");
-      const cY = document.getElementById("cY");
-      const cZ = document.getElementById("cZ");
-      if (cX) cX.textContent = Math.floor(Math.random() * 2000) - 1000;
-      if (cY) cY.textContent = 64 + Math.floor(Math.random() * 4) - 2;
-      if (cZ) cZ.textContent = Math.floor(Math.random() * 2000) - 1000;
+      const cx = document.getElementById("cX"); const cy = document.getElementById("cY"); const cz = document.getElementById("cZ");
+      if (cx) cx.textContent = "X: " + (Math.floor(Math.random() * 2000) - 1000);
+      if (cy) cy.textContent = "Y: " + (64 + Math.floor(Math.random() * 4) - 2);
+      if (cz) cz.textContent = "Z: " + (Math.floor(Math.random() * 2000) - 1000);
     }, 1500);
 
-    // Partículas hero (canvas)
+    // Partículas hero canvas
     const canvas = document.getElementById("heroParticles");
     if (canvas) {
-      const ctx = canvas.getContext("2d");
-      let w, h, particles = [];
-      function resize() {
-        w = canvas.width = canvas.parentElement.clientWidth;
-        h = canvas.height = canvas.parentElement.clientHeight;
-      }
-      window.addEventListener("resize", resize);
-      resize();
-      for (let i = 0; i < 35; i++) {
-        particles.push({
-          x: Math.random() * w, y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-          r: Math.random() * 2 + 1, a: Math.random() * 0.6 + 0.2
-        });
-      }
-      function drawParticles() {
-        ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = "#22c55e";
-        for (const p of particles) {
-          p.x += p.vx;
-          p.y += p.vy;
+      const ctx2 = canvas.getContext("2d"); let w, h, pts = [];
+      function rs() { w = canvas.width = canvas.parentElement.clientWidth; h = canvas.height = canvas.parentElement.clientHeight; }
+      window.addEventListener("resize", rs); rs();
+      for (let i = 0; i < 30; i++) pts.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, r: Math.random() * 2 + 1, a: Math.random() * 0.5 + 0.1 });
+      function draw() {
+        ctx2.clearRect(0, 0, w, h);
+        ctx2.fillStyle = "#22c55e";
+        for (const p of pts) {
+          p.x += p.vx; p.y += p.vy;
           if (p.x < 0 || p.x > w) p.vx *= -1;
           if (p.y < 0 || p.y > h) p.vy *= -1;
-          ctx.globalAlpha = p.a;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
+          ctx2.globalAlpha = p.a;
+          ctx2.beginPath(); ctx2.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx2.fill();
         }
-        requestAnimationFrame(drawParticles);
+        requestAnimationFrame(draw);
       }
-      drawParticles();
+      draw();
     }
-
-    // Marquee duplicado
-    const track = document.getElementById("marqueeTrack");
-    if (track) {
-      const dup = track.cloneNode(true);
-      dup.setAttribute("aria-hidden", "true");
-      track.parentNode.appendChild(dup);
-    }
-
-    // Roadmap línea progreso
-    try {
-      if (typeof gsap !== "undefined") {
-        ScrollTrigger.create({
-          trigger: ".road-line", start: "top 70%", once: true,
-          onEnter: () => {
-            const rf = document.getElementById("roadLineFill");
-            if (rf) gsap.to(rf, { width: "100%", duration: 1.4, ease: "power2.inOut" });
-          }
-        });
-      }
-    } catch (e) { console.warn("Roadmap falló", e); }
   }
 
-  /* ---------- Navbar scroll ---------- */
+  /* ---------- Navbar ---------- */
   const navbar = document.getElementById("navbar");
   function updateNavbar() {
     const y = window.pageYOffset || document.documentElement.scrollTop;
-    if (y > 40) navbar.classList.add("nav-scrolled");
-    else navbar.classList.remove("nav-scrolled");
+    if (y > 40) navbar.classList.add("py-2", "h-16"); else navbar.classList.remove("py-2", "h-16");
   }
   window.addEventListener("scroll", updateNavbar);
 
   /* ---------- Menú móvil ---------- */
   const burger = document.getElementById("burger");
-  const mobileMenu = document.getElementById("mobileMenu");
-  if (burger && mobileMenu) {
-    burger.addEventListener("click", () => {
-      const open = mobileMenu.classList.toggle("open");
-      burger.setAttribute("aria-expanded", open);
-    });
-    document.querySelectorAll(".mobile-menu a").forEach(a => {
-      a.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-        burger.setAttribute("aria-expanded", "false");
-      });
-    });
+  const mm = document.getElementById("mobileMenu");
+  if (burger && mm) {
+    burger.addEventListener("click", () => { mm.classList.toggle("hidden"); burger.setAttribute("aria-expanded", mm.classList.contains("hidden") ? "false" : "true"); });
+    mm.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { mm.classList.add("hidden"); burger.setAttribute("aria-expanded", "false"); }));
   }
 
   /* ---------- Scroll suave anclas ---------- */
@@ -677,126 +205,84 @@
     a.addEventListener("click", e => {
       const id = a.getAttribute("href").slice(1);
       const el = document.getElementById(id);
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth" });
-      }
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth" }); }
     });
   });
 
   /* ---------- Volver arriba ---------- */
-  const toTop = document.getElementById("toTop");
-  window.addEventListener("scroll", () => {
-    const y = window.pageYOffset || document.documentElement.scrollTop;
-    toTop.classList.toggle("visible", y > 400);
-  });
-  if (toTop) toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  const tt = document.createElement("button");
+  tt.className = "fixed right-6 bottom-6 w-10 h-10 rounded-full glass flex items-center justify-center text-text-secondary hover:text-accent-red opacity-0 invisible transition-all duration-300 z-40";
+  tt.innerHTML = '<i class="lucide lucide-arrow-up w-5 h-5"></i>';
+  tt.setAttribute("aria-label", "Volver arriba");
+  document.body.appendChild(tt);
+  window.addEventListener("scroll", () => { tt.classList.toggle("opacity-0", window.pageYOffset < 400); tt.classList.toggle("invisible", window.pageYOffset < 400); });
+  tt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-  /* ---------- Lightbox galería ---------- */
-  const lightbox = document.getElementById("lightbox");
-  const lightImg = document.getElementById("lightImg");
-  const lightClose = lightbox ? lightbox.querySelector(".lightbox-x") : null;
-  document.querySelectorAll(".gal-item").forEach(item => {
-    item.addEventListener("click", () => {
-      lightImg.src = item.dataset.full;
-      lightImg.alt = item.querySelector("img").alt || "";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
-    });
-  });
-  function closeLightbox() {
-    lightbox.classList.remove("open");
-    lightbox.setAttribute("aria-hidden", "true");
-  }
-  if (lightClose) lightClose.addEventListener("click", closeLightbox);
-  const backdrop = lightbox ? lightbox.querySelector(".lightbox-backdrop") : null;
-  if (backdrop) backdrop.addEventListener("click", closeLightbox);
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
-
-  /* ---------- Cargar imágenes de galería ---------- */
-  document.querySelectorAll("img[loading='lazy']").forEach(img => {
-    img.addEventListener("load", () => img.classList.add("loaded"));
-  });
-
-  /* ---------- Copiar IP servidor ---------- */
-  document.querySelectorAll(".ip-copy").forEach(btn => {
+  /* ---------- Copiar IP / SHA ---------- */
+  document.querySelectorAll("[data-clipboard]").forEach(btn => {
     btn.addEventListener("click", async () => {
       const val = btn.dataset.clipboard;
-      try {
-        await navigator.clipboard.writeText(val);
-        btn.textContent = "¡Copiado!";
-        setTimeout(() => btn.textContent = "Copiar", 1400);
-      } catch (e) {
-        console.warn("No se pudo copiar", e);
-      }
+      try { await navigator.clipboard.writeText(val); const orig = btn.textContent; btn.textContent = "✓"; setTimeout(() => btn.textContent = orig, 1400); } catch (e) { console.warn("copy", e); }
       playSfx("click");
+      showToast(t("misc.copy"));
+    });
+  });
+  function showToast(m) {
+    const t = document.getElementById("toast"); const mEl = document.getElementById("toastMsg");
+    if (!t) return;
+    if (mEl) mEl.textContent = m;
+    t.classList.remove("toast-hidden"); t.classList.add("show");
+    setTimeout(() => { t.classList.remove("show"); t.classList.add("toast-hidden"); }, 3000);
+  }
+
+  /* ---------- Carrusel galería ---------- */
+  const track = document.getElementById("galleryTrack");
+  const dots = document.getElementById("galleryDots");
+  const slides = [
+    { img: "./assets/images/launcher-avance-1.png", alt: "Pantalla Jugar" },
+    { img: "./assets/images/launcher-avance-2.png", alt: "Selector 1.21.10" },
+    { img: "./assets/images/launcher-avance-3.png", alt: "Launcher RagsMc" }
+  ];
+  let cur = 0;
+  function renderGallery() {
+    if (!track) return;
+    track.innerHTML = slides.map((s, i) => `<button class="w-full h-full flex-shrink-0 [background-image:url('${s.img}')] [background-size:cover] [background-position:center] rounded-3xl border border-white/10 opacity-0 transition-opacity duration-500 ${i === cur ? 'opacity-100' : ''}" aria-label="${s.alt}" style="aspect-ratio:16/9;"></button>`).join("");
+    if (dots) {
+      dots.innerHTML = slides.map((_, i) => `<button class="w-2 h-2 rounded-full ${i === cur ? 'bg-accent-red' : 'bg-white/30'} transition-colors" aria-label="Slide ${i + 1}"></button>`).join("");
+    }
+  }
+  function next() { cur = (cur + 1) % slides.length; renderGallery(); }
+  function prev() { cur = (cur - 1 + slides.length) % slides.length; renderGallery(); }
+  document.querySelectorAll(".gal-item").forEach(() => {});
+  const la = document.querySelector(".gal-item:first-child ~ .gal-item:first-child");
+  document.querySelectorAll("button[aria-label='Anterior']").forEach(b => b.addEventListener("click", prev));
+  document.querySelectorAll("button[aria-label='Siguiente']").forEach(b => b.addEventListener("click", next));
+  setInterval(next, 4000);
+  renderGallery();
+
+  /* ---------- FAQ ---------- */
+  document.querySelectorAll("details.faq-item summary").forEach(s => {
+    s.addEventListener("click", () => {
+      document.querySelectorAll("details.faq-item[open]").forEach(d => { if (d !== s.parentElement) d.removeAttribute("open"); });
     });
   });
 
-  /* ---------- Formulario novedades (localStorage, sin backend) ---------- */
-  const notifyForm = document.getElementById("notifyForm");
-  const notifyMsg = document.getElementById("notifyMsg");
-  if (notifyForm) {
-    notifyForm.addEventListener("submit", e => {
+  /* ---------- Form notify ---------- */
+  const nf = document.getElementById("notifyForm");
+  if (nf) {
+    nf.addEventListener("submit", e => {
       e.preventDefault();
-      // Honeypot: si el campo oculto tiene valor, es un bot → no enviar
-      const website = notifyForm.elements.website;
-      if (website && website.value.trim() !== "") return;
-      const email = notifyForm.elements.email.value.trim();
-      if (!email) return;
+      const em = nf.elements.email.value.trim();
+      if (!em) return;
       const list = JSON.parse(localStorage.getItem("ragsmc-notify") || "[]");
-      if (!list.includes(email)) {
-        list.push(email);
-        localStorage.setItem("ragsmc-notify", JSON.stringify(list));
-      }
-      notifyMsg.textContent = lang === "es" ? "Te avisaremos cuando haya novedades." : "We'll let you know when there's news.";
-      notifyMsg.style.color = "#4ade80";
-      notifyForm.reset();
-      playSfx("levelup");
-      setTimeout(() => { notifyMsg.textContent = ""; }, 4500);
+      if (!list.includes(em)) { list.push(em); localStorage.setItem("ragsmc-notify", JSON.stringify(list)); }
+      showToast(t("dl.notify"));
+      nf.reset();
+      playSfx("dl");
     });
   }
 
-  /* ---------- Formulario soporte (Formspool) ---------- */
-  const supportForm = document.getElementById("supportForm");
-  const supportMsg = document.getElementById("supportMsg");
-  if (supportForm) {
-    supportForm.addEventListener("submit", async e => {
-      e.preventDefault();
-      // Honeypot: si el campo oculto tiene valor, es un bot → no enviar
-      const website = supportForm.elements.website;
-      if (website && website.value.trim() !== "") return;
-      const btn = supportForm.querySelector("button[type='submit']");
-      const orig = btn.innerHTML;
-      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
-      btn.disabled = true;
-      try {
-        const fd = new FormData(supportForm);
-        const res = await fetch("https://formsubmit.co/RagsnorWolf@gmail.com", {
-          method: "POST", body: fd, headers: { Accept: "application/json" }
-        });
-        if (res.ok) {
-          supportMsg.textContent = lang === "es" ? "Mensaje enviado. ¡Gracias!" : "Message sent. Thanks!";
-          supportMsg.style.color = "#4ade80";
-          supportForm.reset();
-          playSfx("levelup");
-        } else throw new Error("Error");
-      } catch (err) {
-        supportMsg.textContent = lang === "es" ? "No se pudo enviar. Intenta de nuevo." : "Could not send. Try again.";
-        supportMsg.style.color = "#ef4444";
-        playSfx("pop");
-      }
-      finally {
-        btn.innerHTML = orig;
-        btn.disabled = false;
-        setTimeout(() => { supportMsg.textContent = ""; }, 5000);
-      }
-    });
-  }
-
-  /* ---------- Aplicar idioma inicial ---------- */
+  /* ---------- Aplicar idioma ---------- */
   applyLang();
-
-  // Exponer para uso global
   window.RagsMc = { t, lang, setTheme, playSfx };
 })();
