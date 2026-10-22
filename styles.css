@@ -103,11 +103,11 @@ a:active, button:active, .btn:active, .os-btn:active, .soc-card:active {
 .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
 .section-desc { font-size: clamp(15px, 1.1vw, 18px); color: var(--text-dim); max-width: 700px; margin: 0 auto 26px; }
 
-/* -------- Loader (estilo Minecraft) -------- */
+/* -------- Loader (estilo Minecraft premium) -------- */
 .loader {
   position: fixed; inset: 0; z-index: 99999; background: #2e4a3a;
   display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-box {
@@ -116,34 +116,65 @@ a:active, button:active, .btn:active, .os-btn:active, .soc-card:active {
 }
 @keyframes loaderUp { to { transform: translateY(0); } }
 .loader-sky {
-  position: relative; width: 120px; height: 40px;
-  background: linear-gradient(#6ba4f7, #8ec5ff); margin: 0 auto 10px;
-  border-bottom: 4px solid #4d7fb0;
-  overflow: hidden;
+  position: relative; width: 160px; height: 64px;
+  background: linear-gradient(#6ba4f7 0%, #8ec5ff 100%);
+  margin: 0 auto 14px; border-bottom: 4px solid #4d7fb0;
+  overflow: hidden; border-radius: 4px 4px 0 0;
 }
 .loader-sky::after {
-  content:""; position:absolute; top:-20px; left:-40px; width:200px; height:60px;
-  background: radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 2px);
-  background-size: 40px 40px; animation: skyMove 12s linear infinite;
+  content:""; position:absolute; top:-24px; left:-48px; width:256px; height:80px;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 2px, transparent 2px);
+  background-size: 48px 48px; animation: skyMove 14s linear infinite;
 }
-@keyframes skyMove { from { transform: translateX(0); } to { transform: translateX(40px); } }
+@keyframes skyMove { from { transform: translateX(0); } to { transform: translateX(48px); } }
+.loader-sun {
+  position: absolute; top: 10px; right: 10px; width: 16px; height: 16px;
+  background: #ffd166; border-radius: 50%; box-shadow: 0 0 10px #ffd166;
+}
 .loader-ground {
-  position: relative; width: 120px; height: 30px;
-  background: linear-gradient(to bottom, #7cd14a 0%, #7cd14a 55%, #5a9e34 55%, #5a9e34 100%);
-  margin: 0 auto 14px; border: 2px solid #3d6a1f;
+  position: relative; width: 160px; height: 44px;
+  background: linear-gradient(to bottom, #7cd14a 0%, #7cd14a 52%, #5a9e34 52%, #5a9e34 100%);
+  margin: 0 auto 18px; border: 3px solid #3d6a1f;
+  border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;
+  overflow: hidden;
 }
 .loader-ground::after {
-  content:""; position:absolute; bottom:0; left:0; right:0; height:8px;
-  background: repeating-linear-gradient(90deg, #5a9e34 0, #5a9e34 6px, transparent 6px, transparent 12px);
+  content:""; position:absolute; bottom:0; left:0; right:0; height:10px;
+  background: repeating-linear-gradient(90deg, #5a9e34 0, #5a9e34 7px, transparent 7px, transparent 14px);
+  opacity: 0.9;
 }
-.loader-logo { width: 40px; height: 40px; margin: 0 auto 10px; display: block; filter: drop-shadow(0 0 14px rgba(0,255,136,0.5)); }
-.loader-brand { font-family: var(--font-pixel); font-size: 16px; letter-spacing: 4px; color: #fff; margin-bottom: 14px; text-shadow: 0 0 16px rgba(0,255,136,0.4); }
+.loader-logo { width: 48px; height: 48px; margin: 0 auto 12px; display: block;
+  filter: drop-shadow(0 0 16px rgba(0,255,136,0.6));
+  animation: logoBounce 2.2s ease-in-out infinite;
+}
+@keyframes logoBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.loader-brand { font-family: var(--font-pixel); font-size: 18px; letter-spacing: 5px;
+  color: #fff; margin-bottom: 14px; text-shadow: 0 0 18px rgba(0,255,136,0.45);
+  animation: brandPulse 3s ease-in-out infinite;
+}
+@keyframes brandPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.75; } }
 .loader-brand span { color: #00ff88; }
-.loader-bar { width: 220px; height: 10px; background: rgba(0,0,0,0.35); border: 2px solid #3d6a1f; margin: 0 auto 12px; position: relative; overflow: hidden; }
-.loader-track { width: 100%; height: 100%; background: #4a7c34; }
-.loader-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #22c55e, #00ff88); box-shadow: 0 0 16px rgba(0,255,136,0.7); transition: width 0.5s ease; }
-.loader-stage { font-family: var(--font-mono); font-size: 12px; color: #cfecd6; min-height: 16px; margin-bottom: 8px; }
-.loader-tip { font-size: 11px; color: #9ecfad; font-family: var(--font-mono); }
+.loader-bar { width: 260px; height: 10px; background: rgba(0,0,0,0.35);
+  border: 3px solid #3d6a1f; margin: 0 auto 14px; position: relative; overflow: hidden;
+  border-radius: 6px; box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.loader-track { width: 100%; height: 100%; background: #4a7c34; border-radius: 4px; }
+.loader-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #22c55e, #00ff88);
+  border-radius: 4px; box-shadow: 0 0 18px rgba(0,255,136,0.75);
+  transition: width 0.5s ease;
+}
+.loader-fill::after {
+  content:""; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: repeating-linear-gradient(90deg, transparent 0, transparent 12px, rgba(255,255,255,0.35) 12px, rgba(255,255,255,0.35) 20px);
+  background-size: 200% 100%; animation: shine 2s linear infinite; border-radius: 4px;
+}
+@keyframes shine { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+.loader-stage { font-family: var(--font-mono); font-size: 13px; color: #cfecd6;
+  min-height: 18px; margin-bottom: 10px; letter-spacing: 0.5px;
+}
+.loader-tip { font-size: 12px; color: #9ecfad; font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
 
 /* -------- Progreso scroll -------- */
 .progress { position: fixed; top: 0; left: 0; height: 4px; width: 100%; background: rgba(255,255,255,0.06); z-index: 50; }
