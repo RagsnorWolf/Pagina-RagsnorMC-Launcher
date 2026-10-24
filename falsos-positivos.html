@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Falsos positivos | RagsMc Launcher</title>
+<meta name="description" content="Qué hacer si Windows o tu antivirus marcan el instalador de RagsMc Launcher. Verificá el SHA-256, reportá el falso positivo y descargá la versión ZIP.">
+<meta name="theme-color" content="#0B0F14">
+<link rel="canonical" href="https://ragslaunchermc.dpdns.org/falsos-positivos.html">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("ragsmc-theme");
+    document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
+  } catch (e) {}
+})();
+</script>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="RagsMc Launcher">
+<meta property="og:title" content="Falsos positivos | RagsMc Launcher">
+<meta property="og:description" content="Verificá el instalador, compará el SHA-256 y reportá un falso positivo. Guía paso a paso para Windows.">
+<meta property="og:url" content="https://ragslaunchermc.dpdns.org/falsos-positivos.html">
+<meta property="og:image" content="https://ragslaunchermc.dpdns.org/assets/logo/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Falsos positivos | RagsMc Launcher">
+<meta name="twitter:description" content="Verificá el instalador, compará el SHA-256 y reportá un falso positivo. Guía paso a paso para Windows.">
+<meta name="twitter:image" content="https://ragslaunchermc.dpdns.org/assets/logo/og-cover.png">
+<link rel="icon" type="image/svg+xml" href="./assets/logo/wolf.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./site.css">
+<style>
+  .doc-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+  .doc-header .header-inner { display: flex; align-items: center; gap: 16px; height: 44px; }
+  .doc-back {
+    display: inline-flex; align-items: center; gap: 6px; margin-left: auto;
+    color: var(--text-2); font-size: 12px; font-weight: 500; text-decoration: none;
+    transition: color .2s;
+  }
+  .doc-back:hover { color: var(--text); }
+  .doc-back svg { width: 14px; height: 14px; }
+
+  .doc-main { padding: clamp(56px, 8vw, 92px) 0 clamp(64px, 9vw, 104px); }
+  .doc-hero { max-width: 780px; margin-bottom: clamp(42px, 6vw, 64px); }
+  .doc-hero h1 {
+    margin: 14px 0 18px;
+    font-family: var(--font-display);
+    font-size: clamp(2.35rem, 5vw, 3.65rem);
+    font-weight: 600;
+    line-height: 1.03;
+    letter-spacing: -.034em;
+    color: var(--text);
+  }
+  .doc-hero h1 em { font-style: normal; color: var(--accent-display); }
+  .doc-hero .lead {
+    max-width: 62ch;
+    color: var(--text-2);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.7;
+  }
+  .doc-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 22px;
+  }
+
+  .doc-layout {
+    display: grid;
+    grid-template-columns: 216px minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(32px, 5vw, 64px);
+  }
+  .doc-toc { position: sticky; top: 92px; }
+  .doc-toc .label { margin-bottom: 12px; }
+  .doc-toc ol { display: grid; gap: 2px; list-style: none; }
+  .doc-toc a {
+    display: block; padding: 7px 10px; border-left: 1px solid var(--line);
+    color: var(--text-3); font-size: 12px; line-height: 1.4; text-decoration: none;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .doc-toc a:hover { color: var(--text); border-color: var(--line-strong); background: var(--surface-1); }
+
+  .doc-body { min-width: 0; }
+  .doc-body section { scroll-margin-top: 100px; }
+  .doc-body section + section { margin-top: clamp(40px, 5vw, 56px); padding-top: clamp(40px, 5vw, 56px); border-top: 1px solid var(--line); }
+  .doc-body h2 {
+    margin-bottom: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+    font-weight: 600;
+    letter-spacing: -.024em;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .doc-body h3 {
+    margin: 24px 0 9px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .doc-body p, .doc-body li {
+    color: var(--text-2);
+    font-size: 13.8px;
+    line-height: 1.75;
+  }
+  .doc-body p + p { margin-top: 12px; }
+  .doc-body ul, .doc-body ol { display: grid; gap: 9px; margin: 14px 0 0; padding-left: 20px; }
+  .doc-body li::marker { color: var(--text-3); }
+  .doc-body strong { color: var(--text); font-weight: 600; }
+  .doc-body a { color: var(--accent-ink); text-underline-offset: 3px; overflow-wrap: anywhere; }
+  .doc-body a:hover { color: var(--text); }
+
+  .callout {
+    display: flex; align-items: flex-start; gap: 13px;
+    margin-top: 22px; padding: 18px 20px;
+    border: 1px solid rgba(34, 197, 94, .24);
+    border-radius: 12px;
+    background: rgba(34, 197, 94, .06);
+  }
+  .callout svg { width: 19px; height: 19px; flex: none; margin-top: 1px; color: var(--green-ink); }
+  .callout p { font-size: 12.8px; line-height: 1.65; color: var(--text-2); }
+  .callout strong { color: var(--text); }
+
+  .reason-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+  .reason {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+  }
+  .reason .mono { display: block; margin-bottom: 9px; font-size: 9px; letter-spacing: .1em; color: var(--accent-ink); }
+  .reason h3 { margin: 0 0 5px; font-size: 13px; }
+  .reason p { font-size: 11.8px; line-height: 1.6; }
+
+  .cmd {
+    position: relative; margin-top: 14px; padding: 14px 48px 14px 15px;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: rgba(0, 0, 0, .22);
+    overflow-x: auto;
+  }
+  [data-theme="light"] .cmd { background: rgba(11, 15, 20, .03); }
+  .cmd code { font-family: var(--font-mono); font-size: 11px; color: var(--text-2); white-space: nowrap; }
+  .cmd .copy-mini {
+    position: absolute; top: 7px; right: 7px;
+    height: 27px; padding: 0 9px;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: var(--glass); color: var(--text-3);
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .04em;
+    cursor: pointer; transition: color .2s, border-color .2s;
+  }
+  .cmd .copy-mini:hover { color: var(--text); border-color: var(--line-strong); }
+  .cmd .copy-mini.is-copied { color: var(--green-ink); border-color: rgba(34,197,94,.3); }
+
+  .hash-table {
+    margin-top: 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .hash-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 15px;
+    background: var(--surface-1);
+  }
+  .hash-row + .hash-row { border-top: 1px solid var(--line); }
+  .hash-row .file { font-family: var(--font-mono); font-size: 10.5px; color: var(--text); }
+  .hash-row .sum { margin-top: 3px; font-family: var(--font-mono); font-size: 10px; line-height: 1.6; color: var(--text-3); word-break: break-all; }
+  .hash-row button {
+    height: 30px; padding: 0 11px;
+    border: 1px solid var(--line-strong); border-radius: 7px;
+    background: var(--glass); color: var(--text-2);
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .03em;
+    cursor: pointer; white-space: nowrap; transition: color .2s, border-color .2s, background .2s;
+  }
+  .hash-row button:hover { color: var(--text); background: var(--surface-1); }
+  .hash-row button.is-copied { color: var(--green-ink); border-color: rgba(34,197,94,.3); }
+
+  .dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .dl-card {
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+  }
+  .dl-card .kind {
+    display: inline-flex; align-items: center; gap: 6px; width: fit-content;
+    margin-bottom: 4px; padding: 3px 8px; border-radius: 999px;
+    border: 1px solid rgba(34,197,94,.24); background: rgba(34,197,94,.06);
+    color: var(--green-ink); font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .05em;
+  }
+  .dl-card h3 { margin: 0; font-size: 14px; }
+  .dl-card .meta { font-family: var(--font-mono); font-size: 9px; color: var(--text-3); }
+  .dl-card .btn { margin-top: 10px; width: 100%; }
+
+  .doc-footer { padding: 34px 0; border-top: 1px solid var(--line); }
+  .doc-footer .footer-bottom { border-top: 0; padding-top: 0; }
+  .doc-footer a { color: var(--text-2); text-decoration: none; }
+  .doc-footer a:hover { color: var(--text); }
+
+  @media (max-width: 900px) {
+    .doc-layout { grid-template-columns: 1fr; }
+    .doc-toc { position: static; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-1); }
+    .doc-toc ol { grid-template-columns: 1fr 1fr; gap: 0 8px; }
+    .doc-toc a { border-left: 0; padding-left: 0; }
+  }
+  @media (max-width: 700px) {
+    .reason-grid, .dl-grid { grid-template-columns: 1fr; }
+    .doc-toc ol { grid-template-columns: 1fr; }
+    .hash-row { grid-template-columns: 1fr; }
+    .hash-row button { width: 100%; }
+    .cmd { padding: 12px; overflow-x: visible; }
+    .cmd code { display: block; white-space: pre-wrap; word-break: break-all; font-size: 10px; }
+    .cmd .copy-mini { position: static; width: 100%; margin-top: 10px; }
+    .brand-tag { display: none; }
+    .doc-back span { display: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<div class="page-bg" aria-hidden="true">
+  <div class="page-glow page-glow-a"></div>
+  <div class="page-glow page-glow-b"></div>
+  <div class="page-noise"></div>
+</div>
+
+<header class="doc-header">
+  <div class="container header-inner">
+    <a class="brand" href="./index.html" aria-label="RagsMc Launcher — Inicio">
+      <img src="./assets/logo/wolf.svg" width="30" height="30" alt="">
+      <span class="brand-word">Rags<span>Mc</span></span>
+      <span class="brand-tag">Launcher</span>
+    </a>
+    <a class="doc-back" href="./index.html" aria-label="Volver al inicio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      <span>Volver al inicio</span>
+    </a>
+    <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a tema claro" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="doc-main" id="main">
+  <div class="container">
+    <div class="doc-hero">
+      <p class="eyebrow"><span class="mono">Seguridad</span><span>Falsos positivos</span></p>
+      <h1>El instalador es seguro.<br><em>Tu antivirus se equivoca.</em></h1>
+      <p class="lead">Algunos antivirus y SmartScreen marcan el instalador de RagsMc Launcher como sospechoso. Es un falso positivo habitual en instaladores independientes sin firma comercial. Acá te explicamos por qué pasa y cómo verificarlo vos mismo.</p>
+      <div class="doc-meta">
+        <span class="pill pill-green"><span class="status-dot"></span>v1.0.4 · Verificado</span>
+        <span class="pill">Actualizado el 23 oct 2026</span>
+        <span class="pill">Windows 10/11</span>
+      </div>
+    </div>
+
+    <div class="doc-layout">
+      <aside class="doc-toc" aria-label="Contenido de la página">
+        <p class="label">En esta página</p>
+        <ol>
+          <li><a href="#que-pasa">Qué está pasando</a></li>
+          <li><a href="#por-que">Por qué ocurre</a></li>
+          <li><a href="#verificar">Verificá el archivo</a></li>
+          <li><a href="#reportar">Cómo reportarlo</a></li>
+          <li><a href="#descargas">Descargas y hashes</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ol>
+      </aside>
+
+      <article class="doc-body">
+        <section id="que-pasa">
+          <h2>Qué está pasando</h2>
+          <p>Windows SmartScreen, Windows Defender o un antivirus de terceros pueden mostrar una advertencia al ejecutar <strong>RagsMC_Launcher_Setup_v1.0.4.exe</strong>. En la mayoría de los casos no detectan código malicioso: aplican una regla heurística a instaladores nuevos o poco conocidos.</p>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+            <p><strong>No ignores una detección real.</strong> Si tu antivirus identifica una amenaza con nombre propio, no ejecutes el archivo. Verificá primero el hash SHA-256 y consultalo en VirusTotal. Si no coincide con el publicado acá, descargaste una copia alterada.</p>
+          </div>
+        </section>
+
+        <section id="por-que">
+          <h2>Por qué ocurre</h2>
+          <div class="reason-grid">
+            <div class="reason">
+              <span class="mono">01 · NSIS</span>
+              <h3>El instalador usa NSIS</h3>
+              <p>NSIS es un sistema de instalación legítimo y muy usado. También lo usa malware, así que algunos motores marcan todos los instaladores NSIS como sospechosos.</p>
+            </div>
+            <div class="reason">
+              <span class="mono">02 · Reputación</span>
+              <h3>Es una versión nueva</h3>
+              <p>El ejecutable todavía no tiene historial de reputación en las bases de antivirus. La ausencia de datos se interpreta como riesgo.</p>
+            </div>
+            <div class="reason">
+              <span class="mono">03 · Firma</span>
+              <h3>Sin certificado comercial</h3>
+              <p>No usamos un certificado de firma de código de una CA comercial. SmartScreen trata a cualquier app sin firma como no confiable.</p>
+            </div>
+          </div>
+          <p>Ninguna de estas tres cosas significa que el archivo sea malicioso. Significa que el instalador no tiene la reputación ni la firma que los filtros automáticos esperan.</p>
+        </section>
+
+        <section id="verificar">
+          <h2>Verificá el archivo</h2>
+          <p>El hash SHA-256 es la huella digital del archivo. Si el hash de tu descarga coincide con el publicado, el archivo es exactamente el que distribuimos.</p>
+          <h3>En Windows PowerShell</h3>
+          <div class="cmd">
+            <code id="cmdHash">Get-FileHash .\RagsMC_Launcher_Setup_v1.0.4.exe -Algorithm SHA256</code>
+            <button class="copy-mini" type="button" data-copy="Get-FileHash .\RagsMC_Launcher_Setup_v1.0.4.exe -Algorithm SHA256">Copiar</button>
+          </div>
+          <h3>Compará con estos valores</h3>
+          <div class="hash-table">
+            <div class="hash-row">
+              <div>
+                <div class="file">RagsMC_Launcher_Setup_v1.0.4.exe</div>
+                <div class="sum">BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A</div>
+              </div>
+              <button type="button" data-copy="BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A">Copiar hash</button>
+            </div>
+            <div class="hash-row">
+              <div>
+                <div class="file">RagsMC_Launcher_Setup_v1.0.4.zip</div>
+                <div class="sum">E7EEB809BDD60156AFB076C54C8DF053C232B0EAE347B5E32255D22786863454</div>
+              </div>
+              <button type="button" data-copy="E7EEB809BDD60156AFB076C54C8DF053C232B0EAE347B5E32255D22786863454">Copiar hash</button>
+            </div>
+          </div>
+          <p>Si el hash no coincide, borrá el archivo y descargalo de nuevo desde este sitio. No lo ejecutes.</p>
+        </section>
+
+        <section id="reportar">
+          <h2>Cómo reportar el falso positivo</h2>
+          <ol>
+            <li><strong>Agregá una exclusión temporal</strong> en tu antivirus solo si el hash coincide. Revisá la configuración de “Exclusiones” o “Archivos permitidos”.</li>
+            <li><strong>Reportá el falso positivo</strong> al fabricante de tu antivirus. Casi todos tienen un formulario de “Report false positive” o “Submit a sample”.</li>
+            <li><strong>Probá la versión ZIP</strong>. Al no ser un instalador NSIS, suele generar menos advertencias. Descomprimila y ejecutá el launcher desde la carpeta.</li>
+            <li><strong>Contanos qué pasó</strong> abriendo un issue en GitHub. Incluí el nombre del antivirus, la versión y el mensaje exacto.</li>
+          </ol>
+          <p>No recomendamos desactivar el antivirus por completo ni agregar exclusiones generales. La exclusión debe apuntar solo al archivo verificado.</p>
+        </section>
+
+        <section id="descargas">
+          <h2>Descargas y hashes</h2>
+          <p>Estos son los dos archivos oficiales de la versión 1.0.4. Cualquier otro dominio o nombre de archivo no es una descarga nuestra.</p>
+          <div class="dl-grid">
+            <div class="dl-card">
+              <span class="kind">Instalador</span>
+              <h3>RagsMc Launcher 1.0.4</h3>
+              <span class="meta">.exe · 11.0 MB · Windows 10/11</span>
+              <a class="btn btn-primary" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                Descargar .exe
+              </a>
+            </div>
+            <div class="dl-card">
+              <span class="kind">Portable</span>
+              <h3>RagsMc Launcher 1.0.4 ZIP</h3>
+              <span class="meta">.zip · 11.0 MB · Windows 10/11</span>
+              <a class="btn btn-ghost" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.zip" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                Descargar .zip
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="contacto">
+          <h2>Contacto</h2>
+          <p>Si después de verificar el hash todavía tenés dudas, escribinos. Respondemos por GitHub o por correo.</p>
+          <ul>
+            <li>GitHub: <a href="https://github.com/RagsnorWolf/Pagina-RagsnorMC-Launcher/issues" target="_blank" rel="noopener noreferrer">github.com/RagsnorWolf/Pagina-RagsnorMC-Launcher/issues</a></li>
+            <li>Correo: <a href="mailto:gonzalo30diaz@gmail.com">gonzalo30diaz@gmail.com</a></li>
+            <li>Sitio oficial: <a href="https://ragslaunchermc.dpdns.org/">ragslaunchermc.dpdns.org</a></li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer doc-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> RagsMc Launcher. Proyecto independiente.</p>
+      <p class="footer-disclaimer">No afiliado a Mojang Studios ni Microsoft. Minecraft es una marca de Mojang Synergies AB.</p>
+      <a class="footer-top" href="./index.html"><span>Volver al inicio</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+  <span id="toastText">Copiado</span>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var meta = document.querySelector('meta[name="theme-color"]');
+  var toggle = document.getElementById("themeToggle");
+  var year = document.getElementById("year");
+  var toast = document.getElementById("toast");
+  var toastText = document.getElementById("toastText");
+  var timer = null;
+
+  if (year) year.textContent = String(new Date().getFullYear());
+
+  function applyTheme(theme, persist) {
+    root.setAttribute("data-theme", theme);
+    if (meta) meta.setAttribute("content", theme === "light" ? "#F7F8FA" : "#0B0F14");
+    if (toggle) {
+      toggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+      toggle.setAttribute("aria-label", theme === "light" ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+    }
+    if (persist) { try { localStorage.setItem("ragsmc-theme", theme); } catch (e) {} }
+  }
+
+  var stored = "dark";
+  try { stored = localStorage.getItem("ragsmc-theme") === "light" ? "light" : "dark"; } catch (e) {}
+  applyTheme(stored, false);
+
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light", true);
+    });
+  }
+
+  function showToast(message) {
+    if (!toast || !toastText) return;
+    toastText.textContent = message;
+    toast.classList.add("show");
+    window.clearTimeout(timer);
+    timer = window.setTimeout(function () { toast.classList.remove("show"); }, 2200);
+  }
+
+  function writeClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }).catch(function () { return fallback(text); });
+    }
+    return Promise.resolve(fallback(text));
+  }
+
+  function fallback(text) {
+    try {
+      var area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.top = "-1000px";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      var ok = document.execCommand("copy");
+      document.body.removeChild(area);
+      return ok;
+    } catch (e) { return false; }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-copy]"), function (button) {
+    button.addEventListener("click", function () {
+      writeClipboard(button.getAttribute("data-copy") || "").then(function (ok) {
+        if (!ok) { showToast("No se pudo copiar"); return; }
+        showToast("Copiado al portapapeles");
+        var original = button.textContent;
+        button.classList.add("is-copied");
+        button.textContent = "Copiado";
+        window.setTimeout(function () {
+          button.classList.remove("is-copied");
+          button.textContent = original;
+        }, 1700);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

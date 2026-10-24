@@ -1,601 +1,791 @@
 ﻿<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" data-theme="dark" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>RagsMc Launcher — El launcher de Minecraft con identidad propia</title>
-<meta name="description" content="RagsMc Launcher es un launcher independiente de Minecraft, rápido, simple y con identidad propia. Descarga gratuita para Windows. Sin registro.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>RagsMc Launcher — Minecraft sin fricción</title>
+<meta name="description" content="RagsMc Launcher es un launcher independiente de Minecraft: rápido, simple y con identidad propia. Gestor de mods, múltiples versiones y servidor comunitario. Gratis para Windows 10/11.">
 <meta name="theme-color" content="#0B0F14">
 <link rel="canonical" href="https://ragslaunchermc.dpdns.org/">
-<meta property="og:title" content="RagsMc Launcher — El launcher de Minecraft con identidad propia">
-<meta property="og:description" content="RagsMc Launcher es un launcher independiente de Minecraft, rápido, simple y con identidad propia.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="RagsMc Launcher">
+<meta property="og:title" content="RagsMc Launcher — Minecraft sin fricción">
+<meta property="og:description" content="El launcher que Minecraft merecía. Rápido, simple y con identidad propia. Gratis para Windows 10/11.">
 <meta property="og:url" content="https://ragslaunchermc.dpdns.org/">
-<meta property="og:image" content="https://ragslaunchermc.dpdns.org/assets/images/og-cover.jpg">
+<meta property="og:image" content="https://ragslaunchermc.dpdns.org/assets/logo/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_AR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RagsMc Launcher — Minecraft sin fricción">
+<meta name="twitter:description" content="El launcher que Minecraft merecía. Gratis para Windows 10/11.">
+<meta name="twitter:image" content="https://ragslaunchermc.dpdns.org/assets/logo/og-cover.png">
 <link rel="icon" type="image/svg+xml" href="./assets/logo/wolf.svg">
 <link rel="apple-touch-icon" href="./assets/logo/wolf.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,500,400&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="./assets/images/gallery-lake.jpg">
+<link rel="stylesheet" href="./site.css">
 <script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        colors: {
-          bg: { primary: '#0B0F14', secondary: '#111827', elevated: '#151B23' },
-          accent: { red: '#E85D4C', green: '#22C55E' },
-          text: { primary: '#F8FAFC', secondary: '#94A3B8', muted: '#64748B' },
-          glass: { bg: 'rgba(255,255,255,0.04)', border: 'rgba(255,255,255,0.08)' },
-          glow: { red: 'rgba(232,93,76,0.35)', green: 'rgba(34,197,94,0.35)' }
-        },
-        fontFamily: { display: ['"Clash Display"', 'sans-serif'], sans: ['Inter', 'sans-serif'] },
-        borderRadius: { xl: '16px', '2xl': '20px', '3xl': '24px' },
-        boxShadow: { glow: '0 0 40px rgba(232,93,76,0.25)', glowGreen: '0 0 40px rgba(34,197,94,0.25)', deep: '0 40px 80px rgba(0,0,0,0.5)' },
-        transitionTimingFunction: { 'bounce-out': 'cubic-bezier(0.34, 1.56, 0.64, 1)' },
-        animation: { 'pulse-glow': 'pulse-glow 3s ease-in-out infinite', 'shimmer': 'shimmer 2s linear infinite' }
-      },
-      keyframes: {
-        'pulse-glow': { '0%, 100%': { boxShadow: '0 0 30px rgba(232,93,76,0.25)' }, '50%': { boxShadow: '0 0 60px rgba(232,93,76,0.55)' } },
-        'shimmer': { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } }
-      }
+/* ===== BOOT: tema y loader antes del primer paint ===== */
+(function () {
+  var d = document.documentElement;
+  d.classList.remove('no-js');
+  d.classList.add('js');
+  try {
+    var t = localStorage.getItem('ragsmc-theme');
+    d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    if (sessionStorage.getItem('ragsmc-loader') === '1' ||
+        (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      d.classList.add('loader-skip');
     }
-  }
+    var l = localStorage.getItem('ragsmc-lang');
+    if (l === 'en') d.setAttribute('lang', 'en');
+  } catch (e) {}
+  /* Red de seguridad: si el JS principal falla, la página se muestra igual. */
+  window.setTimeout(function () {
+    if (document.body) document.body.classList.add('loaded');
+  }, 3200);
+})();
 </script>
-<style>
-  :root { --radius: 20px; }
-  html { scroll-behavior: smooth; }
-  body { background: #0B0F14; color: #F8FAFC; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-  [data-theme="light"] { --bg:#F8FAFC; --bg-2:#F1F5F9; --bg-3:#E2E8F0; --text:#0B0F14; --text-2:#475569; --text-3:#64748B; color-scheme: light; background: #F8FAFC; color: #0B0F14; }
-  [data-theme="dark"] { color-scheme: dark; }
-  .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
-  [data-theme="light"] .glass { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); backdrop-filter: blur(20px) saturate(100%); }
-  .hero-overlay { background: linear-gradient(180deg, rgba(11,15,20,0.85) 0%, rgba(11,15,20,0.45) 50%, rgba(11,15,20,0.85) 100%); }
-  [data-theme="light"] .hero-overlay { background: linear-gradient(180deg, rgba(248,250,252,0.85) 0%, rgba(248,250,252,0.45) 50%, rgba(248,250,252,0.85) 100%); }
-  .noise { position: fixed; inset: 0; opacity: 0.03; pointer-events: none; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); }
-  .grid-dots { background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 24px 24px; opacity: 0.06; }
-  [data-theme="light"] .grid-dots { background-image: radial-gradient(#0b0f14 1px, transparent 1px); opacity: 0.04; }
-  .reveal { opacity: 0; transform: translateY(24px) blur(8px); filter: blur(8px); transition: opacity .8s ease, transform .8s ease, filter .8s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0) blur(0); filter: blur(0); }
-  .char { display: inline-block; }
-  .loader-box { position: fixed; inset: 0; z-index: 99999; background: #0B0F14; display: grid; place-items: center; transition: opacity .8s ease, visibility .8s ease; }
-  .loader-box.done { opacity: 0; visibility: hidden; pointer-events: none; }
-  #loaderFill { height: 2px; width: 0%; background: linear-gradient(90deg,#E85D4C,#22C55E); border-radius: 2px; box-shadow: 0 0 30px rgba(232,93,76,0.5); transition: width .3s ease; background-size: 200% 100%; animation: shimmer 2s linear infinite; }
-  .toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(100px); z-index: 1000; opacity: 0; transition: all .4s cubic-bezier(.34,1.56,.64,1); }
-  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .toast-hidden { display:none; }
-  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; transform: translate(-50%,-50%); border-radius: 50%; z-index: 99999; pointer-events: none; mix-blend-mode: difference; }
-  .cursor-dot { width: 8px; height: 8px; background: #F8FAFC; }
-  .cursor-ring { width: 32px; height: 32px; border: 2px solid #E85D4C; transition: transform .2s ease; }
-  .cursor-ring.hovered { transform: translate(-50%,-50%) scale(2); background: rgba(232,93,76,0.2); border-color: transparent; }
-  .marquee { overflow: hidden; white-space: nowrap; }
-  .marquee-track { display: inline-block; animation: marquee 30s linear infinite; }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; filter:none; } .marquee-track { animation: none; } * { animation-duration: .01ms !important; transition-duration: .01ms !important; } .cursor-dot, .cursor-ring { display:none; } }
-</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RagsMc Launcher",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Windows 10, Windows 11",
+  "softwareVersion": "1.0.4",
+  "description": "Launcher independiente de Minecraft con gestor de mods, múltiples versiones y servidor comunitario.",
+  "url": "https://ragslaunchermc.dpdns.org/",
+  "downloadUrl": "https://ragslaunchermc.dpdns.org/downloads/RagsMC_Launcher_Setup_v1.0.4.exe",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "RagsnorWolf" }
+}
+</script>
 </head>
-<body class="antialiased selection:bg-accent-red selection:text-white">
-<noscript><div class="loader-box done"></div></noscript>
+<body>
 
-<!-- ===== LOADING STATE ===== -->
-<div class="loader-box" id="loaderBox">
-  <div class="text-center space-y-6">
-    <div class="relative inline-block">
-      <svg id="loaderWolf" class="w-24 h-24 drop-shadow-[0_0_24px_rgba(232,93,76,0.6)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 12a9 9 0 019 9 9 9 0 019-9 9 9 0 00-9-9 9 9 0 00-9 9z"></path>
-        <path d="M12 12h3m-3 3v-3m-3 0h-3m0 3v3M9 9a2 2 0 012-2h1a2 2 0 012 2v1a2 2 0 01-2 2H9a2 2 0 01-2-2z"></path>
-        <path d="M15 9a2 2 0 002-2h1a2 2 0 002 2v1a2 2 0 00-2 2h-1a2 2 0 00-2-2z"></path>
-        <circle cx="11" cy="9" r="1" fill="currentColor"></circle>
-        <circle cx="13" cy="9" r="1" fill="currentColor"></circle>
-      </svg>
-      <div class="absolute -inset-1 rounded-full bg-accent-red/20 blur-[24px] animate-pulse-glow"></div>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<!-- ===== LOADER ===== -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <div class="loader-mark">
+      <span class="loader-halo"></span>
+      <img src="./assets/logo/wolf.svg" width="72" height="72" alt="">
     </div>
-    <div class="flex items-center justify-center gap-2 text-sm font-mono text-[#94A3B8] tracking-wider">
-      <span id="loaderPct">0</span><span>%</span>
-    </div>
-    <p class="text-[#64748B] text-sm">Iniciando RagsMc Launcher…</p>
-    <div class="w-64 h-[2px] bg-white/10 rounded-full overflow-hidden mx-auto">
-      <div id="loaderFill"></div>
+    <p class="loader-word">Rags<span>Mc</span></p>
+    <div class="loader-bar"><span id="loaderBar"></span></div>
+    <div class="loader-row">
+      <span data-i18n="loader.text">Iniciando launcher</span>
+      <span class="mono" id="loaderPct">0%</span>
     </div>
   </div>
 </div>
 
-<a href="#inicio" class="skip-link sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-accent-red focus:text-white focus:py-2 focus:px-4 focus:left-4 focus:top-4 rounded">Saltar al contenido</a>
+<!-- ===== FONDO ===== -->
+<div class="page-bg" aria-hidden="true">
+  <div class="page-glow page-glow-a"></div>
+  <div class="page-glow page-glow-b"></div>
+  <div class="page-noise"></div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- ===== NAVBAR ===== -->
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-18 py-2">
-      <a href="#inicio" class="flex items-center gap-3" aria-label="RagsMc Launcher">
-        <img src="./assets/logo/wolf.svg" alt="" class="w-8 h-8">
-        <span class="font-display font-bold text-lg tracking-tight">Rags<span class="text-accent-red">Mc</span></span>
-        <span class="ml-1 text-[10px] font-semibold uppercase text-[#E85D4C] opacity-70">Launcher</span>
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="RagsMc Launcher — Inicio">
+      <img src="./assets/logo/wolf.svg" width="30" height="30" alt="">
+      <span class="brand-word">Rags<span>Mc</span></span>
+      <span class="brand-tag">Launcher</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Principal">
+      <a href="#proyecto" data-nav="proyecto" data-i18n="nav.project">Proyecto</a>
+      <a href="#caracteristicas" data-nav="caracteristicas" data-i18n="nav.features">Características</a>
+      <a href="#servidor" data-nav="servidor" data-i18n="nav.server">Servidor</a>
+      <a href="#galeria" data-nav="galeria" data-i18n="nav.gallery">Galería</a>
+      <a href="#roadmap" data-nav="roadmap" data-i18n="nav.roadmap">Roadmap</a>
+      <a href="#descarga" data-nav="descarga" data-i18n="nav.download">Descarga</a>
+      <a href="#comunidad" data-nav="comunidad" data-i18n="nav.community">Comunidad</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English">EN</button>
+      <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a tema claro" aria-pressed="false">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm header-cta" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+        <span data-i18n="nav.downloadCta">Descargar</span>
       </a>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Principal">
-        <a href="#inicio" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="inicio">Inicio</a>
-        <a href="#acerca" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="acerca">Acerca</a>
-        <a href="#features" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="features">Características</a>
-        <a href="#servidor" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="servidor">Servidor</a>
-        <a href="#galeria" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="galeria">Galería</a>
-        <a href="#roadmap" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="roadmap">Hoja de ruta</a>
-        <a href="#descarga" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="descarga">Descarga</a>
-        <a href="#comunidad" class="nav-link text-[#94A3B8] hover:text-[#F8FAFC] transition-colors relative group" data-nav="comunidad">Comunidad</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <button id="langBtn" class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-[#94A3B8] hover:text-[#F8FAFC] transition-colors flex items-center gap-1.5" aria-label="Idioma">
-          <span>ES</span> <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c-7 1-7 0-7-7s0-7 7-7 7 0 7 7-1 7-7 7z"></path></svg>
-        </button>
-        <button id="themeBtn" class="glass rounded-full p-1.5 text-[#94A3B8] hover:text-[#F8FAFC] transition-colors" aria-label="Cambiar tema" title="Cambiar tema">
-          <svg id="themeSun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-          <svg id="themeMoon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-        </button>
-        <a href="#descarga" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-[#E85D4C] text-white text-sm font-bold rounded-xl hover:bg-red-600 transition-all duration-200 hover:shadow-glow hover:-translate-y-[1px] flex-shrink-0" data-sfx="dl">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-          <span>Descargar</span>
-        </a>
-        <button class="md:hidden p-2 text-[#94A3B8] hover:text-[#F8FAFC]" id="burger" aria-label="Abrir menú" aria-expanded="false">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="md:hidden hidden" id="mobileMenu">
-    <div class="max-w-7xl mx-auto px-4 py-4 space-y-3 bg-white/5 border-t border-white/5 backdrop-blur-xl">
-      <a href="#inicio" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="inicio">Inicio</a>
-      <a href="#acerca" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="acerca">Acerca</a>
-      <a href="#features" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="features">Características</a>
-      <a href="#servidor" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="servidor">Servidor</a>
-      <a href="#galeria" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="galeria">Galería</a>
-      <a href="#roadmap" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="roadmap">Hoja de ruta</a>
-      <a href="#descarga" class="block px-4 py-3 rounded-xl bg-[#E85D4C] text-white font-bold hover:bg-red-600 transition-colors" data-nav="descarga">Descargar</a>
-      <a href="#comunidad" class="block px-4 py-3 rounded-xl glass hover:bg-white/10 transition-colors" data-nav="comunidad">Comunidad</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
 
-<main>
+<!-- ===== MENÚ MÓVIL ===== -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" inert>
+  <nav class="mobile-nav" aria-label="Menú móvil">
+    <a href="#proyecto"><span class="mono">01</span><span data-i18n="nav.project">Proyecto</span></a>
+    <a href="#caracteristicas"><span class="mono">02</span><span data-i18n="nav.features">Características</span></a>
+    <a href="#servidor"><span class="mono">03</span><span data-i18n="nav.server">Servidor</span></a>
+    <a href="#galeria"><span class="mono">04</span><span data-i18n="nav.gallery">Galería</span></a>
+    <a href="#roadmap"><span class="mono">05</span><span data-i18n="nav.roadmap">Roadmap</span></a>
+    <a href="#descarga"><span class="mono">06</span><span data-i18n="nav.download">Descarga</span></a>
+    <a href="#comunidad"><span class="mono">07</span><span data-i18n="nav.community">Comunidad</span></a>
+  </nav>
+  <div class="mobile-menu-foot">
+    <a class="btn btn-primary btn-lg" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+      <span data-i18n="hero.cta">Descargar para Windows</span>
+    </a>
+    <p class="mono" data-i18n="hero.meta3">Windows 10/11 · v1.0.4</p>
+  </div>
+</div>
+
+<main id="main">
 
 <!-- ===== HERO ===== -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black" id="inicio">
-  <div class="absolute inset-0 z-0">
-    <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="./assets/images/hero-fallback.jpg">
-      <source src="./assets/videos/hero.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay absolute inset-0"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_50%,rgba(232,93,76,0.15),transparent_70%)] pointer-events-none"></div>
+<section class="hero" id="top">
+  <div class="hero-media" aria-hidden="true">
+    <video src="./assets/videos/hero.mp4" poster="./assets/images/gallery-lake.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-overlay"></div>
   </div>
-  <canvas class="absolute inset-0 z-10 pointer-events-none" id="heroParticles" aria-hidden="true"></canvas>
-  <div class="relative z-20 flex flex-col items-center text-center px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-center gap-2 px-3 py-1 rounded-full glass mb-8 animate-in fade-in zoom-in duration-500">
-      <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse-glow"></span>
-      <span class="font-display font-semibold text-xs tracking-wider text-[#94A3B8]">Proyecto independiente · v1.0.4</span>
+  <div class="hero-spotlight" id="heroSpot" aria-hidden="true"></div>
+
+  <div class="container hero-layout">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <a class="hero-badge hero-anim" href="#descarga" style="--delay:.05s">
+          <span class="status-dot"></span>
+          <span data-i18n="hero.badge">v1.0.4 ya disponible</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+
+        <h1 class="hero-title">
+          <span class="line"><span data-i18n="hero.title1">El launcher que</span></span>
+          <span class="line line-accent"><span data-i18n="hero.title2">Minecraft merecía.</span></span>
+        </h1>
+
+        <p class="hero-sub hero-anim" style="--delay:.18s" data-i18n="hero.sub">Rápido, simple y con identidad propia. Todo lo que necesitás para jugar, en un solo lugar.</p>
+
+        <div class="hero-actions hero-anim" style="--delay:.26s">
+          <a class="btn btn-primary btn-lg" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+            <span data-i18n="hero.cta">Descargar para Windows</span>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="#galeria">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span data-i18n="hero.cta2">Ver capturas</span>
+          </a>
+        </div>
+
+        <p class="hero-meta hero-anim" style="--delay:.34s">
+          <span data-i18n="hero.meta1">Gratis</span><i></i>
+          <span data-i18n="hero.meta2">Sin registro</span><i></i>
+          <span>Windows 10/11</span>
+        </p>
+      </div>
+
+      <div class="hero-visual hero-anim" style="--delay:.28s">
+        <div class="hero-visual-glow" aria-hidden="true"></div>
+        <div class="app-window" id="heroApp">
+          <img src="./assets/images/launcher-v104.png" width="1121" height="704" alt="RagsMc Launcher v1.0.4 con la pantalla de inicio y el botón de juego" fetchpriority="high" decoding="async">
+        </div>
+        <div class="float-card float-card-a" aria-hidden="true">
+          <span class="status-dot"></span>
+          <span data-i18n="hero.floatServer">Servidor online</span>
+          <b class="mono">24/7</b>
+        </div>
+        <div class="float-card float-card-b" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>
+          <span class="mono">Fabric · Forge · NeoForge</span>
+        </div>
+      </div>
     </div>
-    <h1 class="text-5xl sm:text-7xl lg:text-9xl font-display font-bold text-[#F8FAFC] tracking-tight leading-tight mb-6 reveal split-target">
-      <span class="block">El launcher que</span>
-      <span class="block text-[#E85D4C]">Minecraft merecía</span>
-    </h1>
-    <p class="text-lg sm:text-xl text-[#94A3B8] max-w-2xl mx-auto mb-10 reveal" style="transition-delay:.15s">Rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay:.3s">
-      <a href="#descarga" class="px-8 py-4 bg-[#E85D4C] text-white font-bold rounded-xl text-lg shadow-glow hover:shadow-[0_0_60px_rgba(232,93,76,0.6)] hover:-translate-y-[1px] transition-all duration-300 group" data-sfx="dl">
-        <svg class="w-5 h-5 mr-2 group-hover:translate-x-[2px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-        Descargar para Windows
-      </a>
-      <a href="#galeria" class="px-8 py-4 glass text-[#F8FAFC] hover:bg-white/10 rounded-xl text-lg transition-all duration-300 group" data-sfx="click">
-        Ver capturas
-        <svg class="w-4 h-4 ml-2 group-hover:translate-x-[2px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-      </a>
-    </div>
-    <p class="mt-6 text-xs font-mono text-[#64748B] tracking-wider reveal" style="transition-delay:.45s">Gratis · Sin registro · Windows 10/11</p>
-  </div>
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center reveal" style="transition-delay:.6s">
-    <div class="flex flex-col items-center gap-1 text-xs font-mono text-[#64748B]">
-      <span id="cX">X: 128</span><span id="cY">Y: 64</span><span id="cZ">Z: -256</span>
-    </div>
-    <div class="mt-6 flex items-center gap-2 text-[#64748B] text-sm">
-      <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-      <span>Scroll para explorar</span>
-    </div>
+
+    <dl class="hero-stats hero-anim" style="--delay:.42s">
+      <div><dt data-i18n="hero.stat1">Versión recomendada</dt><dd>1.21.1</dd></div>
+      <div><dt data-i18n="hero.stat2">Loaders compatibles</dt><dd>4</dd></div>
+      <div><dt data-i18n="hero.stat3">Servidor comunitario</dt><dd>24/7</dd></div>
+      <div><dt data-i18n="hero.stat4">Instalador</dt><dd>11 MB</dd></div>
+    </dl>
   </div>
 </section>
 
-<div class="pixel-divider w-full h-[4px] bg-[#E85D4C]/20 border-b border-white/5 my-0"></div>
-
-<!-- ===== ACERCA ===== -->
-<section class="py-24 lg:py-32 relative" id="acerca">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-12 gap-12 items-center">
-      <div class="lg:col-span-7">
-        <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-4 reveal">Sobre el proyecto</p>
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-[#F8FAFC] tracking-tight mb-6 reveal split-target">Un launcher con identidad propia</h2>
-        <p class="text-[#94A3B8] leading-relaxed mb-6 reveal">RagsMc Launcher es un proyecto independiente creado para ofrecer una experiencia moderna, rápida y personalizada para jugar Minecraft desde un solo lugar. Sin telemetría, sin registro obligatorio y con el control en tus manos.</p>
-        <p class="text-[#94A3B8] leading-relaxed mb-10 reveal">Cada pantalla, sistema y decisión está siendo diseñado para construir una base sólida, estable y preparada para crecer junto a la comunidad.</p>
-        <ul class="space-y-4 reveal">
-          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-[#22C55E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-[#F8FAFC]">Gestor de mods integrado con un clic</span></li>
-          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-[#22C55E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-[#F8FAFC]">Selector de múltiples versiones de Minecraft</span></li>
-          <li class="flex items-center gap-3"><svg class="w-5 h-5 text-[#22C55E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-[#F8FAFC]">Interfaz moderna, propia y sin saturación visual</span></li>
+<!-- ===== PROYECTO ===== -->
+<section class="section" id="proyecto">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-copy">
+        <p class="eyebrow reveal"><span class="mono">01</span><span data-i18n="about.eyebrow">El proyecto</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="about.title1">No es otro launcher.</span><br><span data-i18n="about.title2">Es el tuyo.</span></h2>
+        <p class="lead reveal" style="--d:120ms" data-i18n="about.lead">RagsMc nació de una idea simple: jugar Minecraft debería ser rápido, claro y sin pelearte con la configuración.</p>
+        <p class="body-copy reveal" style="--d:180ms" data-i18n="about.p2">Es un proyecto independiente, hecho por un jugador y mantenido junto a la comunidad. Sin telemetría, sin cuentas obligatorias y sin funciones que no pediste.</p>
+        <ul class="check-list reveal" style="--d:240ms">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span data-i18n="about.check1">Versiones, mods y ajustes en un solo lugar</span></li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span data-i18n="about.check2">Interfaz propia, sin skin de tienda</span></li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span data-i18n="about.check3">Actualizaciones gratuitas, sin suscripción</span></li>
         </ul>
+        <a class="text-link reveal" style="--d:300ms" href="#caracteristicas">
+          <span data-i18n="about.link">Ver qué incluye</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
       </div>
-      <div class="lg:col-span-5 reveal">
-        <div class="grid grid-cols-3 gap-4 mb-8">
-          <div class="glass p-4 rounded-xl border-l-4 border-l-[#22C55E]">
-            <div class="text-3xl font-display font-bold text-[#F8FAFC]">01</div>
-            <div class="text-xs text-[#64748B] uppercase tracking-wider">Proyecto indie</div>
-          </div>
-          <div class="glass p-4 rounded-xl border-l-4 border-l-[#E85D4C]">
-            <div class="text-3xl font-display font-bold text-[#F8FAFC]">∞</div>
-            <div class="text-xs text-[#64748B] uppercase tracking-wider">Mundos posibles</div>
-          </div>
-          <div class="glass p-4 rounded-xl border-l-4 border-l-[#E85D4C]">
-            <div class="text-3xl font-display font-bold text-[#F8FAFC]">100%</div>
-            <div class="text-xs text-[#64748B] uppercase tracking-wider">Identidad propia</div>
-          </div>
+
+      <aside class="spec-card reveal" style="--d:140ms">
+        <div class="spec-head">
+          <span data-i18n="about.specTitle">Ficha del proyecto</span>
+          <span class="pill pill-green"><span class="status-dot"></span><span data-i18n="about.specStatus">Activo</span></span>
         </div>
-      </div>
+        <dl class="spec-list">
+          <div><dt data-i18n="spec.version">Versión</dt><dd class="mono">1.0.4</dd></div>
+          <div><dt data-i18n="spec.platform">Plataforma</dt><dd>Windows 10/11</dd></div>
+          <div><dt data-i18n="spec.loaders">Loaders</dt><dd>Fabric · Forge · NeoForge · Quilt</dd></div>
+          <div><dt data-i18n="spec.server">Servidor</dt><dd class="mono">ragsmc.dpdns.org</dd></div>
+          <div><dt data-i18n="spec.price">Precio</dt><dd data-i18n="spec.free">Gratis</dd></div>
+          <div><dt data-i18n="spec.status">Estado</dt><dd data-i18n="spec.stable">Release estable</dd></div>
+        </dl>
+        <figure class="spec-quote">
+          <img src="./assets/logo/wolf.svg" width="42" height="42" alt="" loading="lazy" decoding="async">
+          <blockquote data-i18n="about.quote">«Hecho por jugadores, para jugadores.»</blockquote>
+          <figcaption data-i18n="about.quoteBy">— RagsnorWolf, creador</figcaption>
+        </figure>
+      </aside>
     </div>
   </div>
 </section>
 
 <!-- ===== CARACTERÍSTICAS ===== -->
-<section class="py-24 lg:py-32 bg-white/5" id="features">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">El núcleo</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Diseñado para jugar, no para configurar</h2>
-      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Una base enfocada en lo importante, preparada para evolucionar junto al proyecto sin complejidades innecesarias.</p>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6">
-      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="0">
-        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Inicio ultra-rápido</h3>
-        <p class="text-[#94A3B8] leading-relaxed text-sm">Arranque veloz y sin complicaciones para que pases menos tiempo esperando y más tiempo jugando.</p>
+<section class="section section-alt" id="caracteristicas">
+  <div class="container">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow reveal"><span class="mono">02</span><span data-i18n="features.eyebrow">Características</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="features.title1">Menos fricción.</span><br><span data-i18n="features.title2">Más juego.</span></h2>
+      </div>
+      <p class="sec-desc reveal" style="--d:120ms" data-i18n="features.desc">Cada parte del launcher está pensada para que llegues al mundo en menos clics, sin sacrificar control.</p>
+    </header>
+
+    <div class="bento">
+      <article class="card span-7 reveal" style="--d:0ms">
+        <div class="card-top">
+          <span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
+          <span class="card-index mono">01</span>
+        </div>
+        <h3 data-i18n="features.f1.title">Gestor de mods, sin salir del launcher</h3>
+        <p data-i18n="features.f1.desc">Instalá, activá y desactivá mods desde una sola pantalla. Menos carpetas, menos errores.</p>
+        <div class="mini-mods" aria-hidden="true">
+          <div class="mod-row"><span class="mod-avatar">S</span><span class="mod-name">Sodium</span><span class="mod-ver">0.6.13</span><span class="switch"></span></div>
+          <div class="mod-row"><span class="mod-avatar">I</span><span class="mod-name">Iris Shaders</span><span class="mod-ver">1.8.0</span><span class="switch"></span></div>
+          <div class="mod-row"><span class="mod-avatar">J</span><span class="mod-name">JEI</span><span class="mod-ver">15.20</span><span class="switch is-off"></span></div>
+        </div>
       </article>
-      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="100">
-        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2m14 0V2a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V2a2 2 0 012-2z"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Gestor de mods integrado</h3>
-        <p class="text-[#94A3B8] leading-relaxed text-sm">Instala, activa y desactiva mods desde una interfaz integrada sin salir del launcher.</p>
+
+      <article class="card span-5 reveal" style="--d:80ms">
+        <div class="card-top">
+          <span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+          <span class="card-index mono">02</span>
+        </div>
+        <h3 data-i18n="features.f2.title">Todas tus versiones, ordenadas</h3>
+        <p data-i18n="features.f2.desc">Cambiá de versión y de loader sin reinstalar nada. Tus instalaciones quedan a un clic.</p>
+        <div class="version-picker" aria-hidden="true">
+          <span class="vp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+          <span class="vp-value">1.21.1 <i>Forge</i></span>
+          <span class="vp-state" aria-hidden="true"><span class="status-dot"></span></span>
+          <svg class="vp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="chips" aria-hidden="true">
+          <span class="chip is-active">1.21.1 <i>Forge</i></span>
+          <span class="chip">1.21.1 <i>Fabric</i></span>
+          <span class="chip">1.20.1 <i>Forge</i></span>
+          <span class="chip">1.19.2 <i>Quilt</i></span>
+        </div>
       </article>
-      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="200">
-        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v4m0 0m-7-3h14M4 16h16m-4 4v-1a2 2 0 00-2-2H6a2 2 0 00-2 2v1m0 0l-4-4m4 4l4 4"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Múltiples versiones</h3>
-        <p class="text-[#94A3B8] leading-relaxed text-sm">Selector de versiones de Minecraft, incluyendo 1.21.1 Forge y otras configuraciones.</p>
+
+      <article class="card span-4 reveal" style="--d:0ms">
+        <div class="card-top">
+          <span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg></span>
+          <span class="card-index mono">03</span>
+        </div>
+        <h3 data-i18n="features.f3.title">Arranque directo</h3>
+        <p data-i18n="features.f3.desc">Sin pantallas intermedias ni configuraciones eternas. Abrís y jugás.</p>
+        <div class="mini-progress" aria-hidden="true"><span></span></div>
       </article>
-      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="0">
-        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v4m0 0m-7-3h14M4 16h16m-4 4v-1a2 2 0 00-2-2H6a2 2 0 00-2 2v1m0 0l-4-4m4 4l4 4"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Personalización total</h3>
-        <p class="text-[#94A3B8] leading-relaxed text-sm">Temas, apariencia y opciones de personalización para que el launcher sea tuyo.</p>
+
+      <article class="card span-4 reveal" style="--d:80ms">
+        <div class="card-top">
+          <span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 5.8 2 10.5c0 3 1.9 5.6 4.8 6.7.3.1.5.4.5.7v2.1c0 .8.9 1.2 1.4.6l2.1-2.2c.2-.2.5-.3.8-.3 5.5 0 10-3.8 10-8.5S17.5 2 12 2Z"/></svg></span>
+          <span class="card-index mono">04</span>
+        </div>
+        <h3 data-i18n="features.f4.title">Personalización real</h3>
+        <p data-i18n="features.f4.desc">Temas, fondos y ajustes que se quedan con vos, no que se resetean solos.</p>
+        <div class="swatches" aria-hidden="true"><i style="--c:#E85D4C"></i><i style="--c:#22C55E"></i><i style="--c:#3B82F6"></i><i style="--c:#A855F7"></i><i style="--c:#F8FAFC"></i></div>
       </article>
-      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="100">
-        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Actualizaciones automáticas</h3>
-        <p class="text-[#94A3B8] leading-relaxed text-sm">El launcher se mantiene al día con las últimas versiones y parches de forma automática.</p>
+
+      <article class="card span-4 reveal" style="--d:160ms">
+        <div class="card-top">
+          <span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></span>
+          <span class="card-index mono">05</span>
+        </div>
+        <h3 data-i18n="features.f5.title">Actualizaciones discretas</h3>
+        <p data-i18n="features.f5.desc">Avisos cuando importan. Instalás la nueva versión cuando vos querés.</p>
+        <div class="mini-toggle" aria-hidden="true"><span></span><b data-i18n="features.f5.auto">Auto</b></div>
       </article>
-      <article class="glass p-8 rounded-[var(--radius)] hover:-translate-y-4 hover:shadow-glow transition-all duration-500 border hover:border-[#E85D4C]/50 group reveal" data-delay="200">
-        <div class="w-12 h-12 rounded-xl bg-[#E85D4C]/10 flex items-center justify-center mb-6 group-hover:bg-[#E85D4C] group-hover:text-white transition-colors"><svg class="w-6 h-6 text-[#E85D4C] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 17h18m-3-5l4 4m-4-4l-4-4m-6 6V7l5-5 5 5v10"></path></svg></div>
-        <h3 class="text-xl font-display font-bold text-[#F8FAFC] mb-3">Diseño propio</h3>
-        <p class="text-[#94A3B8] leading-relaxed text-sm">Estética premium inspirada en Minecraft pero con acabado de producto profesional moderno.</p>
+
+      <article class="card card-wide span-12 reveal" style="--d:0ms">
+        <div class="console-copy">
+          <div class="card-top">
+            <span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg></span>
+            <span class="card-index mono">06</span>
+          </div>
+          <h3 data-i18n="features.f6.title">Consola cuando la necesitás</h3>
+          <p data-i18n="features.f6.desc">Logs en tiempo real para entender qué pasa con tus mods, sin adivinar.</p>
+          <span class="chip chip-live" aria-hidden="true"><span class="status-dot"></span><span data-i18n="features.f6.live">En vivo</span></span>
+        </div>
+        <div class="console-mock" aria-hidden="true">
+          <div class="console-bar"><span class="console-dots"><i></i><i></i><i></i></span><span class="mono">ragsmc — console</span></div>
+          <div class="console-body mono">
+            <p><span class="c-ok">[OK]</span> Java 21 detectado</p>
+            <p><span class="c-ok">[OK]</span> 44 mods cargados</p>
+            <p><span class="c-info">[INFO]</span> Conectando a ragsmc.dpdns.org</p>
+            <p><span class="c-ok">[OK]</span> Sesión iniciada</p>
+            <p class="console-caret"><span class="c-prompt">›</span> <span class="caret"></span></p>
+          </div>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
 <!-- ===== SERVIDOR ===== -->
-<section class="py-24 lg:py-32 relative" id="servidor">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative z-10">
-      <div class="text-center mb-16 reveal">
-        <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">El servidor</p>
-        <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Juega en RagsMc</h2>
-        <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Conéctate a la comunidad con una dirección estable y sin complicaciones.</p>
+<section class="section" id="servidor">
+  <div class="container">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow reveal"><span class="mono">03</span><span data-i18n="server.eyebrow">El servidor</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="server.title1">Un mundo</span><br><span data-i18n="server.title2">compartido.</span></h2>
       </div>
-      <div class="glass p-8 lg:p-12 rounded-[32px] shadow-glow border border-white/10 relative overflow-hidden reveal">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none"></div>
-        <div class="relative max-w-md mx-auto">
-          <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse-glow"></span>
-              <span class="text-[#F8FAFC] font-medium">Online · 24/7</span>
-            </div>
-            <div class="text-xs font-mono text-[#E85D4C]">v1.21.1 · Forge</div>
+      <p class="sec-desc reveal" style="--d:120ms" data-i18n="server.desc">Entrá a RagsMc y jugá con la comunidad. Una IP, una versión, cero vueltas.</p>
+    </header>
+
+    <div class="server-card reveal">
+      <div class="server-main">
+        <div class="server-status-row">
+          <span class="pill pill-green"><span class="status-dot"></span><span data-i18n="server.online">Online · 24/7</span></span>
+          <span class="mono server-version">Java 1.21.1 · Forge</span>
+        </div>
+        <h3 class="server-title" data-i18n="server.cardTitle">Tu próximo mundo empieza acá.</h3>
+        <p class="body-copy" data-i18n="server.cardCopy">Supervivencia, comunidad y un servidor que no se cae cada vez que alguien pone un bloque de más.</p>
+
+        <div class="ip-box">
+          <div class="ip-text">
+            <span class="label" data-i18n="server.ipLabel">IP del servidor</span>
+            <code>ragsmc.dpdns.org</code>
           </div>
-          <div class="flex items-center justify-between mb-6">
-            <span class="text-[#64748B] text-sm uppercase tracking-wider">Dirección del servidor</span>
-            <div class="flex items-center gap-2">
-              <code class="font-mono text-lg text-[#22C55E] bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">ragsmc.dpdns.org</code>
-              <button id="copyIP" class="w-8 h-8 rounded-lg glass flex items-center justify-center hover:bg-white/10 transition-colors" title="Copiar IP">
-                <svg class="w-4 h-4 text-[#64748B] hover:text-[#F8FAFC]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l-4-4m4 4L16 7"></path></svg>
-              </button>
-            </div>
-          </div>
-          <a href="#" class="w-full py-4 bg-[#E85D4C] text-white font-bold rounded-xl text-lg shadow-glow hover:shadow-[0_0_50px_rgba(232,93,76,0.5)] hover:-translate-y-[1px] transition-all duration-300 flex items-center justify-center gap-2" data-sfx="dl">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2m-2 4h.01M17 16a4 4 0 01-8 0 4 4 0 00-8 0v.5a2 2 0 002 2h12a2 2 0 002-2v-.5z"></path></svg>
-            Unirse al servidor
-          </a>
+          <button class="btn btn-primary btn-sm copy-btn" type="button" data-copy="ragsmc.dpdns.org">
+            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg class="copied-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            <span data-i18n="server.copy">Copiar IP</span>
+          </button>
+        </div>
+
+        <div class="steps">
+          <p class="label" data-i18n="server.stepsTitle">Cómo conectarte</p>
+          <ol>
+            <li><span class="step-num mono">1</span><p data-i18n="server.step1">Abrí Minecraft 1.21.1 con Forge instalado.</p></li>
+            <li><span class="step-num mono">2</span><p data-i18n="server.step2">Entrá a Multijugador y agregá un servidor.</p></li>
+            <li><span class="step-num mono">3</span><p data-i18n="server.step3">Pegá la IP y conectate. Nos vemos adentro.</p></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="server-visual">
+        <img src="./assets/images/gallery-sunset.jpg" width="728" height="410" alt="Atardecer en el servidor comunitario de RagsMc" loading="lazy" decoding="async">
+        <div class="server-visual-shade"></div>
+        <div class="server-visual-card">
+          <span class="mono">ragsmc.dpdns.org</span>
+          <small data-i18n="server.visualTag">Survival · Comunidad</small>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="pixel-divider w-full h-[4px] bg-[#E85D4C]/20 border-b border-white/5 my-0"></div>
-
 <!-- ===== GALERÍA ===== -->
-<section class="py-24 lg:py-32" id="galeria">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Galería</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Así va el launcher</h2>
-      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Capturas reales del desarrollo. Sin renders ni promesas vacías.</p>
-    </div>
-    <div class="relative reveal">
-      <button class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#E85D4C] z-20" aria-label="Anterior">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-      </button>
-      <div class="overflow-hidden rounded-[32px] border border-white/10 glass aspect-[16/9] relative" id="galleryTrack"></div>
-      <button class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#E85D4C] z-20" aria-label="Siguiente">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-      </button>
-      <div class="flex justify-center gap-2 mt-8" id="galleryDots"></div>
+<section class="section section-alt" id="galeria">
+  <div class="container">
+    <header class="sec-head sec-head-gallery">
+      <div>
+        <p class="eyebrow reveal"><span class="mono">04</span><span data-i18n="gallery.eyebrow">Galería</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="gallery.title1">Así se ve</span><br><span data-i18n="gallery.title2">por dentro.</span></h2>
+      </div>
+      <p class="sec-desc reveal" style="--d:120ms" data-i18n="gallery.desc">Capturas reales del launcher y del servidor. Sin renders, sin humo.</p>
+    </header>
+
+    <div class="gallery reveal" id="gallery">
+      <div class="gallery-shell">
+        <div class="gallery-bar">
+          <span class="gallery-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="mono gallery-bar-title" id="galleryBarTitle">RagsMc Launcher</span>
+          <span class="mono gallery-counter" id="galleryCounter">01 / 04</span>
+        </div>
+
+        <div class="gallery-viewport" id="galleryViewport" tabindex="0" aria-label="Galería de capturas">
+          <figure class="gallery-slide is-active" data-index="0">
+            <img src="./assets/images/launcher-v104.png" width="1121" height="704" alt="Pantalla principal de RagsMc Launcher v1.0.4" loading="eager" decoding="async">
+          </figure>
+          <figure class="gallery-slide" data-index="1">
+            <img src="./assets/images/gallery-camp.jpg" width="1920" height="1080" alt="Campamento de la comunidad en el servidor RagsMc" loading="lazy" decoding="async">
+          </figure>
+          <figure class="gallery-slide" data-index="2">
+            <img src="./assets/images/gallery-cherry.jpg" width="1275" height="788" alt="Bosque de cerezos en el servidor de RagsMc" loading="lazy" decoding="async">
+          </figure>
+          <figure class="gallery-slide" data-index="3">
+            <img src="./assets/images/gallery-sunset.jpg" width="728" height="410" alt="Atardecer sobre el mundo del servidor RagsMc" loading="lazy" decoding="async">
+          </figure>
+
+          <button class="gallery-arrow gallery-prev" type="button" aria-label="Captura anterior" data-gallery-prev>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="gallery-arrow gallery-next" type="button" aria-label="Captura siguiente" data-gallery-next>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="gallery-bottom">
+          <div class="gallery-caption" aria-live="polite">
+            <h3 id="galleryTitle">Pantalla principal</h3>
+            <p id="galleryDesc">Todo a un clic: jugar, instalar, ajustar.</p>
+          </div>
+          <div class="gallery-thumbs" id="galleryThumbs" role="tablist" aria-label="Miniaturas de la galería"></div>
+        </div>
+      </div>
+      <div class="gallery-controls">
+        <button class="icon-btn gallery-autoplay" type="button" id="galleryAutoplay" aria-label="Pausar reproducción automática" aria-pressed="true">
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="1"/><rect x="13.5" y="5" width="3.5" height="14" rx="1"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10-6.5a1 1 0 0 0 0-1.72l-10-6.5A1 1 0 0 0 8 5.5Z"/></svg>
+        </button>
+        <span class="mono gallery-hint" data-i18n="gallery.hint">Usá las flechas del teclado</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ===== ROADMAP ===== -->
-<section class="py-24 lg:py-32 bg-white/5" id="roadmap">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Hoja de ruta</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Creciendo con la comunidad</h2>
-      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Sin promesas vacías. Cada fase avanza cuando está lista.</p>
-    </div>
-    <div class="relative max-w-3xl mx-auto reveal">
-      <div class="absolute left-12 top-0 bottom-0 w-[2px] bg-white/10 z-0"></div>
-      <div class="relative z-10 space-y-16">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#22C55E] text-white font-display font-bold flex items-center justify-center shadow-glow z-10">✓</div>
-          <div class="flex-1">
-            <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-[#64748B]">Fase 01</span>
-              <span class="text-xl font-bold text-[#F8FAFC]">Concepto</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#22C55E] text-white">Completado</span>
-            </div>
-            <p class="text-[#94A3B8] mt-2 text-sm">Diseño y concepto inicial del launcher con identidad propia.</p>
-          </div>
-        </div>
-        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#22C55E] text-white font-display font-bold flex items-center justify-center shadow-glow z-10">✓</div>
-          <div class="flex-1">
-            <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-[#64748B]">Fase 02</span>
-              <span class="text-xl font-bold text-[#F8FAFC]">Desarrollo</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#22C55E] text-white">Completado</span>
-            </div>
-            <p class="text-[#94A3B8] mt-2 text-sm">Construcción del launcher base con gestor de mods y selector de versiones.</p>
-          </div>
-        </div>
-        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-[#E85D4C] text-[#E85D4C] font-display font-bold flex items-center justify-center z-10">●</div>
-          <div class="flex-1">
-            <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-[#64748B]">Fase 03</span>
-              <span class="text-xl font-bold text-[#F8FAFC]">Testing</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E85D4C] text-white">Actual</span>
-            </div>
-            <p class="text-[#94A3B8] mt-2 text-sm">Pruebas, correcciones y estabilidad antes del primer release.</p>
-          </div>
-        </div>
-        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white/20 text-[#64748B] font-display font-bold flex items-center justify-center z-10">○</div>
-          <div class="flex-1 opacity-60">
-            <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-[#64748B]">Fase 04</span>
-              <span class="text-xl font-bold text-[#64748B]">Release</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold text-[#64748B] border border-white/10">Pendiente</span>
-            </div>
-            <p class="text-[#94A3B8] mt-2 text-sm">Primera versión pública estable para Windows.</p>
-          </div>
-        </div>
-        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white/20 text-[#64748B] font-display font-bold flex items-center justify-center z-10">○</div>
-          <div class="flex-1 opacity-60">
-            <div class="flex items-baseline gap-2">
-              <span class="text-xs font-mono text-[#64748B]">Fase 05</span>
-              <span class="text-xl font-bold text-[#64748B]">Actualizaciones</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold text-[#64748B] border border-white/10">Pendiente</span>
-            </div>
-            <p class="text-[#94A3B8] mt-2 text-sm">Mejoras y nuevas funciones según feedback de la comunidad.</p>
-          </div>
-        </div>
+<section class="section" id="roadmap">
+  <div class="container">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow reveal"><span class="mono">05</span><span data-i18n="roadmap.eyebrow">Hoja de ruta</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="roadmap.title1">Lo que viene,</span><br><span data-i18n="roadmap.title2">sin humo.</span></h2>
       </div>
+      <p class="sec-desc reveal" style="--d:120ms" data-i18n="roadmap.desc">Sin fechas inventadas. Cada fase se publica cuando está lista.</p>
+    </header>
+
+    <div class="roadmap reveal" id="roadmapTrack">
+      <div class="rm-line" aria-hidden="true"><span id="rmProgress"></span></div>
+      <ol class="rm-list">
+        <li class="rm-item done">
+          <span class="rm-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="rm-version mono">v1.0.0</span>
+          <h3 data-i18n="roadmap.r1.title">Primera versión</h3>
+          <p data-i18n="roadmap.r1.desc">Base del launcher, instalaciones y arranque de Minecraft.</p>
+          <span class="pill pill-green" data-i18n="roadmap.done">Completado</span>
+        </li>
+        <li class="rm-item done">
+          <span class="rm-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="rm-version mono">v1.0.4</span>
+          <h3 data-i18n="roadmap.r2.title">Estabilidad</h3>
+          <p data-i18n="roadmap.r2.desc">Correcciones, rendimiento y soporte para 1.21.1.</p>
+          <span class="pill pill-green" data-i18n="roadmap.done">Completado</span>
+        </li>
+        <li class="rm-item current">
+          <span class="rm-dot"><span class="rm-pulse"></span></span>
+          <span class="rm-version mono">v1.1</span>
+          <h3 data-i18n="roadmap.r3.title">Mods 2.0</h3>
+          <p data-i18n="roadmap.r3.desc">Activar, desactivar y actualizar mods sin salir del launcher.</p>
+          <span class="pill pill-accent" data-i18n="roadmap.current">En desarrollo</span>
+        </li>
+        <li class="rm-item">
+          <span class="rm-dot"><span class="rm-hollow"></span></span>
+          <span class="rm-version mono">v1.2</span>
+          <h3 data-i18n="roadmap.r4.title">Linux y macOS</h3>
+          <p data-i18n="roadmap.r4.desc">Llevar el launcher a más sistemas, con la misma experiencia.</p>
+          <span class="pill" data-i18n="roadmap.planned">Planificado</span>
+        </li>
+        <li class="rm-item">
+          <span class="rm-dot"><span class="rm-hollow"></span></span>
+          <span class="rm-version mono">v2.0</span>
+          <h3 data-i18n="roadmap.r5.title">Perfiles y sync</h3>
+          <p data-i18n="roadmap.r5.desc">Sincronizar ajustes y perfiles entre dispositivos.</p>
+          <span class="pill" data-i18n="roadmap.exploring">Explorando</span>
+        </li>
+      </ol>
     </div>
+    <p class="roadmap-note reveal" data-i18n="roadmap.note">El roadmap puede cambiar. El feedback de la comunidad manda.</p>
   </div>
 </section>
 
 <!-- ===== DESCARGA ===== -->
-<section class="py-24 lg:py-32 relative" id="descarga">
-  <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(232,93,76,0.12),transparent_70%)] pointer-events-none"></div>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Descarga</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Consigue RagsMc Launcher</h2>
-      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">v1.0.4 · Windows 10/11 · 11.0 MB · Gratis y sin registro</p>
-    </div>
-    <div class="glass p-8 lg:p-12 rounded-[32px] border border-white/10 shadow-glow reveal">
-      <div class="text-center">
-        <a href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download class="w-full lg:w-auto flex flex-col lg:flex-row items-center justify-center gap-4 px-8 py-6 bg-[#E85D4C] text-white font-bold text-lg rounded-xl shadow-[0_0_40px_rgba(232,93,76,0.45)] hover:shadow-[0_0_60px_rgba(232,93,76,0.7)] hover:-translate-y-[2px] transition-all duration-300" data-sfx="dl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-          <span>Descargar para Windows</span>
+<section class="section section-download" id="descarga">
+  <div class="download-glow" aria-hidden="true"></div>
+  <div class="container">
+    <header class="sec-head sec-head-center">
+      <p class="eyebrow reveal"><span class="mono">06</span><span data-i18n="download.eyebrow">Descarga</span></p>
+      <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="download.title1">Listo para</span> <span class="accent-text" data-i18n="download.title2">jugar.</span></h2>
+      <p class="sec-desc reveal" style="--d:120ms" data-i18n="download.desc">Instalador para Windows 10/11. Sin registro, sin anuncios, sin sorpresas.</p>
+    </header>
+
+    <div class="download-card reveal">
+      <div class="dl-main">
+        <div class="dl-badges">
+          <span class="pill pill-accent mono">v1.0.4</span>
+          <span class="pill" data-i18n="download.badgeWin">Windows 10/11</span>
+          <span class="pill" data-i18n="download.badgeSize">11.0 MB</span>
+        </div>
+        <h3 data-i18n="download.cardTitle">RagsMc Launcher</h3>
+        <p class="body-copy" data-i18n="download.cardCopy">El instalador oficial, con todo lo necesario para empezar a jugar en menos de un minuto.</p>
+
+        <a class="btn btn-primary btn-xl" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.exe" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+          <span data-i18n="download.cta">Descargar para Windows</span>
         </a>
-        <p class="mt-3 text-xs font-mono text-[#64748B]">SHA-256: <span id="sha256" class="text-[#22C55E] cursor-pointer select-all hover:underline" data-clipboard="BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A" title="Copiar">BA1147…4122A</span></p>
+
+        <div class="dl-alt">
+          <a class="text-link" href="./downloads/RagsMC_Launcher_Setup_v1.0.4.zip" download>
+            <span data-i18n="download.altZip">Descargar ZIP portable</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <span class="dl-sep" aria-hidden="true">·</span>
+          <a class="text-link text-link-green" href="./falsos-positivos.html">
+            <span data-i18n="download.altAv">¿Windows lo marca como virus?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
+
+        <p class="dl-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span data-i18n="download.note">SHA-256 verificado. SmartScreen puede pedir confirmación: es normal en apps sin firma comercial.</span>
+        </p>
       </div>
-      <div class="mt-10 grid md:grid-cols-2 gap-6 text-center">
-        <a href="#" class="glass p-4 rounded-xl text-left hover:bg-white/10 transition-colors border border-transparent hover:border-white/10">
-          <div class="text-[#64748B] text-xs uppercase tracking-wider mb-1">Descarga alternativa</div>
-          <div class="text-[#F8FAFC] font-semibold">ZIP portable</div>
-        </a>
-        <a href="#" class="glass p-4 rounded-xl text-left hover:bg-white/10 transition-colors border border-transparent hover:border-white/10">
-          <div class="text-[#64748B] text-xs uppercase tracking-wider mb-1">Próximamente</div>
-          <div class="text-[#64748B] font-semibold">Linux</div>
-        </a>
-      </div>
-      <p class="mt-8 text-xs text-[#64748B]">Código fuente en <a href="https://github.com/RagsnorWolf/ragsmc-launcher" target="_blank" rel="noopener" class="text-[#E85D4C] hover:underline">GitHub</a> · <a href="#" class="text-[#22C55E] hover:underline">¿Tu antivirus lo marca? Lee esto</a></p>
+
+      <aside class="dl-side">
+        <div class="dl-side-head">
+          <span data-i18n="download.sideTitle">Detalles de la release</span>
+          <span class="pill pill-green"><span class="status-dot"></span><span data-i18n="download.sideStatus">Estable</span></span>
+        </div>
+        <dl class="dl-meta">
+          <div><dt data-i18n="download.metaFile">Archivo</dt><dd class="mono">RagsMC_Launcher_Setup_v1.0.4.exe</dd></div>
+          <div><dt data-i18n="download.metaSize">Tamaño</dt><dd>11.0 MB · 64-bit</dd></div>
+          <div><dt data-i18n="download.metaDate">Publicado</dt><dd data-i18n="download.metaDateValue">22 oct 2026</dd></div>
+          <div><dt data-i18n="download.metaPlatform">Plataforma</dt><dd>Windows 10/11</dd></div>
+        </dl>
+
+        <div class="hash-box">
+          <span class="label">SHA-256</span>
+          <code class="mono" id="hashValue">BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A</code>
+          <button class="icon-btn hash-copy" type="button" data-copy="BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A" aria-label="Copiar SHA-256">
+            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg class="copied-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </button>
+        </div>
+
+        <div class="includes">
+          <p class="label" data-i18n="download.includesTitle">Incluye</p>
+          <ul class="check-list check-list-sm">
+            <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span data-i18n="download.include1">Gestor de mods integrado</span></li>
+            <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span data-i18n="download.include2">Fabric, Forge, NeoForge y Quilt</span></li>
+            <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span data-i18n="download.include3">Consola de logs en tiempo real</span></li>
+          </ul>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
 
-<div class="pixel-divider w-full h-[4px] bg-[#E85D4C]/20 border-b border-white/5 my-0"></div>
-
 <!-- ===== COMUNIDAD ===== -->
-<section class="py-24 lg:py-32" id="comunidad">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Comunidad</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">Síguenos</h2>
-      <p class="text-[#94A3B8] max-w-2xl mx-auto reveal">Contenido, avances y directos del proyecto.</p>
-    </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-[#E85D4C]/50 reveal" data-delay="0" aria-label="Twitch de RagsMc">
-        <svg class="w-8 h-8 text-[#7146FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-        <span class="font-display font-bold text-[#F8FAFC]">Twitch</span>
-        <span class="text-xs font-mono text-[#64748B]">@ragsnorwolf</span>
+<section class="section" id="comunidad">
+  <div class="container">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow reveal"><span class="mono">07</span><span data-i18n="community.eyebrow">Comunidad</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="community.title1">Donde pasa</span><br><span data-i18n="community.title2">todo.</span></h2>
+      </div>
+      <p class="sec-desc reveal" style="--d:120ms" data-i18n="community.desc">Directos, clips, avances y soporte. Elegí el canal que más te guste.</p>
+    </header>
+
+    <div class="social-grid">
+      <a class="social-card reveal" style="--brand:#9146FF;--d:0ms" href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener noreferrer">
+        <span class="social-top">
+          <span class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg></span>
+          <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+        <h3>Twitch</h3>
+        <p class="mono">@ragsnorwolf</p>
+        <span class="social-tag" data-i18n="community.tagTwitch">Directos</span>
       </a>
-      <a href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-black reveal" data-delay="100" aria-label="TikTok de RagsMc">
-        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0l12-2m-5 5v3.01a4 4 0 00-5.357-4.123m-5.357 4.123V19a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085zm-5.357 4.123V18a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085z"></path></svg>
-        <span class="font-display font-bold text-[#F8FAFC]">TikTok</span>
-        <span class="text-xs font-mono text-[#64748B]">@ragsnorwolf</span>
+
+      <a class="social-card reveal" style="--brand:#25F4EE;--d:70ms" href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener noreferrer">
+        <span class="social-top">
+          <span class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+          <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+        <h3>TikTok</h3>
+        <p class="mono">@ragsnorwolf</p>
+        <span class="social-tag" data-i18n="community.tagTikTok">Clips</span>
       </a>
-      <a href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-[#DC2626]/50 reveal" data-delay="200" aria-label="YouTube de RagsMc">
-        <svg class="w-8 h-8 text-[#DC2626]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <span class="font-display font-bold text-[#F8FAFC]">YouTube</span>
-        <span class="text-xs font-mono text-[#64748B]">@RagsnorWolf_Games</span>
+
+      <a class="social-card reveal" style="--brand:#FF0000;--d:140ms" href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener noreferrer">
+        <span class="social-top">
+          <span class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
+          <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+        <h3>YouTube</h3>
+        <p class="mono">@RagsnorWolf_Games</p>
+        <span class="social-tag" data-i18n="community.tagYouTube">Vídeos</span>
       </a>
-      <a href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener" class="glass p-6 rounded-[32px] flex flex-col items-center gap-3 hover:-translate-y-2 hover:shadow-glow transition-all duration-300 border hover:border-[#22C55E]/50 reveal" data-delay="300" aria-label="WhatsApp de RagsMc">
-        <svg class="w-8 h-8 text-[#22C55E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 1014 0a7 7 0 00-14 0zM12 17a1 1 0 100-2a1 1 0 000 2zM12 7a1 1 0 100-2a1 1 0 000 2z"></path></svg>
-        <span class="font-display font-bold text-[#F8FAFC]">WhatsApp</span>
-        <span class="text-xs font-mono text-[#64748B]">Canal oficial</span>
+
+      <a class="social-card reveal" style="--brand:#25D366;--d:210ms" href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener noreferrer">
+        <span class="social-top">
+          <span class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></span>
+          <svg class="social-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+        <h3>WhatsApp</h3>
+        <p class="mono" data-i18n="community.waHandle">Canal oficial</p>
+        <span class="social-tag" data-i18n="community.tagWhatsApp">Novedades</span>
       </a>
     </div>
   </div>
 </section>
 
 <!-- ===== FAQ ===== -->
-<section class="py-24 lg:py-32 bg-white/5" id="faq">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <p class="font-display font-semibold text-xs tracking-widest uppercase text-[#E85D4C] mb-2">Preguntas frecuentes</p>
-      <h2 class="text-4xl sm:text-5xl font-display font-bold text-[#F8FAFC] tracking-tight mb-4 reveal split-target">¿Tenés dudas?</h2>
-    </div>
-    <div class="space-y-3 reveal">
-      <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
-          <span>¿Qué es RagsMc Launcher?</span>
-          <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </summary>
-        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">RagsMc Launcher es un lanzador de Minecraft independiente, diseñado para ser rápido, simple y con identidad propia. Hecho por jugadores, para jugadores.</div>
-      </details>
-      <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
-          <span>¿Es gratis?</span>
-          <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </summary>
-        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">Sí, RagsMc Launcher es completamente gratuito. No hay costos ocultos ni suscripciones obligatorias.</div>
-      </details>
-      <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
-          <span>¿Qué sistemas son compatibles?</span>
-          <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </summary>
-        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">Por ahora para Windows 10/11. Linux llegará próximamente.</div>
-      </details>
-      <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
-          <span>¿El launcher recopila mis datos?</span>
-          <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </summary>
-        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">No. No recopilamos ni compartemos tus datos personales.</div>
-      </details>
-      <details class="group border border-white/10 rounded-xl glass overflow-hidden faq-item">
-        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-[#F8FAFC] hover:text-[#E85D4C] transition-colors">
-          <span>¿Cómo me uno al servidor?</span>
-          <svg class="w-5 h-5 rotate-0 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </summary>
-        <div class="px-6 pb-4 text-[#94A3B8] text-sm leading-relaxed">Usá la dirección ragsmc.dpdns.org con la versión 1.21.1 Forge desde el launcher.</div>
-      </details>
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="faq-layout">
+      <div class="faq-intro">
+        <p class="eyebrow reveal"><span class="mono">08</span><span data-i18n="faq.eyebrow">FAQ</span></p>
+        <h2 class="sec-title reveal" style="--d:60ms"><span data-i18n="faq.title1">Antes de</span><br><span data-i18n="faq.title2">descargar.</span></h2>
+        <p class="body-copy reveal" style="--d:120ms" data-i18n="faq.desc">Lo que suelen preguntar antes de instalar. Si te queda algo, la comunidad está a un mensaje.</p>
+        <a class="text-link reveal" style="--d:180ms" href="#comunidad">
+          <span data-i18n="faq.support">Ir a la comunidad</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="faq-list reveal" style="--d:80ms">
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a1" id="faq-q1"><span data-i18n="faq.q1">¿Qué es RagsMc Launcher?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a1" role="region" aria-labelledby="faq-q1" aria-hidden="true"><div><p data-i18n="faq.a1">Un launcher independiente de Minecraft, pensado para centralizar versiones, mods y ajustes en una interfaz rápida y clara. No está afiliado a Mojang ni a Microsoft.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a2" id="faq-q2"><span data-i18n="faq.q2">¿Es gratis?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a2" role="region" aria-labelledby="faq-q2" aria-hidden="true"><div><p data-i18n="faq.a2">Sí. El launcher es gratuito y no tiene suscripciones ni funciones bloqueadas por pago. Las actualizaciones también son gratis.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a3" id="faq-q3"><span data-i18n="faq.q3">¿Qué versiones y loaders soporta?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a3" role="region" aria-labelledby="faq-q3" aria-hidden="true"><div><p data-i18n="faq.a3">La versión recomendada para el servidor es Minecraft 1.21.1 con Forge. El launcher también contempla Fabric, NeoForge y Quilt en sus instalaciones.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a4" id="faq-q4"><span data-i18n="faq.q4">¿Necesito una cuenta de Microsoft?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a4" role="region" aria-labelledby="faq-q4" aria-hidden="true"><div><p data-i18n="faq.a4">RagsMc no gestiona cuentas. Para jugar en el servidor comunitario necesitás una cuenta de Minecraft Java Edition, igual que en cualquier servidor online.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a5" id="faq-q5"><span data-i18n="faq.q5">Windows lo marca como virus. ¿Es normal?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a5" role="region" aria-labelledby="faq-q5" aria-hidden="true"><div><p><span data-i18n="faq.a5">Es un falso positivo habitual en instaladores indie sin firma comercial. Verificá el SHA-256 publicado arriba antes de ejecutarlo.</span> <a class="inline-link" href="./falsos-positivos.html" data-i18n="faq.a5link">Leer la guía de falsos positivos</a>.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a6" id="faq-q6"><span data-i18n="faq.q6">¿Cómo me uno al servidor?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a6" role="region" aria-labelledby="faq-q6" aria-hidden="true"><div><p data-i18n="faq.a6">Abrí Minecraft 1.21.1 con Forge, entrá a Multijugador, agregá un servidor con la IP ragsmc.dpdns.org y conectate. También podés copiar la IP desde la sección Servidor.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a7" id="faq-q7"><span data-i18n="faq.q7">¿Va a estar para Linux o macOS?</span><span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-a7" role="region" aria-labelledby="faq-q7" aria-hidden="true"><div><p data-i18n="faq.a7">Está en el roadmap como fase v1.2. Todavía no hay fecha: preferimos publicarlo cuando funcione bien y no antes.</p></div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- ===== FOOTER ===== -->
-<footer class="border-t border-white/10 bg-white/5 py-12" id="contacto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid md:grid-cols-4 gap-8 mb-10">
-      <div class="reveal">
-        <a href="#inicio" class="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
-          <img src="./assets/logo/wolf.svg" class="w-6 h-6" alt="">
-          <span>Rags<span class="text-[#E85D4C]">Mc</span></span>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="RagsMc Launcher — Inicio">
+          <img src="./assets/logo/wolf.svg" width="30" height="30" alt="">
+          <span class="brand-word">Rags<span>Mc</span></span>
+          <span class="brand-tag">Launcher</span>
         </a>
-        <p class="mt-4 text-[#64748B] text-sm leading-relaxed max-w-xs">Launcher independiente de Minecraft con identidad propia. Hecho por la comunidad, para la comunidad.</p>
-        <div class="flex gap-3 mt-6">
-          <a href="https://www.twitch.tv/ragsnorwolf" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#7146FF] hover:bg-white/10 transition-colors" aria-label="Twitch"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></a>
-          <a href="https://www.tiktok.com/@ragsnorwolf" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-black hover:bg-white/10 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0l12-2m-5 5v3.01a4 4 0 00-5.357-4.123m-5.357 4.123V19a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085zm-5.357 4.123V18a4 4 0 01-4-4v-2.593a2 2 0 011.124-2.165zm10.633-1.36A4 4 0 0115.213 18m-5.357 4.123V18a4 4 0 014-4v1.01c0 .89-.477 1.65-1.262 2.085zm5.357-4.123v-3.01c0-.89-.477-1.65-1.262-2.085z"></path></svg></a>
-          <a href="https://www.youtube.com/@RagsnorWolf_Games" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#DC2626] hover:bg-white/10 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></a>
-          <a href="https://whatsapp.com/channel/0029VbBOkGf9WtC0e7cYaK0B" target="_blank" rel="noopener" class="w-8 h-8 rounded-full glass flex items-center justify-center text-[#64748B] hover:text-[#22C55E] hover:bg-white/10 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 1014 0a7 7 0 00-14 0zM12 17a1 1 0 100-2a1 1 0 000 2zM12 7a1 1 0 100-2a1 1 0 000 2z"></path></svg></a>
-        </div>
+        <p data-i18n="footer.tagline">Launcher independiente de Minecraft. Hecho por jugadores, para jugadores.</p>
+        <span class="pill pill-green footer-status"><span class="status-dot"></span><span data-i18n="footer.status">Servidor online</span></span>
       </div>
-      <div class="reveal">
-        <h4 class="font-display font-bold text-[#F8FAFC] mb-4">Producto</h4>
-        <ul class="space-y-2 text-sm text-[#64748B]">
-          <li><a href="#inicio" class="hover:text-[#E85D4C] transition-colors">Inicio</a></li>
-          <li><a href="#features" class="hover:text-[#E85D4C] transition-colors">Características</a></li>
-          <li><a href="#servidor" class="hover:text-[#E85D4C] transition-colors">Servidor</a></li>
-          <li><a href="#descarga" class="hover:text-[#E85D4C] transition-colors">Descarga</a></li>
+
+      <div class="footer-col">
+        <h4 data-i18n="footer.product">Producto</h4>
+        <ul>
+          <li><a href="#caracteristicas" data-i18n="nav.features">Características</a></li>
+          <li><a href="#servidor" data-i18n="nav.server">Servidor</a></li>
+          <li><a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+          <li><a href="#descarga" data-i18n="nav.download">Descarga</a></li>
         </ul>
       </div>
-      <div class="reveal">
-        <h4 class="font-display font-bold text-[#F8FAFC] mb-4">Recursos</h4>
-        <ul class="space-y-2 text-sm text-[#64748B]">
-          <li><a href="#galeria" class="hover:text-[#E85D4C] transition-colors">Galería</a></li>
-          <li><a href="#roadmap" class="hover:text-[#E85D4C] transition-colors">Hoja de ruta</a></li>
-          <li><a href="#comunidad" class="hover:text-[#E85D4C] transition-colors">Comunidad</a></li>
-          <li><a href="#faq" class="hover:text-[#E85D4C] transition-colors">FAQ</a></li>
+
+      <div class="footer-col">
+        <h4 data-i18n="footer.resources">Recursos</h4>
+        <ul>
+          <li><a href="#galeria" data-i18n="nav.gallery">Galería</a></li>
+          <li><a href="#faq" data-i18n="footer.faq">Preguntas frecuentes</a></li>
+          <li><a href="./falsos-positivos.html" data-i18n="footer.falsePositive">Falsos positivos</a></li>
+          <li><a href="https://github.com/RagsnorWolf/Pagina-RagsnorMC-Launcher" target="_blank" rel="noopener noreferrer" data-i18n="footer.github">Sitio en GitHub</a></li>
         </ul>
       </div>
-      <div class="reveal">
-        <h4 class="font-display font-bold text-[#F8FAFC] mb-4">Legal</h4>
-        <ul class="space-y-2 text-sm text-[#64748B]">
-          <li><a href="aviso-legal.html" class="hover:text-[#E85D4C] transition-colors">Aviso legal</a></li>
-          <li><a href="privacidad.html" class="hover:text-[#E85D4C] transition-colors">Privacidad</a></li>
-          <li><a href="cookies.html" class="hover:text-[#E85D4C] transition-colors">Cookies</a></li>
-          <li><a href="https://github.com/RagsnorWolf/ragsmc-launcher" target="_blank" rel="noopener" class="hover:text-[#E85D4C] transition-colors">GitHub</a></li>
+
+      <div class="footer-col">
+        <h4 data-i18n="footer.legal">Legal</h4>
+        <ul>
+          <li><a href="./aviso-legal.html" data-i18n="footer.notice">Aviso legal</a></li>
+          <li><a href="./privacidad.html" data-i18n="footer.privacy">Privacidad</a></li>
+          <li><a href="./cookies.html" data-i18n="footer.cookies">Cookies</a></li>
+          <li><a href="mailto:gonzalo30diaz@gmail.com" data-i18n="footer.contact">Contacto</a></li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-xs text-[#64748B]">© <span id="year">2026</span> RagsMc Launcher. Proyecto independiente.</p>
-      <p class="text-xs text-[#64748B]">Sin afiliación con Mojang ni Microsoft.</p>
+
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> RagsMc Launcher. <span data-i18n="footer.copyright">Proyecto independiente.</span></p>
+      <p class="footer-disclaimer" data-i18n="footer.disclaimer">No afiliado a Mojang Studios ni Microsoft. Minecraft es una marca de Mojang Synergies AB.</p>
+      <a class="footer-top" href="#top"><span data-i18n="footer.top">Volver arriba</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a>
     </div>
   </div>
 </footer>
 
-<!-- TOAST -->
-<div class="toast toast-hidden" id="toast">
-  <div class="glass px-4 py-2 rounded-lg text-[#F8FAFC] text-sm shadow-glow flex items-center gap-2">
-    <svg class="w-4 h-4 text-[#22C55E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-    <span id="toastMsg">Copiado al portapapeles</span>
-  </div>
+<!-- ===== TOAST / UTILIDADES ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+  <span id="toastText">Copiado</span>
 </div>
+<button class="to-top" id="toTop" type="button" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+</button>
 
-</main>
-
-<!-- ===== SCRIPTS ===== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/bundled/lenis.min.js"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="./script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="./site.js" defer></script>
 </body>
 </html>

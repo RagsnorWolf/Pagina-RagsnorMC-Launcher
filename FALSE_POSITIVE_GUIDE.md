@@ -21,7 +21,7 @@ Algunos antivirus detectan nuestro instalador como sospechoso. Esto es un **fals
 
 2. **Hash SHA-256 del instalador**:
    ```
-   D3E752401F8AA151AF134E37DBF1A7793C5F44894B487516801876218976936C
+   BA1147665E79190B4470954A839BE95BE9F35D8BBC715012DE62169DB0C4122A
    ```
 
 3. **VirusTotal**: Verifica el hash en https://www.virustotal.com
